@@ -1,0 +1,35 @@
+dataSources:
+  user:  ##Define New Logical DB Sources
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://47.95.42.71:3306/live_user?useUnicode=true&characterEncoding=utf8
+    username: hang
+    password: ZH131314
+    idle-timeout: 5 # Unit:Minute
+    minimum-idle: 100
+    pool-name: db-user
+    maximum-pool-size: 1000
+    connection-timeout: 30000
+    connection-init-sql: SELECT 1
+    connection-test-query: SELECT 1
+
+rules:
+  - !SINGLE # Rules for Single Table
+    defaultDataSource: user # Default DB source
+  - !SHARDING # Rules for multiple table
+    tables:
+      t_user: #Logical Tables
+        actualDataNodes: user.t_user_${(0..99).collect(){it.toString().padLeft(2,'0')}}
+        tableStrategy:
+          standard:
+            shardingColumn: user_id
+            shardingAlgorithmName: t_user-inline # Define sharding algorithm name
+
+    shardingAlgorithms: # Define sharding algorithm for the name that is used above
+      t_user-inline:
+        type: INLINE
+        props:
+          algorithm-expression: t_user_${(user_id % 100).toString().padLeft(2,'0')}
+
+props:
+  sql-show: true

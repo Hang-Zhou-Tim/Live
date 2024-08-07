@@ -1,9 +1,7 @@
-package org.hang.user.interfaces;
+package org.hang.live.user.provider.service;
 
 import org.hang.user.dto.UserDTO;
 
-public interface IUserRPC {
-    String test();
+public interface IUserService {
     public UserDTO getByUserId(Long userId);
-
 }
