@@ -1,4 +1,4 @@
-package org.hang.live.user.provider.config;
+package org.hang.live.framework.datasource.starter.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

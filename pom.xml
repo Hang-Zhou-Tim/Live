@@ -12,6 +12,8 @@
     <module>live-user-provider</module>
     <module>live-api</module>
     <module>live-common-interface</module>
+      <module>live-framework</module>
+    <module>live-framework/live-framework-datasource-starter</module>
   </modules>
 
   <properties>

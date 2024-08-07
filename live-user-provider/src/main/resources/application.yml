@@ -1,5 +1,33 @@
 spring:
+  application:
+    name: live-user-provider
   datasource:
     driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
     url: jdbc:shardingsphere:classpath:db-sharding.yaml
+    hikari:
+      pool-name: user-pool
+      minimum-idle: 150
+      maximum-pool-size: 300
+      connection-timeout: 4000
+      max-lifetime: 60000
+  data:
+    redis:
+      port: 6379
+      host: 47.95.42.71
+      lettuce:
+        pool:
+          min-idle: 10
+          max-active: 50
+          max-idle: 20
+      password: ZH131314
+
+dubbo:
+  application:
+    name: ${spring.application.name}
+  registry:
+    address: nacos://127.0.0.1:8848?namespace=2257b780-fbd7-4424-a51f-7f3445885412&&username=hang&&password=ZH131314
+  protocol:
+    name: dubbo
+    port: 9090
+
 
