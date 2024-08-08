@@ -30,4 +30,17 @@ dubbo:
     name: dubbo
     port: 9090
 
+hang:
+  rmq:
+    producer:
+      name-srv: 127.0.0.1:9876
+      groupName: ${spring.application.name}
+      retryTimes: 3
+      send-msg-timeout: 3000
+    consumer:
+      name-srv: 127.0.0.1:9876
+      group-name: ${spring.application.name}
+
+
+
 

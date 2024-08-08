@@ -1,4 +1,4 @@
-package org.hang.live.user.provider.service;
+package org.hang.live.user.interfaces;
 
 import org.hang.live.user.dto.UserDTO;
 
@@ -7,10 +7,10 @@ import java.util.Map;
 
 /**
  * @Author idea
- * @Date: Created in 16:40 2023/5/12
+ * @Date: Created in 15:42 2023/4/16
  * @Description
  */
-public interface IUserService {
+public interface IUserRPC {
 
     /**
      * 根据用户id进行查询
@@ -19,6 +19,7 @@ public interface IUserService {
      * @return
      */
     UserDTO getByUserId(Long userId);
+
 
     /**
      * 用户信息更新
