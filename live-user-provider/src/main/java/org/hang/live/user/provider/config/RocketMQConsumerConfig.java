@@ -12,6 +12,8 @@ import org.hang.live.framework.redis.starter.key.UserProviderCacheKeyBuilder;
 // import org.hang.live.common.interfaces.topic.UserProviderTopicNames;
 //import org.hang.live.user.constants.CacheAsyncDeleteCode;
 //import org.hang.live.user.dto.UserCacheAsyncDeleteDTO;
+import org.hang.live.user.constants.CacheAsyncDeleteCode;
+import org.hang.live.user.dto.UserCacheAsyncDeleteDTO;
 import org.hang.live.user.dto.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,17 +63,18 @@ public class RocketMQConsumerConfig implements InitializingBean {
                 }
                 redisTemplate.delete(cacheKeyBuilder.buildUserInfoKey(userDTO.getUserId()));
                 LOGGER.debug("Delayed deletion is finished, {}", userDTO);
+
+                UserCacheAsyncDeleteDTO userCacheAsyncDeleteDTO = JSON.parseObject(json, UserCacheAsyncDeleteDTO.class);
+                if (CacheAsyncDeleteCode.USER_INFO_DELETE.getCode() == userCacheAsyncDeleteDTO.getCode()) {
+                    Long userId = JSON.parseObject(userCacheAsyncDeleteDTO.getJson()).getLong("userId");
+                    redisTemplate.delete(cacheKeyBuilder.buildUserInfoKey(userId));
+                    LOGGER.info("Delay deleting the user id，userId is {}",userId);
+                } else if (CacheAsyncDeleteCode.USER_TAG_DELETE.getCode() == userCacheAsyncDeleteDTO.getCode()) {
+                    Long userId = JSON.parseObject(userCacheAsyncDeleteDTO.getJson()).getLong("userId");
+                    redisTemplate.delete(cacheKeyBuilder.buildTagKey(userId));
+                    LOGGER.info("Delay Deleting the user tag，userId is {}",userId);
+                }
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
-//                UserCacheAsyncDeleteDTO userCacheAsyncDeleteDTO = JSON.parseObject(json, UserCacheAsyncDeleteDTO.class);
-//                if (CacheAsyncDeleteCode.USER_INFO_DELETE.getCode() == userCacheAsyncDeleteDTO.getCode()) {
-//                    Long userId = JSON.parseObject(userCacheAsyncDeleteDTO.getJson()).getLong("userId");
-//                    redisTemplate.delete(cacheKeyBuilder.buildUserInfoKey(userId));
-//                    LOGGER.info("Delay deleting the user id，userId is {}",userId);
-//                } else if (CacheAsyncDeleteCode.USER_TAG_DELETE.getCode() == userCacheAsyncDeleteDTO.getCode()) {
-//                    Long userId = JSON.parseObject(userCacheAsyncDeleteDTO.getJson()).getLong("userId");
-//                    redisTemplate.delete(cacheKeyBuilder.buildTagKey(userId));
-//                    LOGGER.info("Delay Deleting the user tag，userId is {}",userId);
-//                }
             }
         });
         mqPushConsumer.start();

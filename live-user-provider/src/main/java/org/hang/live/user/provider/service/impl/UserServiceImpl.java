@@ -8,8 +8,11 @@ import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.MQProducer;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.remoting.exception.RemotingException;
+import org.hang.live.common.interfaces.topic.UserProviderTopicNames;
 import org.hang.live.common.interfaces.utils.ConvertBeanUtils;
 import org.hang.live.framework.redis.starter.key.UserProviderCacheKeyBuilder;
+import org.hang.live.user.constants.CacheAsyncDeleteCode;
+import org.hang.live.user.dto.UserCacheAsyncDeleteDTO;
 import org.hang.live.user.provider.dao.mapper.IUserMapper;
 import org.hang.live.user.provider.dao.po.UserPO;
 import org.hang.live.user.provider.service.IUserService;
@@ -22,10 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
@@ -66,18 +66,25 @@ public class UserServiceImpl implements IUserService {
         if(userDTO == null || userDTO.getUserId() == null){
             return false;
         }
-        try {
-            userMapper.updateById(ConvertBeanUtils.convert(userDTO,UserPO.class));
+        int updateStatus = userMapper.updateById(ConvertBeanUtils.convert(userDTO, UserPO.class));
+        if (updateStatus > -1) {
             String key = userProviderCacheKeyBuilder.buildUserInfoKey(userDTO.getUserId());
             redisTemplate.delete(key);
+            UserCacheAsyncDeleteDTO userCacheAsyncDeleteDTO = new UserCacheAsyncDeleteDTO();
+            userCacheAsyncDeleteDTO.setCode(CacheAsyncDeleteCode.USER_INFO_DELETE.getCode());
+            Map<String,Object> jsonParam = new HashMap<>();
+            jsonParam.put("userId",userDTO.getUserId());
+            userCacheAsyncDeleteDTO.setJson(JSON.toJSONString(jsonParam));
             Message message = new Message();
-            message.setTopic("user-update-cache");
-            //level 1: 1s delay
+            message.setTopic(UserProviderTopicNames.CACHE_ASYNC_DELETE_TOPIC);
+            message.setBody(JSON.toJSONString(userCacheAsyncDeleteDTO).getBytes());
+            //Level 1: 1 second delay deletion
             message.setDelayTimeLevel(1);
-            message.setBody(JSON.toJSONString(userDTO).getBytes());
-            mqProducer.send(message);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            try {
+                mqProducer.send(message);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
         return true;
     }
