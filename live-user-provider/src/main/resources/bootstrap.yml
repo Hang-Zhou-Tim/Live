@@ -9,7 +9,7 @@ spring:
       password: ZH131314
       discovery:
         server-addr: hang.nacos.com:8848
-        namespace: ac51dc7e-80db-4d76-af7e-d85281c80f60 # Here we can only design the namespace id
+        namespace: 2257b780-fbd7-4424-a51f-7f3445885412 # Here we can only design the namespace id
       config:
         import-check:
           enabled: false
