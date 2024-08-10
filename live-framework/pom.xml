@@ -9,8 +9,8 @@
     <artifactId>live-framework</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>live-framework-datasource-starter</module>
         <module>live-framework-redis-starter</module>
+        <module>live-framework-datasource-starter</module>
     </modules>
 
 </project>

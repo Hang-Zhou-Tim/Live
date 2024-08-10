@@ -2,14 +2,14 @@ dataSources:
   user_master: ##New Logic Master Source
     dataSourceClassName: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    jdbcUrl: jdbc:mysql://47.95.42.71:8808/live_user?useUnicode=true&characterEncoding=utf8
+    jdbcUrl: jdbc:mysql://hang.db:8808/live_user?useUnicode=true&characterEncoding=utf8
     username: hang
     password: ZH131314
 
   user_slave0: ##New Logic Slave Source
     dataSourceClassName: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    jdbcUrl: jdbc:mysql://47.95.42.71:8809/live_user?useUnicode=true&characterEncoding=utf8
+    jdbcUrl: jdbc:mysql://hang.db:8809/live_user?useUnicode=true&characterEncoding=utf8
     username: hang
     password: ZH131314
 

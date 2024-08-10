@@ -8,6 +8,7 @@
     </parent>
     <artifactId>live-framework-redis-starter</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

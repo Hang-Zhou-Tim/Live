@@ -13,7 +13,6 @@
     <module>live-api</module>
     <module>live-common-interface</module>
     <module>live-framework</module>
-    <module>live-framework/live-framework-datasource-starter</module>
     <module>live-id-generate-interface</module>
     <module>live-id-generate-provider</module>
   </modules>

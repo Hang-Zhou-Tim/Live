@@ -10,6 +10,8 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 
 /**
+ * Configuration that settles database connection
+ *
  * @Author idea
  * @Date: Created in 18:06 2023/5/7
  * @Description

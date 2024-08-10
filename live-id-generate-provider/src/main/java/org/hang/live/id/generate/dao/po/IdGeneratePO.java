@@ -8,7 +8,6 @@ import java.util.Date;
 
 /**
  * @Author Hang
- * @Date: Created in 19:59 2023/5/23
  * @Description
  */
 @TableName("t_id_generate_config")

@@ -6,8 +6,7 @@ import org.hang.live.id.generate.interfaces.IdGenerateRPC;
 import org.hang.live.id.generate.service.IdGenerateService;
 
 /**
- * @Author idea
- * @Date: Created in 19:57 2023/5/25
+ * @Author hang
  * @Description
  */
 @DubboService

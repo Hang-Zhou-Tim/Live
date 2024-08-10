@@ -6,8 +6,9 @@
         <artifactId>live-app</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>org.hangs</groupId>
+    <groupId>org.hang</groupId>
     <artifactId>live-id-generate-provider</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
     <properties>
         <mybatis-plus.version>3.5.3</mybatis-plus.version>
@@ -50,4 +51,5 @@
         </dependency>
 
     </dependencies>
+
 </project>

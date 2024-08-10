@@ -8,6 +8,17 @@ spring:
       username: hang
       password: ZH131314
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: hang.nacos.com:8848
         namespace: ac51dc7e-80db-4d76-af7e-d85281c80f60 # Here we can only design the namespace id
-
+      config:
+        import-check:
+          enabled: false
+        # Find the suffix ending with yaml.
+        file-extension: yaml
+        # Read Nacos Address
+        server-addr: hang.nacos.com:8848
+        # Read config nacos namespace
+        namespace: 2257b780-fbd7-4424-a51f-7f3445885412
+  config:
+    import:
+      - optional:nacos:live-user-provider.yaml

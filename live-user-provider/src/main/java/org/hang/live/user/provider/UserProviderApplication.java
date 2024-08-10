@@ -26,14 +26,18 @@ public class UserProviderApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Long userId = 1004L;
         UserDTO userDTO = userService.getByUserId(userId);
-        userDTO.setNickName("abc");
+        //userDTO.setNickName("abc");
 
-        System.out.println(userTagService.containTag(userId, UserTagsEnum.IS_OLD_USER));
-        System.out.println(userTagService.setTag(userId, UserTagsEnum.IS_OLD_USER));
-        System.out.println(userTagService.containTag(userId, UserTagsEnum.IS_OLD_USER));
-        System.out.println(userTagService.cancelTag(userId, UserTagsEnum.IS_OLD_USER));
-        System.out.println(userTagService.containTag(userId, UserTagsEnum.IS_OLD_USER));
-
+//        System.out.println(userTagService.containTag(userId, UserTagsEnum.IS_OLD_USER));
+//        System.out.println(userTagService.setTag(userId, UserTagsEnum.IS_OLD_USER));
+//        System.out.println(userTagService.containTag(userId, UserTagsEnum.IS_OLD_USER));
+//        System.out.println(userTagService.cancelTag(userId, UserTagsEnum.IS_OLD_USER));
+//        System.out.println(userTagService.containTag(userId, UserTagsEnum.IS_OLD_USER));
+//        for(int i=0;i<100;++i){
+//            new Thread(()->{
+//                userTagService.setTag(userId, UserTagsEnum.IS_OLD_USER);
+//            }).start();
+//        }
 
     }
 
