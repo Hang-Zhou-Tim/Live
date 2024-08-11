@@ -1,0 +1,18 @@
+version: '3'
+services:
+  live-id-generate-provider-1:
+    container_name: live-msg-provider-1
+    image: 'live-msg-provider-docker:1.0.1'
+    ports:
+      - "9098:9098"
+    volumes:
+      - /c/java.logs:/tmp/logs/live-msg-provider
+    environment:
+      - DUBBO_IP_TO_REGISTRY=192.168.0.103
+      - DUBBO_PORT_TO_REGISTRY=9098
+      - JAVA_OPTS=-XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=128m -Xms512m -Xmx512m -Xmn128m -Xss256k
+    extra_hosts:
+      - 'hang.nacos.com:host-gateway'
+      - 'cloud.db:47.95.42.71'
+      - 'hang.redis:47.95.42.71'
+      - 'hang.rmq.com:host-gateway'

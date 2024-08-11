@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/live/api/user")
 public class UserController {
     @DubboReference
     private IUserRPC userRPC;
@@ -34,7 +34,4 @@ public class UserController {
     public Map<Long,UserDTO> batchQueryUserInfo(String userIdStr){
         return userRPC.batchQueryUserInfo(Arrays.asList(userIdStr.split(",")).stream().map(x -> Long.valueOf(x)).collect(Collectors.toList()));
     }
-
-
-
 }

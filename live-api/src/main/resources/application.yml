@@ -1,7 +1,0 @@
-dubbo:
-  registry:
-    address: nacos://hang.nacos.com:8848?namespace=2257b780-fbd7-4424-a51f-7f3445885412&&username=hang&&password=ZH131314
-
-  application:
-    name: live-api
-    qos-enable: false

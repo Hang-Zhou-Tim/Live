@@ -15,14 +15,22 @@
     <module>live-framework</module>
     <module>live-id-generate-interface</module>
     <module>live-id-generate-provider</module>
+      <module>live-gateway</module>
+      <module>live-msg-interface</module>
+    <module>live-msg-provider</module>
+      <module>live-account-provider</module>
+    <module>live-account-interface</module>
   </modules>
 
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <hangs-mysql.version>5.7.36</hangs-mysql.version>
+    <hangs-mysql.version>8.0.28</hangs-mysql.version>
     <springboot.version>3.0.4</springboot.version>
+    <dubbo.version>3.2.0-beta.3</dubbo.version>
+    <arthus.zip.address>C:\Java</arthus.zip.address>
+    <spring-cloud-boostrap.version>3.0.2</spring-cloud-boostrap.version>
   </properties>
 
   <parent>
@@ -38,6 +46,7 @@
         <groupId>com.alibaba.cloud</groupId>
         <artifactId>spring-cloud-alibaba-dependencies</artifactId>
         <version>2022.0.0.0-RC1</version>
+
         <type>pom</type>
         <scope>import</scope>
       </dependency>

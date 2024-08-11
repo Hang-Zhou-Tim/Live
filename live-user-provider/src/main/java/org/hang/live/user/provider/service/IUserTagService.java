@@ -4,7 +4,7 @@ import org.hang.live.user.constants.UserTagsEnum;
 
 /**
  * @Author hang
- * @Date: Created in 17:12 2023/5/27
+ * @Date: Created in 17:12 2024/8/11
  * @Description
  */
 public interface IUserTagService {

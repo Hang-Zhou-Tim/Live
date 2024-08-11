@@ -1,0 +1,29 @@
+version: '3'
+services:
+  live-api-1:
+    container_name: live-api-docker-1
+    image: 'live-api-docker:1.0-SNAPSHOT'
+    ports:
+      - "8081:8081"
+    volumes:
+      - /c/Java/logs:/tmp/logs/live-api
+    environment:
+      - spring.cloud.nacos.discovery.ip=192.168.0.103 #Make sure this service is registered in host address rather than container address.
+      - server.port=8081
+      - JAVA_OPTS=-DNACOS_USER=hang -DNACOS_PWD=ZH131314 -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=128m -Xms512m -Xmx512m -Xmn128m -Xss256k
+    extra_hosts:
+      - 'hang.nacos.com:host-gateway'
+
+  live-api-2:
+    container_name: live-api-docker-2
+    image: 'live-api-docker:1.0-SNAPSHOT'
+    ports:
+      - "8082:8082"
+    volumes:
+      - /c/Java/logs:/tmp/logs/live-api
+    environment:
+      - spring.cloud.nacos.discovery.ip=192.168.0.103
+      - server.port=8082
+      - JAVA_OPTS=-DNACOS_USER=hang -DNACOS_PWD=ZH131314 -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=128m -Xms512m -Xmx512m -Xmn128m -Xss256k
+    extra_hosts:
+      - 'hang.nacos.com:host-gateway'
