@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @Author hang
- * @Date: Created in 14:41 2023/6/7
+ * @Date: Created in 14:41 2024/8/7
  * @Description
  */
 @SpringBootApplication

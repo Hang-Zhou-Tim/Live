@@ -19,9 +19,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableDubbo
-public class MsgProviderApplication implements CommandLineRunner {
-    @Resource
-    ISmsService smsService;
+public class MsgProviderApplication /* implements CommandLineRunner */{
+//    @Resource
+//    ISmsService smsService;
 
     public static void main(String[] args) {
         SpringApplication springApplication = new SpringApplication(MsgProviderApplication.class);
@@ -30,9 +30,9 @@ public class MsgProviderApplication implements CommandLineRunner {
     }
 
 
-    @Override
-    public void run(String... args) throws Exception {
-        MsgSendResultEnum resultEnum = smsService.sendLoginCode("13141150122");
-
-    }
+//    @Override
+//    public void run(String... args) throws Exception {
+//        MsgSendResultEnum resultEnum = smsService.sendLoginCode("13141150122");
+//
+//    }
 }

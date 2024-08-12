@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description
  */
 @RestController
-@RequestMapping("/userLogin")
+@RequestMapping("/live/api/userLogin")
 public class UserLoginController {
 
     @Resource

@@ -1,11 +1,10 @@
 package org.hang.live.api.service;
-
 import jakarta.servlet.http.HttpServletResponse;
 import org.hang.live.common.interfaces.vo.WebResponseVO;
 
 /**
- * @Author idea
- * @Date: Created in 10:50 2023/6/15
+ * @Author hang
+ * @Date: Created in 10:50 2024/8/11
  * @Description
  */
 public interface IUserLoginService {
@@ -19,7 +18,7 @@ public interface IUserLoginService {
     WebResponseVO sendLoginCode(String phone);
 
     /**
-     * Phone + Code Loggin
+     * Phone + Code Login
      *
      * @param phone
      * @param code

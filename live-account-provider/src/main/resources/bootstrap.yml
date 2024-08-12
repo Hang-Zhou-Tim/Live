@@ -2,7 +2,7 @@
 # It is typically used for registering configurations for distributed server/database/microservices.
 spring:
   application:
-    name: live-msg-provider
+    name: live-account-provider
   cloud:
     nacos:
       username: hang

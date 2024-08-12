@@ -15,17 +15,17 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication  //Auto Load Packages and Context
 @EnableDubbo            //Decode Configuration, Scan and Initialise Provider Services(with Proxy).
 @EnableDiscoveryClient  //Enable Service Discovery
-public class UserProviderApplication implements CommandLineRunner {
-    @Autowired
-    IUserService userService;
+public class UserProviderApplication /* implements CommandLineRunner*/ {
+//    @Autowired
+//    IUserService userService;
+//
+//    @Autowired
+//    IUserTagService userTagService;
 
-    @Autowired
-    IUserTagService userTagService;
-
-    @Override
-    public void run(String... args) throws Exception {
-        Long userId = 1004L;
-        UserDTO userDTO = userService.getByUserId(userId);
+//    @Override
+//    public void run(String... args) throws Exception {
+//        Long userId = 1004L;
+//        UserDTO userDTO = userService.getByUserId(userId);
         //userDTO.setNickName("abc");
 
 //        System.out.println(userTagService.containTag(userId, UserTagsEnum.IS_OLD_USER));
@@ -39,7 +39,7 @@ public class UserProviderApplication implements CommandLineRunner {
 //            }).start();
 //        }
 
-    }
+
 
     public static void main(String[] args) {
         //Initialise spring application with this class

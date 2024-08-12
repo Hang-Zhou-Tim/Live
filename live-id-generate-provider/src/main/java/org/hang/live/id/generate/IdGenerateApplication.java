@@ -19,10 +19,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableDubbo
-public class IdGenerateApplication implements CommandLineRunner {
+public class IdGenerateApplication /* implements CommandLineRunner*/ {
 
-    @Resource
-    private IdGenerateService idGenerateService;
+//    @Resource
+//    private IdGenerateService idGenerateService;
 
     public static void main(String[] args) {
         SpringApplication springApplication = new SpringApplication(IdGenerateApplication.class);
@@ -30,11 +30,11 @@ public class IdGenerateApplication implements CommandLineRunner {
         springApplication.run(args);
     }
 
-    @Override
-    public void run(String... args) throws Exception{
-        for (int i = 0; i < 1000; i++) {
-            Long id = idGenerateService.getSeqId(1);
-            System.out.println(id);
-        }
-    }
+//    @Override
+//    public void run(String... args) throws Exception{
+//        for (int i = 0; i < 1000; i++) {
+//            Long id = idGenerateService.getSeqId(1);
+//            System.out.println(id);
+//        }
+//    }
 }

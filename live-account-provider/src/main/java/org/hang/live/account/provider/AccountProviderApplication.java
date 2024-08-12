@@ -10,6 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
+import java.io.IOException;
+
 /**
  * @Author hang
  * @Date: Created in 10:13 2024/8/11
@@ -18,19 +20,23 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 @SpringBootApplication
 @EnableDubbo
 @EnableDiscoveryClient
-public class AccountProviderApplication implements CommandLineRunner {
-    @Resource
-    AccountTokenServiceImpl accountTokenService;
+public class AccountProviderApplication /* implements CommandLineRunner */ {
+
     public static void main(String[] args) {
         SpringApplication springApplication = new SpringApplication(AccountProviderApplication.class);
         springApplication.setWebApplicationType(WebApplicationType.NONE);
         springApplication.run(args);
+        try{
+            System.in.read();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    @Override
-    public void run(String... args) throws Exception {
-        String token = accountTokenService.createAndSaveLoginToken(1000001L);
-        long userId = accountTokenService.getUserIdByToken(token);
-        System.out.println("Token"+ token + "userid" + userId);
-    }
+//    @Override
+//    public void run(String... args) throws Exception {
+//        String token = accountTokenService.createAndSaveLoginToken(1000001L);
+//        long userId = accountTokenService.getUserIdByToken(token);
+//        System.out.println("Token"+ token + "userid" + userId);
+//    }
 }

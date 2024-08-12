@@ -30,11 +30,11 @@ public class UserLoginServiceImpl implements IUserLoginService {
     private static String PHONE_REG = "^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\\d{8}$";
     private static final Logger LOGGER = LoggerFactory.getLogger(UserLoginServiceImpl.class);
 
-    @DubboReference
+    @DubboReference(timeout = 30000)
     private ISmsRpc smsRpc;
-    @DubboReference
+    @DubboReference(timeout = 30000)
     private IUserPhoneRPC userPhoneRPC;
-    @DubboReference
+    @DubboReference(timeout = 30000)
     private IAccountTokenRPC accountTokenRPC;
 
     @Override
@@ -67,6 +67,7 @@ public class UserLoginServiceImpl implements IUserLoginService {
         cookie.setMaxAge(30 * 24 * 3600);
         //Add this to response otherwise cookie is not valid
         response.addCookie(cookie);
+        LOGGER.info("Got token :{}", token);
         return WebResponseVO.success(ConvertBeanUtils.convert(userLoginDTO, UserLoginVO.class));
     }
 }
