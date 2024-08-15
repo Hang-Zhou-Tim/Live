@@ -3,8 +3,8 @@ package org.hang.live.framework.redis.starter.key;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
- * @Author idea
- * @Date: Created in 20:29 2023/5/14
+ * @Author hang
+ * @Date: Created in 20:19 2024/8/14
  * @Description
  */
 public class RedisKeyBuilder {

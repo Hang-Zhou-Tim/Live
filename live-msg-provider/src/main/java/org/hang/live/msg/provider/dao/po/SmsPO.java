@@ -10,7 +10,7 @@ import java.util.Date;
  * Record SMS related information in database
  *
  * @Author hang
- * @Date: Created in 17:26 2023/6/11
+ * @Date: Created in 17:26 2024/8/14
  * @Description
  */
 @TableName("t_sms")

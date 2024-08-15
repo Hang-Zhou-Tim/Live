@@ -1,8 +1,8 @@
 package org.hang.live.msg.provider.config;
 
 /**
- * @Author idea
- * @Date: Created in 09:08 2023/6/19
+ * @Author hang
+ * @Date: Created in 09:08 2024/8/14
  * @Description
  */
 public enum SmsTemplateIDEnum {

@@ -7,8 +7,8 @@ import java.util.Date;
 /**
  * send message content
  *
- * @Author idea
- * @Date: Created in 15:00 2023/7/11
+ * @Author hang
+ * @Date: Created in 15:00 2024/8/11
  * @Description
  */
 public class MessageDTO implements Serializable {

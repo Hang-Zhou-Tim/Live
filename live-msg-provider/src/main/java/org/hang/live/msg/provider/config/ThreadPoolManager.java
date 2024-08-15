@@ -3,8 +3,8 @@ package org.hang.live.msg.provider.config;
 import java.util.concurrent.*;
 
 /**
- * @Author idea
- * @Date: Created in 17:38 2023/6/11
+ * @Author hang
+ * @Date: Created in 17:38 2024/8/12
  * @Description
  */
 public class ThreadPoolManager {

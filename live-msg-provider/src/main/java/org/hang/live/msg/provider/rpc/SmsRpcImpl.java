@@ -8,8 +8,8 @@ import org.hang.live.msg.interfaces.ISmsRpc;
 import org.hang.live.msg.provider.service.ISmsService;
 
 /**
- * @Author idea
- * @Date: Created in 17:20 2023/6/11
+ * @Author hang
+ * @Date: Created in 17:20 2024/8/10
  * @Description
  */
 @DubboService

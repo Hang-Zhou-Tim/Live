@@ -12,6 +12,7 @@
         <module>live-framework-redis-starter</module>
         <module>live-framework-datasource-starter</module>
         <module>live-framework-web-starter</module>
+        <module>live-framework-mq-starter</module>
     </modules>
 
 </project>

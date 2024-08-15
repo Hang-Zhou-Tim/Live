@@ -8,6 +8,16 @@
         <option value="$PROJECT_DIR$/live-framework/qiyu-live-framework-redis-starter/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/live-framework/live-frame-mq-starter/pom.xml" />
+        <option value="$PROJECT_DIR$/live-im-connector/pom.xml" />
+        <option value="$PROJECT_DIR$/live-im-core-server-infaces/pom.xml" />
+        <option value="$PROJECT_DIR$/live-im-token-interface/pom.xml" />
+        <option value="$PROJECT_DIR$/live-living-interfaces/pom.xml" />
+        <option value="$PROJECT_DIR$/qiyu-live-im-core-server-interfaces/pom.xml" />
+      </set>
+    </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="corretto-17" project-jdk-type="JavaSDK">

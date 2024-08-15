@@ -7,17 +7,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * User request context
+ * User request context. Usually used in controller layer to store user details like id.
  *
  * @Author hang
- * @Date: Created in 08:58 2024/8/11
+ * @Date: Created in 08:58 2024/8/16
  * @Description
  */
 public class RequestContext {
 
     private static final ThreadLocal<Map<Object, Object>> resources = new InheritableThreadLocalMap<>();
 
-    //Design a set method
+    //set the key
     public static void set(Object key, Object value) {
         if (key == null) {
             throw new IllegalArgumentException("key can not be null");
@@ -44,7 +44,8 @@ public class RequestContext {
         resources.remove();
     }
 
-    //When the child threads inherit parent threads, the thread local variable is also cloned to parent threads with deep copy.
+    //Allows communication between different context
+    //A-->threadLocal ("userId",1001)
     private static final class InheritableThreadLocalMap<T extends Map<Object, Object>> extends InheritableThreadLocal<Map<Object, Object>> {
 
         @Override

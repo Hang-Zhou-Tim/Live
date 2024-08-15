@@ -1,8 +1,8 @@
 package org.hang.live.common.interfaces.topic;
 
 /**
- * @Author idea
- * @Date: Created in 16:14 2023/5/28
+ * @Author hang
+ * @Date: Created in 16:14 2024/8/18
  * @Description
  */
 public class UserProviderTopicNames {
