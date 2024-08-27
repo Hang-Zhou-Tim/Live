@@ -10,12 +10,12 @@ public class ImCoreServerProviderTopicNames {
     /**
      * Receive Business message
      */
-    public static final String QIYU_LIVE_IM_BIZ_MSG_TOPIC = "qiyu_live_im_biz_msg_topic";
+    public static final String LIVE_IM_BIZ_MSG_TOPIC = "live_im_biz_msg_topic";
 
     /**
      * send im ack message
      */
-    public static final String QIYU_LIVE_IM_ACK_MSG_TOPIC = "qiyu_live_im_ack_msg_topic";
+    public static final String LIVE_IM_ACK_MSG_TOPIC = "live_im_ack_msg_topic";
 
     /**
      * login room message

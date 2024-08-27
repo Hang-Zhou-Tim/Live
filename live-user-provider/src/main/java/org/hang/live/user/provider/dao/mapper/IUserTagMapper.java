@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Update;
 import org.hang.live.user.provider.dao.po.UserTagPO;
 
 /**
- * @Author idea
- * @Date: Created in 17:13 2023/5/27
+ * @Author hang
+ * @Date: Created in 22:54 2024/8/11
  * @Description
  */
 @Mapper

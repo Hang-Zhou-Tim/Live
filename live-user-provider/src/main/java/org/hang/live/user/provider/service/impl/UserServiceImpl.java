@@ -3,14 +3,11 @@ package org.hang.live.user.provider.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import jakarta.annotation.Resource;
-import org.apache.rocketmq.client.exception.MQBrokerException;
-import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.MQProducer;
 import org.apache.rocketmq.common.message.Message;
-import org.apache.rocketmq.remoting.exception.RemotingException;
 import org.hang.live.common.interfaces.topic.UserProviderTopicNames;
 import org.hang.live.common.interfaces.utils.ConvertBeanUtils;
-import org.hang.live.framework.redis.starter.key.UserProviderCacheKeyBuilder;
+import org.hang.live.common.redis.configuration.key.UserProviderCacheKeyBuilder;
 import org.hang.live.user.constants.CacheAsyncDeleteCode;
 import org.hang.live.user.dto.UserCacheAsyncDeleteDTO;
 import org.hang.live.user.provider.dao.mapper.IUserMapper;
@@ -24,13 +21,17 @@ import org.springframework.data.redis.core.SessionCallback;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+/**
+ * @Author hang
+ * @Date: Created in 22:54 2024/8/11
+ * @Description
+ */
 @Service
 public class UserServiceImpl implements IUserService {
 

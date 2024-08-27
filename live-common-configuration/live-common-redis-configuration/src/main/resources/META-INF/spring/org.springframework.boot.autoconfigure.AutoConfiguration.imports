@@ -1,0 +1,4 @@
+org.hang.live.common.redis.configuration.config.RedisConfig
+org.hang.live.common.redis.configuration.key.UserProviderCacheKeyBuilder
+org.hang.live.common.redis.configuration.key.ImMessageProviderCacheKeyBuilder
+org.hang.live.common.redis.configuration.key.ImCoreServerProviderCacheKeyBuilder

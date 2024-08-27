@@ -5,7 +5,7 @@ import jakarta.annotation.Resource;
 import org.apache.rocketmq.client.producer.MQProducer;
 import org.hang.live.common.interfaces.topic.UserProviderTopicNames;
 import org.apache.rocketmq.common.message.Message;
-import org.hang.live.framework.redis.starter.key.UserProviderCacheKeyBuilder;
+import org.hang.live.common.redis.configuration.key.UserProviderCacheKeyBuilder;
 import org.hang.live.common.interfaces.utils.ConvertBeanUtils;
 import org.hang.live.user.constants.CacheAsyncDeleteCode;
 import org.hang.live.user.constants.UserTagFieldNameConstants;
@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @Author hang
- * @Date: Created in 17:13 2023/5/27
+ * @Date: Created in 22:54 2024/8/21
  * @Description
  */
 @Service

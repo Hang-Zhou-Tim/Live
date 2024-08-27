@@ -1,8 +1,0 @@
-spring:
-  cloud:
-    nacos:
-      username: hang
-      password: ZH131314
-      discovery:
-        server-addr: hang.nacos.com:8848
-        namespace: 2257b780-fbd7-4424-a51f-7f3445885412

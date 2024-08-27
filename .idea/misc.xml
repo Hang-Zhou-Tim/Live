@@ -10,11 +10,16 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/live-account-interface/pom.xml" />
+        <option value="$PROJECT_DIR$/live-account-provider/pom.xml" />
         <option value="$PROJECT_DIR$/live-framework/live-frame-mq-starter/pom.xml" />
         <option value="$PROJECT_DIR$/live-im-connector/pom.xml" />
         <option value="$PROJECT_DIR$/live-im-core-server-infaces/pom.xml" />
+        <option value="$PROJECT_DIR$/live-im-interface/pom.xml" />
+        <option value="$PROJECT_DIR$/live-im-provider/pom.xml" />
         <option value="$PROJECT_DIR$/live-im-token-interface/pom.xml" />
         <option value="$PROJECT_DIR$/live-living-interfaces/pom.xml" />
+        <option value="$PROJECT_DIR$/live-payment-provider/pom.xml" />
         <option value="$PROJECT_DIR$/qiyu-live-im-core-server-interfaces/pom.xml" />
       </set>
     </option>

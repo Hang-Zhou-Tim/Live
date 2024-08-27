@@ -12,6 +12,12 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
+/**
+ * @Author hang
+ * @Date: Created in 22:54 2024/8/7
+ * @Description
+ */
+
 @SpringBootApplication  //Auto Load Packages and Context
 @EnableDubbo            //Decode Configuration, Scan and Initialise Provider Services(with Proxy).
 @EnableDiscoveryClient  //Enable Service Discovery
@@ -38,9 +44,6 @@ public class UserProviderApplication /* implements CommandLineRunner*/ {
 //                userTagService.setTag(userId, UserTagsEnum.IS_OLD_USER);
 //            }).start();
 //        }
-
-
-
     public static void main(String[] args) {
         //Initialise spring application with this class
         SpringApplication springApplication = new SpringApplication(UserProviderApplication.class);

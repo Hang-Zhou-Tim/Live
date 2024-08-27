@@ -8,7 +8,7 @@ import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
-import org.hang.live.framework.redis.starter.key.UserProviderCacheKeyBuilder;
+import org.hang.live.common.redis.configuration.key.UserProviderCacheKeyBuilder;
 // import org.hang.live.common.interfaces.topic.UserProviderTopicNames;
 //import org.hang.live.user.constants.CacheAsyncDeleteCode;
 //import org.hang.live.user.dto.UserCacheAsyncDeleteDTO;
@@ -25,8 +25,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import java.util.List;
 
 /**
- * @Author idea
- * @Date: Created in 22:54 2023/5/6
+ * @Author hang
+ * @Date: Created in 22:54 2024/8/21
  * @Description
  */
 @Configuration

@@ -4,14 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.hang.live.framework.redis.starter.key.UserProviderCacheKeyBuilder;
+import org.hang.live.common.redis.configuration.key.UserProviderCacheKeyBuilder;
 import org.hang.live.common.interfaces.utils.ConvertBeanUtils;
 import org.hang.live.common.interfaces.utils.DESUtils;
-import org.hang.live.id.generate.interfaces.IdGenerateRPC;
-import org.hang.live.id.generate.interfaces.enums.IdTypeEnum;
+import org.hang.live.id.generator.interfaces.IdGenerateRPC;
+import org.hang.live.id.generator.interfaces.enums.IdTypeEnum;
 import org.hang.live.user.dto.UserDTO;
 import org.hang.live.user.dto.UserLoginDTO;
-import org.hang.live.common.interfaces.enums.CommonStatusEum;
+import org.hang.live.common.interfaces.enums.CommonStatusEnum;
 import org.hang.live.user.dto.UserPhoneDTO;
 import org.hang.live.user.provider.dao.mapper.IUserPhoneMapper;
 import org.hang.live.user.provider.dao.po.UserPhonePO;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 /**
  * @Author hang
- * @Date: Created in 17:21 2024/8/11
+ * @Date: Created in 17:21 2024/8/21
  * @Description
  */
 @Service
@@ -70,12 +70,13 @@ public class UserPhoneServiceImpl implements IUserPhoneService {
         UserDTO userDTO = new UserDTO();
         userDTO.setNickName("HL-User-" + userId);
         userDTO.setUserId(userId);
+        userDTO.setAvatar("../svga/img/angel.png");
         userService.insertOne(userDTO);
         UserPhonePO userPhonePO = new UserPhonePO();
         userPhonePO.setUserId(userId);
         //Encrypt to protect user information.
         userPhonePO.setPhone(DESUtils.encrypt(phone));
-        userPhonePO.setStatus(CommonStatusEum.VALID_STATUS.getCode());
+        userPhonePO.setStatus(CommonStatusEnum.VALID_STATUS.getCode());
         userPhoneMapper.insert(userPhonePO);
         redisTemplate.delete(cacheKeyBuilder.buildUserPhoneObjKey(phone));
         return UserLoginDTO.loginSuccess(userId);
@@ -141,7 +142,7 @@ public class UserPhoneServiceImpl implements IUserPhoneService {
     private List<UserPhoneDTO> queryByUserIdFromDB(Long userId) {
         LambdaQueryWrapper<UserPhonePO> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(UserPhonePO::getUserId, userId);
-        queryWrapper.eq(UserPhonePO::getStatus, CommonStatusEum.VALID_STATUS.getCode());
+        queryWrapper.eq(UserPhonePO::getStatus, CommonStatusEnum.VALID_STATUS.getCode());
         queryWrapper.last("limit 1");
         return ConvertBeanUtils.convertList(userPhoneMapper.selectList(queryWrapper), UserPhoneDTO.class);
     }
@@ -149,7 +150,7 @@ public class UserPhoneServiceImpl implements IUserPhoneService {
     private UserPhoneDTO queryByPhoneFromDB(String phone) {
         LambdaQueryWrapper<UserPhonePO> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(UserPhonePO::getPhone, DESUtils.encrypt(phone));
-        queryWrapper.eq(UserPhonePO::getStatus, CommonStatusEum.VALID_STATUS.getCode());
+        queryWrapper.eq(UserPhonePO::getStatus, CommonStatusEnum.VALID_STATUS.getCode());
         queryWrapper.last("limit 1");
         return ConvertBeanUtils.convert(userPhoneMapper.selectOne(queryWrapper), UserPhoneDTO.class);
     }

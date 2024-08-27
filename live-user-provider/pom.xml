@@ -23,7 +23,7 @@
         <maven.compiler.compilerVersion>17</maven.compiler.compilerVersion>
         <rocketmq.client.version>4.8.0</rocketmq.client.version>
         <arthus.zip.address>C:\Java</arthus.zip.address>
-
+        <cloopen-sms.version>1.0.4</cloopen-sms.version>
     </properties>
 
     <dependencies>
@@ -70,13 +70,13 @@
 
         <dependency>
             <groupId>org.hang</groupId>
-            <artifactId>live-framework-datasource-starter</artifactId>
+            <artifactId>live-common-datasource-configuration</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>org.hang</groupId>
-            <artifactId>live-framework-redis-starter</artifactId>
+            <artifactId>live-common-redis-configuration</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
@@ -105,8 +105,14 @@
         </dependency>
 
         <dependency>
+            <groupId>com.cloopen</groupId>
+            <artifactId>java-sms-sdk</artifactId>
+            <version>${cloopen-sms.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.hang</groupId>
-            <artifactId>live-id-generate-interface</artifactId>
+            <artifactId>live-id-generator-interface</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

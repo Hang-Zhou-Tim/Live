@@ -1,0 +1,3 @@
+org.hang.live.common.mq.configuration.producer.RocketMQProducerConfig
+org.hang.live.common.mq.configuration.properties.RocketMQProducerProperties
+org.hang.live.common.mq.configuration.properties.RocketMQConsumerProperties

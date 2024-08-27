@@ -1,0 +1,25 @@
+package org.hang.live.common.redis.configuration.config;
+
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.SerializationException;
+/**
+ * Set serializer used by redis.
+ * @Author hang
+ * @Date: Created in 22:54 2024/8/11
+ * @Description
+ */
+public class IGenericJackson2JsonRedisSerializer extends GenericJackson2JsonRedisSerializer {
+
+    public IGenericJackson2JsonRedisSerializer() {
+        super(MapperFactory.newInstance());
+    }
+
+    @Override
+    public byte[] serialize(Object source) throws SerializationException {
+
+        if (source != null && ((source instanceof String) || (source instanceof Character))) {
+            return source.toString().getBytes();
+        }
+        return super.serialize(source);
+    }
+}

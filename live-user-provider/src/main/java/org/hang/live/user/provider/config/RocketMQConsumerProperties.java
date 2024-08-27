@@ -4,8 +4,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @Author idea
- * @Date: Created in 22:51 2023/5/6
+ * @Author hang
+ * @Date: Created in 22:54 2024/8/11
  * @Description
  */
 @ConfigurationProperties(prefix = "hang.rmq.consumer")

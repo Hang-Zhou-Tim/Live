@@ -1,0 +1,11 @@
+version: '1'
+services:
+  live-api-gateway-80:
+    container_name: live-api-gateway-80
+    image: 'live-api-gateway-docker:1.0-SNAPSHOT'
+    ports:
+      - "80:80"
+    environment:
+      - JAVA_OPTS=-XX:MetaspaceSize=64m -XX:MaxMetaspaceSize=128m -Xms64m -Xmx128m -Xmn64m -Xss512k
+    extra_hosts:
+      - 'hang.nacos.com:host-gateway'

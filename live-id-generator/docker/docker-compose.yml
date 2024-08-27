@@ -1,0 +1,36 @@
+version: '1'
+
+services:
+  live-id-generator-9088:
+    container_name: live-id-generator-9088
+    image: 'live-id-generator-docker:1.0-SNAPSHOT'
+    ports:
+      - "9088:9088"
+    volumes:
+      - /c/Java/logs:/tmp/logs/live-user-provider
+    environment:
+      - DUBBO_IP_TO_REGISTRY=192.168.0.102
+      - DUBBO_PORT_TO_REGISTRY=9088
+      - DUBBO_PORT_TO_BIND=9088
+      - JAVA_OPTS=-XX:MetaspaceSize=32m -XX:MaxMetaspaceSize=64m -Xms64m -Xmx128m -Xmn64m -Xss512k
+    extra_hosts:
+      - 'hang.nacos.com:47.95.42.71'
+      - 'hang.rmq.com:47.95.42.71'
+
+#  live-user-provider-docker-2:
+#    container_name: live-user-provider-docker-2
+#    image: 'live-user-provider-docker:1.0-SNAPSHOT'
+#    ports:
+#      - "9092:9092"
+#    volumes:
+#      - /c/Java/logs:/tmp/logs/hang-live-user-provider
+#    environment:
+#      - DUBBO_IP_TO_REGISTRY=192.168.0.103
+#      - DUBBO_PORT_TO_REGISTRY=9092
+#      - DUBBO_PORT_TO_BIND=9092
+#      - JAVA_OPTS=-XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=128m -Xms512m -Xmx512m -Xmn128m -Xss256k
+#    extra_hosts:
+#      - 'hang.nacos.com:host-gateway'
+#      - 'hang.db:47.95.42.71'
+#      - 'hang.rmq.com:host-gateway'
+#      - 'hang.redis:47.95.42.71'

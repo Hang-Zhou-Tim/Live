@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
 
 /**
- * @Author idea
- * @Date: Created in 13:33 2023/5/26
+ * @Author hang
+ * @Date: Created in 22:54 2024/8/11
  * @Description
  */
 @TableName("t_user_tag")

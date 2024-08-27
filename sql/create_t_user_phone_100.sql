@@ -1,5 +1,5 @@
 DELIMITER ;;
-CREATE DEFINER=`hang`@`%` PROCEDURE `create_t_user_phone_100`()
+CREATE DEFINER=`root`@`%` PROCEDURE `create_t_user_phone_100`()
 BEGIN
     DECLARE i INT;
     DECLARE table_name VARCHAR(30);

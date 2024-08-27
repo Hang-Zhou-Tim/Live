@@ -7,8 +7,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
 
 /**
- * @Author idea
- * @Date: Created in 15:54 2023/5/7
+ * @Author hang
+ * @Date: Created in 22:54 2024/8/11
  * @Description
  */
 @TableName("t_user")  //Define the Logical Table Name

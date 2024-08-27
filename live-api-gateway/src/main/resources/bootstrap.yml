@@ -1,0 +1,30 @@
+server:
+  port: 80
+spring:
+  application:
+    name: live-api-gateway
+  cloud:
+    nacos:
+      username: hang
+      password: ZH131314
+      discovery:
+        server-addr: 47.95.42.71:8848
+        namespace: 6a80b005-82be-4051-b86f-9daf116e9e9d
+        heart-beat-interval: 1000
+        heart-beat-timeout: 3000
+      config:
+        import-check:
+          enabled: false
+        file-extension: yaml
+        server-addr: 47.95.42.71:8848
+        namespace: 6a80b005-82be-4051-b86f-9daf116e9e9d
+        timeout: 5000
+        max-retry: 3
+  config:
+    import:
+      - optional:nacos:live-api-gateway.yaml
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
