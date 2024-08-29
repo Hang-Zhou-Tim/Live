@@ -4,7 +4,7 @@ import jakarta.annotation.Resource;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.hang.live.im.core.server.interfaces.rpc.IRouterHandlerRpc;
 import org.hang.live.im.core.server.service.IRouterHandlerService;
-import org.hang.live.im.dto.ImMsgBody;
+import org.hang.live.im.core.server.interfaces.dto.ImMsgBody;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @Date: Created in 10:20 2024/8/13
  * @Description
  */
-@DubboService
+@DubboService(timeout = 30000)
 public class RouterHandlerRpcImpl implements IRouterHandlerRpc {
 
     @Resource

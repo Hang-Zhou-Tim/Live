@@ -12,11 +12,14 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
 import jakarta.annotation.Resource;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.hang.live.im.core.server.handler.impl.LoginMsgHandler;
-import org.hang.live.im.interfaces.ImTokenRpc;
+import org.hang.live.im.core.server.interfaces.rpc.ImTokenRpc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * ws handshake(connection and disconnect) handler
@@ -32,7 +35,6 @@ public class WsHandshakeHandler extends ChannelInboundHandlerAdapter {
 
     @Value("${hang.im.ws.port}")
     private int port;
-    @Value("${spring.cloud.nacos.discovery.ip}")
     private String serverIp;
     @DubboReference
     private ImTokenRpc imTokenRpc;
@@ -60,7 +62,12 @@ public class WsHandshakeHandler extends ChannelInboundHandlerAdapter {
     }
 
     private void handleHttpRequest(ChannelHandlerContext ctx, FullHttpRequest msg) {
-        // ws://127.0.0.1:8809/{token%appId}/{userId}/{code}/{param like roomId}
+        try {
+            serverIp = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+        // ws://127.0.0.1:9091/{token%appId}/{userId}/{code}/{param like roomId}
         // web socket url.
         String webSocketUrl = "ws://" + serverIp + ":" + port;
         String uri = msg.uri();
@@ -68,6 +75,7 @@ public class WsHandshakeHandler extends ChannelInboundHandlerAdapter {
         String token = paramArr[1];
         Long userId = Long.valueOf(paramArr[2]);
         Long queryUserId = imTokenRpc.getUserIdByToken(token);
+        LOGGER.info("Websocket is {} ", webSocketUrl);
         // The end substring is App Id.
         Integer appId = Integer.valueOf(token.substring(token.lastIndexOf("%") + 1));
         if (queryUserId == null || !queryUserId.equals(userId)) {

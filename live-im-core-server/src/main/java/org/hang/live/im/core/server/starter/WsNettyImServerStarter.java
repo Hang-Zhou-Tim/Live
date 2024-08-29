@@ -60,11 +60,11 @@ public class WsNettyImServerStarter implements InitializingBean {
                 LOGGER.info("Connection Init!!!!!");
                 //Use HTTP Server Encoder/Decoder for HTTP message. This is bidirectional.
                 ch.pipeline().addLast(new HttpServerCodec());
-                //Send/Receive HTTP Request/Response message in chunks. This is bidirectional.
+                //Write Big File Messages in chunks. If the first sending time is bigger than default, it will create task event to async write unfinished chunks.
                 ch.pipeline().addLast(new ChunkedWriteHandler());
                 //Aggregate HTTP Chunks. This is inbound handler.
                 ch.pipeline().addLast(new HttpObjectAggregator(8192));
-                //Encode outbound Websocket message. This is inbound handler.
+                //Encode outbound Websocket message. This is outbound handler.
                 ch.pipeline().addLast(new WebsocketEncoder());
                 //Apply handshakes for any client's websocket connection request.
                 ch.pipeline().addLast(wsHandshakeHandler);

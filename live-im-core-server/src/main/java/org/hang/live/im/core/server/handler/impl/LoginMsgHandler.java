@@ -8,16 +8,17 @@ import org.apache.rocketmq.client.producer.MQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 import org.hang.live.common.interfaces.topic.ImCoreServerProviderTopicNames;
-import org.hang.live.im.constants.ImConstants;
-import org.hang.live.im.constants.ImMsgCodeEnum;
+import org.hang.live.im.core.server.interfaces.constants.ImConstants;
+import org.hang.live.im.core.server.interfaces.constants.ImMsgCodeEnum;
 import org.hang.live.im.core.server.common.ChannelHandlerContextCache;
 import org.hang.live.im.core.server.common.ImContextUtils;
 import org.hang.live.im.core.server.common.ImMsg;
 import org.hang.live.im.core.server.handler.SimplyHandler;
 import org.hang.live.im.core.server.interfaces.constants.ImCoreServerConstants;
 import org.hang.live.im.core.server.interfaces.dto.ImOnlineDTO;
-import org.hang.live.im.dto.ImMsgBody;
-import org.hang.live.im.interfaces.ImTokenRpc;
+import org.hang.live.im.core.server.interfaces.dto.ImMsgBody;
+import org.hang.live.im.core.server.interfaces.rpc.ImTokenRpc;
+import org.hang.live.im.core.server.service.ImTokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -38,8 +39,8 @@ public class LoginMsgHandler implements SimplyHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginMsgHandler.class);
 
-    @DubboReference
-    private ImTokenRpc imTokenRpc;
+    @Resource
+    private ImTokenService imTokenService;
     @Resource
     private StringRedisTemplate stringRedisTemplate;
     @Resource
@@ -67,7 +68,7 @@ public class LoginMsgHandler implements SimplyHandler {
             throw new IllegalArgumentException("param error");
         }
         //If the IM token is generated successfully, return it!
-        Long userId = imTokenRpc.getUserIdByToken(token);
+        Long userId = imTokenService.getUserIdByToken(token);
 
         if (userId != null && userId.equals(userIdFromMsg)) {
             loginSuccessHandler(ctx, userId, appId, null);
@@ -126,7 +127,7 @@ public class LoginMsgHandler implements SimplyHandler {
         //Build response message
         ImMsg respMsg = ImMsg.build(ImMsgCodeEnum.IM_LOGIN_MSG.getCode(), JSON.toJSONString(respBody));
 
-        //stores the pair of user id and ip of the user.
+        //stores the pair of user id and ip of the server connected by users.
         stringRedisTemplate.opsForValue().set(ImCoreServerConstants.IM_BIND_IP_KEY + appId + ":" + userId,
                 ChannelHandlerContextCache.getServerIpAddress() + "%" + userId,
                 ImConstants.DEFAULT_HEART_BEAT_GAP * 2, TimeUnit.SECONDS);

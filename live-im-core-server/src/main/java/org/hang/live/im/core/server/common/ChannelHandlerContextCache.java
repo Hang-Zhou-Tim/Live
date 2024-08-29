@@ -4,6 +4,7 @@ import io.netty.channel.ChannelHandlerContext;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Cache user id with the channel so JVM server can know which channel to use to send message based on specific user id.
@@ -18,7 +19,7 @@ public class ChannelHandlerContextCache {
      */
     private static String SERVER_IP_ADDRESS = "";
 
-    private static Map<Long, ChannelHandlerContext> channelHandlerContextMap = new HashMap<>();
+    private static Map<Long, ChannelHandlerContext> channelHandlerContextMap = new ConcurrentHashMap<>();
 
     public static String getServerIpAddress() {
         return SERVER_IP_ADDRESS;

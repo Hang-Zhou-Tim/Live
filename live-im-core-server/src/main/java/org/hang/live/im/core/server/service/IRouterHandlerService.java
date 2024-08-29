@@ -1,6 +1,6 @@
 package org.hang.live.im.core.server.service;
 
-import org.hang.live.im.dto.ImMsgBody;
+import org.hang.live.im.core.server.interfaces.dto.ImMsgBody;
 
 /**
  * @Author idea

@@ -7,7 +7,7 @@ import org.hang.live.im.core.server.common.ImContextUtils;
 import org.hang.live.im.core.server.common.ImMsg;
 import org.hang.live.im.core.server.handler.SimplyHandler;
 import org.hang.live.im.core.server.service.IMsgAckCheckService;
-import org.hang.live.im.dto.ImMsgBody;
+import org.hang.live.im.core.server.interfaces.dto.ImMsgBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

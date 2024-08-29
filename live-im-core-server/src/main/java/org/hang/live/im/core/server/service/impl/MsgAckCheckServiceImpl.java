@@ -5,10 +5,10 @@ import jakarta.annotation.Resource;
 import org.apache.rocketmq.client.producer.MQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
-import org.hang.live.framework.redis.starter.key.ImCoreServerProviderCacheKeyBuilder;
+import org.hang.live.common.redis.configuration.key.ImCoreServerProviderCacheKeyBuilder;
 import org.hang.live.common.interfaces.topic.ImCoreServerProviderTopicNames;
 import org.hang.live.im.core.server.service.IMsgAckCheckService;
-import org.hang.live.im.dto.ImMsgBody;
+import org.hang.live.im.core.server.interfaces.dto.ImMsgBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -55,7 +55,7 @@ public class MsgAckCheckServiceImpl implements IMsgAckCheckService {
         String json = JSON.toJSONString(imMsgBody);
         Message message = new Message();
         message.setBody(json.getBytes());
-        message.setTopic(ImCoreServerProviderTopicNames.QIYU_LIVE_IM_ACK_MSG_TOPIC);
+        message.setTopic(ImCoreServerProviderTopicNames.LIVE_IM_ACK_MSG_TOPIC);
         //level 2: Delay 5s
         message.setDelayTimeLevel(2);
         try {

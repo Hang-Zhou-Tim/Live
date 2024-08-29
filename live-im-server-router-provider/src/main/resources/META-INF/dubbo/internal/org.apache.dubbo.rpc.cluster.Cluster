@@ -1,0 +1,1 @@
+imServerRouter=org.hang.live.im.server.router.provider.cluster.ImServerRouterCluster

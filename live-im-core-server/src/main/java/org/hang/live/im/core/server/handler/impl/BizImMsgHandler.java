@@ -45,7 +45,7 @@ public class BizImMsgHandler implements SimplyHandler {
         }
         // Send Business Logic Activation Message to MQ.
         Message message = new Message();
-        message.setTopic(ImCoreServerProviderTopicNames.QIYU_LIVE_IM_BIZ_MSG_TOPIC);
+        message.setTopic(ImCoreServerProviderTopicNames.LIVE_IM_BIZ_MSG_TOPIC);
         message.setBody(body);
         try {
             SendResult sendResult = mqProducer.send(message);

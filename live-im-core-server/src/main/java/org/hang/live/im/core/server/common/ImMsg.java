@@ -1,6 +1,6 @@
 package org.hang.live.im.core.server.common;
 
-import org.hang.live.im.constants.ImConstants;
+import org.hang.live.im.core.server.interfaces.constants.ImConstants;
 
 import java.io.Serial;
 import java.io.Serializable;

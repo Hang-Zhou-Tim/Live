@@ -2,7 +2,7 @@ package org.hang.live.im.core.server.handler.impl;
 
 import io.netty.channel.ChannelHandlerContext;
 import jakarta.annotation.Resource;
-import org.hang.live.im.constants.ImMsgCodeEnum;
+import org.hang.live.im.core.server.interfaces.constants.ImMsgCodeEnum;
 import org.hang.live.im.core.server.common.ImMsg;
 import org.hang.live.im.core.server.handler.ImHandlerFactory;
 import org.hang.live.im.core.server.handler.SimplyHandler;

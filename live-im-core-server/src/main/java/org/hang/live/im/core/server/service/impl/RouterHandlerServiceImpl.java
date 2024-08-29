@@ -3,12 +3,12 @@ package org.hang.live.im.core.server.service.impl;
 import com.alibaba.fastjson.JSON;
 import io.netty.channel.ChannelHandlerContext;
 import jakarta.annotation.Resource;
-import org.hang.live.im.constants.ImMsgCodeEnum;
+import org.hang.live.im.core.server.interfaces.constants.ImMsgCodeEnum;
 import org.hang.live.im.core.server.common.ChannelHandlerContextCache;
 import org.hang.live.im.core.server.common.ImMsg;
 import org.hang.live.im.core.server.service.IMsgAckCheckService;
 import org.hang.live.im.core.server.service.IRouterHandlerService;
-import org.hang.live.im.dto.ImMsgBody;
+import org.hang.live.im.core.server.interfaces.dto.ImMsgBody;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;

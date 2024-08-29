@@ -7,10 +7,10 @@ import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.hang.live.common.interfaces.topic.ImCoreServerProviderTopicNames;
-import org.hang.live.framework.mq.starter.properties.RocketMQConsumerProperties;
+import org.hang.live.common.mq.configuration.properties.RocketMQConsumerProperties;
 import org.hang.live.im.core.server.service.IMsgAckCheckService;
 import org.hang.live.im.core.server.service.IRouterHandlerService;
-import org.hang.live.im.dto.ImMsgBody;
+import org.hang.live.im.core.server.interfaces.dto.ImMsgBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -43,7 +43,7 @@ public class ImAckConsumer implements InitializingBean {
         mqPushConsumer.setConsumerGroup(rocketMQConsumerProperties.getGroupName() + "_" + ImAckConsumer.class.getSimpleName());
         mqPushConsumer.setConsumeMessageBatchMaxSize(1);
         mqPushConsumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
-        mqPushConsumer.subscribe(ImCoreServerProviderTopicNames.QIYU_LIVE_IM_ACK_MSG_TOPIC, "");
+        mqPushConsumer.subscribe(ImCoreServerProviderTopicNames.LIVE_IM_ACK_MSG_TOPIC, "");
         mqPushConsumer.setMessageListener((MessageListenerConcurrently) (msgs, context) -> {
             //When the delayed message sends to this MQ, it checks if the message in Redis exists. If it does, resend the message.
             String json = new String(msgs.get(0).getBody());
