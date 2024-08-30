@@ -5,7 +5,7 @@ package org.hang.live.api.vo.resp;
  * @Date: Created in 18:32 2024/8/13
  * @Description
  */
-public class LivingRoomRespVO {
+public class LiveStreamRoomRespVO {
 
     private Integer id;
     private String roomName;

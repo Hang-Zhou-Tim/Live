@@ -3,21 +3,15 @@ package org.hang.live.api.service.impl;
 import org.apache.dubbo.config.annotation.DubboReference;
 //import org.hang.live.api.error.ApiErrorEnum;
 import org.hang.live.api.service.ILiveStreamRoomService;
-import org.hang.live.api.vo.LivingRoomInitVO;
-import org.hang.live.api.vo.req.LivingRoomReqVO;
+import org.hang.live.api.vo.LiveStreamRoomInitVO;
+import org.hang.live.api.vo.req.LiveStreamRoomReqVO;
 //import org.hang.live.api.vo.req.OnlinePkReqVO;
-import org.hang.live.api.vo.req.OnlinePkReqVO;
-import org.hang.live.api.vo.resp.LivingRoomPageRespVO;
-import org.hang.live.api.vo.resp.LivingRoomRespVO;
-import org.hang.live.api.vo.resp.RedPacketReceiveVO;
+import org.hang.live.api.vo.resp.LiveStreamRoomPageRespVO;
+import org.hang.live.api.vo.resp.LiveStreamRoomRespVO;
 import org.hang.live.common.interfaces.dto.PageWrapper;
 import org.hang.live.common.interfaces.utils.ConvertBeanUtils;
-import org.hang.live.gift.dto.RedPacketConfigReqDTO;
 import org.hang.live.gift.dto.RedPacketConfigRespDTO;
-import org.hang.live.gift.dto.RedPacketReceiveDTO;
 import org.hang.live.gift.interfaces.IRedPacketConfigRpc;
-import org.hang.live.im.core.server.interfaces.constants.AppIdEnum;
-import org.hang.live.stream.room.interfaces.dto.LivePkStreamRoomRespDTO;
 import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomReqDTO;
 import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomRespDTO;
 import org.hang.live.stream.room.interfaces.rpc.ILiveStreamRoomRpc;
@@ -26,9 +20,6 @@ import org.hang.live.user.interfaces.IUserRPC;
 import org.hang.live.common.web.configuration.context.RequestContext;
 //import org.hang.live.web.starter.error.ErrorAssert;
 
-import org.hang.live.common.web.configuration.error.BizBaseErrorEnum;
-import org.hang.live.common.web.configuration.error.ErrorAssert;
-import org.hang.live.common.web.configuration.error.ErrorException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -53,10 +44,10 @@ public class LiveStreamRoomServiceImpl implements ILiveStreamRoomService {
     private IRedPacketConfigRpc redPacketConfigRpc;
 
     @Override
-    public LivingRoomPageRespVO list(LivingRoomReqVO livingRoomReqVO) {
+    public LiveStreamRoomPageRespVO list(LiveStreamRoomReqVO livingRoomReqVO) {
         PageWrapper<LiveStreamRoomRespDTO>  resultPage = liveStreamRoomRpc.list(ConvertBeanUtils.convert(livingRoomReqVO,LiveStreamRoomReqDTO.class));
-        LivingRoomPageRespVO livingRoomPageRespVO = new LivingRoomPageRespVO();
-        livingRoomPageRespVO.setList(ConvertBeanUtils.convertList(resultPage.getList(), LivingRoomRespVO.class));
+        LiveStreamRoomPageRespVO livingRoomPageRespVO = new LiveStreamRoomPageRespVO();
+        livingRoomPageRespVO.setList(ConvertBeanUtils.convertList(resultPage.getList(), LiveStreamRoomRespVO.class));
         livingRoomPageRespVO.setHasNext(resultPage.isHasNext());
         return livingRoomPageRespVO;
     }
@@ -83,13 +74,13 @@ public class LiveStreamRoomServiceImpl implements ILiveStreamRoomService {
     }
     //When entered the room, get the details of user and anchor like nickname, userid, avatar, room background, etc.
     @Override
-    public LivingRoomInitVO getAnchorConfig(Long userId, Integer roomId) {
+    public LiveStreamRoomInitVO getAnchorConfig(Long userId, Integer roomId) {
         LiveStreamRoomRespDTO respDTO = liveStreamRoomRpc.queryByRoomId(roomId);
         //ErrorAssert.isNotNull(respDTO,ApiErrorEnum.LIVING_ROOM_END);
         Map<Long,UserDTO> userDTOMap = userRpc.batchQueryUserInfo(Arrays.asList(respDTO.getAnchorId(),userId).stream().distinct().collect(Collectors.toList()));
         UserDTO anchor = userDTOMap.get(respDTO.getAnchorId());
         UserDTO watcher = userDTOMap.get(userId);
-        LivingRoomInitVO respVO = new LivingRoomInitVO();
+        LiveStreamRoomInitVO respVO = new LiveStreamRoomInitVO();
         respVO.setAnchorNickName(anchor.getNickName());
         respVO.setWatcherNickName(watcher.getNickName());
         respVO.setUserId(userId);

@@ -7,16 +7,16 @@ import java.util.List;
  * @Date: Created in 18:34 2024/8/13
  * @Description
  */
-public class LivingRoomPageRespVO {
+public class LiveStreamRoomPageRespVO {
 
-    private List<LivingRoomRespVO> list;
+    private List<LiveStreamRoomRespVO> list;
     private boolean hasNext;
 
-    public List<LivingRoomRespVO> getList() {
+    public List<LiveStreamRoomRespVO> getList() {
         return list;
     }
 
-    public void setList(List<LivingRoomRespVO> list) {
+    public void setList(List<LiveStreamRoomRespVO> list) {
         this.list = list;
     }
 

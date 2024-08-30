@@ -2,10 +2,10 @@ package org.hang.live.api.vo;
 
 /**
  * @Author hang
- * @Date: Created in 22:54 2024/8/11
+ * @Date: Created in 22:54 2024/8/25
  * @Description
  */
-public class LivingRoomInitVO {
+public class LiveStreamRoomInitVO {
 
     private Long anchorId;
     private Long userId;
@@ -129,7 +129,7 @@ public class LivingRoomInitVO {
 
     @Override
     public String toString() {
-        return "LivingRoomInitVO{" +
+        return "LiveStreamRoomInitVO{" +
                 "anchorId=" + anchorId +
                 ", userId=" + userId +
                 ", anchorImg='" + anchorImg + '\'' +

@@ -5,7 +5,7 @@ package org.hang.live.api.vo.req;
  * @Date: Created in 18:38 2024/8/13
  * @Description
  */
-public class LivingRoomReqVO {
+public class LiveStreamRoomReqVO {
 
     private Integer type;
     private int page;
@@ -57,7 +57,7 @@ public class LivingRoomReqVO {
 
     @Override
     public String toString() {
-        return "LivingRoomReqVO{" +
+        return "LiveStreamRoomReqVO{" +
                 "type=" + type +
                 ", page=" + page +
                 ", pageSize=" + pageSize +

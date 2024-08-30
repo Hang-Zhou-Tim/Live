@@ -2,10 +2,9 @@ package org.hang.live.api.controller;
 
 import jakarta.annotation.Resource;
 import org.hang.live.api.service.ILiveStreamRoomService;
-import org.hang.live.api.vo.LivingRoomInitVO;
-import org.hang.live.api.vo.req.LivingRoomReqVO;
+import org.hang.live.api.vo.LiveStreamRoomInitVO;
+import org.hang.live.api.vo.req.LiveStreamRoomReqVO;
 //import org.hang.live.api.vo.req.OnlinePkReqVO;
-import org.hang.live.api.vo.req.OnlinePkReqVO;
 import org.hang.live.common.interfaces.vo.WebResponseVO;
 //import org.hang.live.web.starter.config.RequestLimit;
 import org.hang.live.common.web.configuration.config.RequestLimit;
@@ -32,7 +31,7 @@ public class LiveStreamRoomController {
 
 
     @PostMapping("/list")
-    public WebResponseVO list(LivingRoomReqVO livingRoomReqVO) {
+    public WebResponseVO list(LiveStreamRoomReqVO livingRoomReqVO) {
         ErrorAssert.isTure(livingRoomReqVO != null && livingRoomReqVO.getType() != null, BizBaseErrorEnum.PARAM_ERROR);
         ErrorAssert.isTure(livingRoomReqVO.getPage() > 0 && livingRoomReqVO.getPageSize() <= 100, BizBaseErrorEnum.PARAM_ERROR);
         return WebResponseVO.success(liveStreamRoomService.list(livingRoomReqVO));
@@ -43,7 +42,7 @@ public class LiveStreamRoomController {
     public WebResponseVO startingLiveStreamRoom(Integer type) {
         ErrorAssert.isNotNull(type, BizBaseErrorEnum.PARAM_ERROR);
         Integer roomId = liveStreamRoomService.startLiveStreamRoom(type);
-        LivingRoomInitVO initVO = new LivingRoomInitVO();
+        LiveStreamRoomInitVO initVO = new LiveStreamRoomInitVO();
         initVO.setRoomId(roomId);
         return WebResponseVO.success(initVO);
     }
@@ -83,19 +82,19 @@ public class LiveStreamRoomController {
 //
 //    @RequestLimit(limit = 1, second = 10, msg = "Preparing Red Packet. Please Wait!")
 //    @PostMapping("/prepareRedPacket")
-//    public WebResponseVO prepareRedPacket(LivingRoomReqVO livingRoomReqVO) {
+//    public WebResponseVO prepareRedPacket(LiveStreamRoomReqVO livingRoomReqVO) {
 //        return WebResponseVO.success(liveStreamRoomService.prepareRedPacket(RequestContext.getUserId(), livingRoomReqVO.getRoomId()));
 //    }
 
 //    @RequestLimit(limit = 1, second = 10, msg = "Red Packet Rain Has Acticated!")
 //    @PostMapping("/startRedPacket")
-//    public WebResponseVO startRedPacket(LivingRoomReqVO livingRoomReqVO) {
+//    public WebResponseVO startRedPacket(LiveStreamRoomReqVO livingRoomReqVO) {
 //        return WebResponseVO.success(liveStreamRoomService.startRedPacket(RequestContext.getUserId(), livingRoomReqVO.getRedPacketConfigCode()));
 //    }
 //
 //    @RequestLimit(limit = 1, second = 1, msg = "")
 //    @PostMapping("/getRedPacket")
-//    public WebResponseVO getRedPacket(LivingRoomReqVO livingRoomReqVO) {
+//    public WebResponseVO getRedPacket(LiveStreamRoomReqVO livingRoomReqVO) {
 //        return WebResponseVO.success(liveStreamRoomService.getRedPacket(RequestContext.getUserId(), livingRoomReqVO.getRedPacketConfigCode()));
 //    }
 }
