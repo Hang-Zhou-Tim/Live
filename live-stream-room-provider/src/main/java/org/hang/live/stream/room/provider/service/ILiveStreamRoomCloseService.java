@@ -1,13 +1,13 @@
 package org.hang.live.stream.room.provider.service;
 
-import org.hang.live.stream.room.interfaces.dto.LivingRoomReqDTO;
+import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomReqDTO;
 
 /**
  * @Author hang
  * @Date: Created in 19:21 2024/8/14
  * @Description
  */
-public interface ILivingRoomTxService {
+public interface ILiveStreamRoomCloseService {
 
     /**
      * Close Live Stream
@@ -15,6 +15,6 @@ public interface ILivingRoomTxService {
      * @param livingRoomReqDTO
      * @return
      */
-    boolean closeLiving(LivingRoomReqDTO livingRoomReqDTO);
+    boolean closeLiveStreamRoom(LiveStreamRoomReqDTO livingRoomReqDTO);
 
 }

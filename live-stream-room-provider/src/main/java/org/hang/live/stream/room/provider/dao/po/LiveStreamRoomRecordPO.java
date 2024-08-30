@@ -8,10 +8,10 @@ import java.util.Date;
 
 /**
  * @Author hang
- * @Date created in 9:07 2024/8/12
+ * @Date created in 2024/8/12
  */
-@TableName("t_living_room")
-public class LivingRoomPO {
+@TableName("t_live_stream_room_record")
+public class LiveStreamRoomRecordPO {
 
     @TableId(type = IdType.AUTO)
     private Integer id;
@@ -23,6 +23,7 @@ public class LivingRoomPO {
     private Integer watchNum;
     private Integer goodNum;
     private Date startTime;
+    private Date endTime;
     private Date updateTime;
 
     public Integer getId() {
@@ -98,6 +99,14 @@ public class LivingRoomPO {
         this.covertImg = covertImg;
     }
 
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -108,8 +117,18 @@ public class LivingRoomPO {
 
     @Override
     public String toString() {
-        return "LivingRoomPO{" + "id=" + id + ", anchorId=" + anchorId + ", type=" + type + ", roomName='" + roomName + '\'' + ", covertImg='" + covertImg +
-                '\'' + ", status=" + status + ", watchNum=" + watchNum + ", goodNum=" + goodNum + ", startTime=" + startTime + ", updateTime=" + updateTime +
+        return "LiveStreamRoomRecordPO{" +
+                "id=" + id +
+                ", anchorId=" + anchorId +
+                ", type=" + type +
+                ", roomName='" + roomName + '\'' +
+                ", covertImg='" + covertImg + '\'' +
+                ", status=" + status +
+                ", watchNum=" + watchNum +
+                ", goodNum=" + goodNum +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", updateTime=" + updateTime +
                 '}';
     }
 }

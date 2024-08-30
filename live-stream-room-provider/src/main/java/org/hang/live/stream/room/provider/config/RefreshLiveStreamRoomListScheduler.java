@@ -1,10 +1,10 @@
 package org.hang.live.stream.room.provider.config;
 
 import jakarta.annotation.Resource;
-import org.hang.live.stream.room.provider.service.ILivingRoomService;
+import org.hang.live.stream.room.interfaces.constants.LiveStreamRoomTypeEnum;
+import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomRespDTO;
+import org.hang.live.stream.room.provider.service.ILiveStreamRoomService;
 import org.hang.live.common.redis.configuration.key.StreamRoomProviderCacheKeyBuilder;
-import org.hang.live.stream.room.interfaces.constants.LivingRoomTypeEnum;
-import org.hang.live.stream.room.interfaces.dto.LivingRoomRespDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -24,12 +24,12 @@ import java.util.concurrent.TimeUnit;
  * @Description
  */
 @Configuration
-public class RefreshLivingRoomListJob implements InitializingBean {
+public class RefreshLiveStreamRoomListScheduler implements InitializingBean {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RefreshLivingRoomListJob.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RefreshLiveStreamRoomListScheduler.class);
 
     @Resource
-    private ILivingRoomService livingRoomService;
+    private ILiveStreamRoomService livingRoomService;
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
     @Resource
@@ -52,8 +52,8 @@ public class RefreshLivingRoomListJob implements InitializingBean {
             boolean lockStatus = redisTemplate.opsForValue().setIfAbsent(cacheKey, 1, 1, TimeUnit.SECONDS);
             if (lockStatus) {
                 LOGGER.debug("[RefreshLivingRoomListJob] starting load db record of live stream rooms to redis");
-                refreshDBToRedis(LivingRoomTypeEnum.DEFAULT_LIVING_ROOM.getCode());
-                refreshDBToRedis(LivingRoomTypeEnum.PK_LIVING_ROOM.getCode());
+                refreshDBToRedis(LiveStreamRoomTypeEnum.DEFAULT_LIVE_STREAM_ROOM.getCode());
+                refreshDBToRedis(LiveStreamRoomTypeEnum.PK_LIVE_STREAM_ROOM.getCode());
                 LOGGER.debug("[RefreshLivingRoomListJob] end load db record of live stream rooms to redis");
             }
         }
@@ -62,7 +62,7 @@ public class RefreshLivingRoomListJob implements InitializingBean {
     private void refreshDBToRedis(Integer type) {
         String cacheKey = cacheKeyBuilder.buildLiveStreamRoomList(type);
         //query all room every 1s
-        List<LivingRoomRespDTO> resultList = livingRoomService.listAllLivingRoomFromDB(type);
+        List<LiveStreamRoomRespDTO> resultList = livingRoomService.listAllLiveStreamRoomsFromDB(type);
         if(CollectionUtils.isEmpty(resultList)) {
             redisTemplate.delete(cacheKey);
             return;
@@ -72,7 +72,7 @@ public class RefreshLivingRoomListJob implements InitializingBean {
         // By this way, we avoid huge amount of key expired at same time.
         String tempListName = cacheKey + "_temp";
         //Based on order of query result, add to Redis.
-        for (LivingRoomRespDTO livingRoomRespDTO : resultList) {
+        for (LiveStreamRoomRespDTO livingRoomRespDTO : resultList) {
             redisTemplate.opsForList().rightPush(tempListName, livingRoomRespDTO);
         }
         //rename the key

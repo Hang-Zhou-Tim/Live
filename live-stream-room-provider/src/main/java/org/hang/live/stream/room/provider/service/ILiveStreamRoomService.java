@@ -3,9 +3,9 @@ package org.hang.live.stream.room.provider.service;
 import org.hang.live.common.interfaces.dto.PageWrapper;
 import org.hang.live.im.core.server.interfaces.dto.ImOfflineDTO;
 import org.hang.live.im.core.server.interfaces.dto.ImOnlineDTO;
-import org.hang.live.stream.room.interfaces.dto.LivingPkRespDTO;
-import org.hang.live.stream.room.interfaces.dto.LivingRoomReqDTO;
-import org.hang.live.stream.room.interfaces.dto.LivingRoomRespDTO;
+import org.hang.live.stream.room.interfaces.dto.LivePkStreamRoomRespDTO;
+import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomReqDTO;
+import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomRespDTO;
 
 import java.util.List;
 
@@ -14,29 +14,29 @@ import java.util.List;
  * @Date: Created in 21:24 2024/8/10
  * @Description
  */
-public interface ILivingRoomService {
+public interface ILiveStreamRoomService {
 
     /**
      * Based on room Id to query all connected users‘ id.
      *
-     * @param livingRoomReqDTO
+     * @param liveStreamRoomReqDTO
      * @return
      */
-    List<Long> queryUserIdByRoomId(LivingRoomReqDTO livingRoomReqDTO);
+    List<Long> queryUserIdByRoomId(LiveStreamRoomReqDTO liveStreamRoomReqDTO);
 
     /**
      * User offline handler.
      *
      * @param imOfflineDTO
      */
-    void userOfflineHandler(ImOfflineDTO imOfflineDTO);
+    void handleUserOfflineConnection(ImOfflineDTO imOfflineDTO);
 
     /**
      * User online handler.
      *
      * @param imOnlineDTO
      */
-    void userOnlineHandler(ImOnlineDTO imOnlineDTO);
+    void handleUserOnlineConnection(ImOnlineDTO imOnlineDTO);
 
      /**
      * List of live stream room type.
@@ -44,15 +44,15 @@ public interface ILivingRoomService {
      * @param type
      * @return
      */
-    List<LivingRoomRespDTO> listAllLivingRoomFromDB(Integer type);
+    List<LiveStreamRoomRespDTO> listAllLiveStreamRoomsFromDB(Integer type);
 
     /**
      * list pages of all users.
      *
-     * @param livingRoomReqDTO
+     * @param liveStreamRoomReqDTO
      * @return
      */
-    PageWrapper<LivingRoomRespDTO> list(LivingRoomReqDTO livingRoomReqDTO);
+    PageWrapper<LiveStreamRoomRespDTO> list(LiveStreamRoomReqDTO liveStreamRoomReqDTO);
 
     /**
      * based on roomId to query the room details/
@@ -60,15 +60,15 @@ public interface ILivingRoomService {
      * @param roomId
      * @return
      */
-    LivingRoomRespDTO queryByRoomId(Integer roomId);
+    LiveStreamRoomRespDTO queryByRoomId(Integer roomId);
 
     /**
      * start live room
      *
-     * @param livingRoomReqDTO
+     * @param liveStreamRoomReqDTO
      * @return
      */
-    Integer startLivingRoom(LivingRoomReqDTO livingRoomReqDTO);
+    Integer startLiveStreamRoom(LiveStreamRoomReqDTO liveStreamRoomReqDTO);
 
 
     /**
@@ -85,16 +85,16 @@ public interface ILivingRoomService {
      * @param livingRoomReqDTO
      * @return
      */
-    LivingPkRespDTO onlinePk(LivingRoomReqDTO livingRoomReqDTO);
+    LivePkStreamRoomRespDTO joinOnlinePK(LiveStreamRoomReqDTO livingRoomReqDTO);
 
 
     /**
      *  Deal with online pk disconnection request
      *
-     * @param livingRoomReqDTO
+     * @param liveStreamRoomReqDTO
      * @return
      */
-    boolean offlinePk(LivingRoomReqDTO livingRoomReqDTO);
+    boolean leaveOnlinePK(LiveStreamRoomReqDTO liveStreamRoomReqDTO);
 
-    LivingRoomRespDTO queryByAnchorId(Long userId);
+    LiveStreamRoomRespDTO queryByAnchorId(Long userId);
 }

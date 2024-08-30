@@ -51,6 +51,7 @@
             <artifactId>live-stream-room-interface</artifactId>
             <version>${live-stream-room-interface.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.hang</groupId>
             <artifactId>live-common-mq-configuration</artifactId>

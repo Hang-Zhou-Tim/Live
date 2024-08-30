@@ -20,10 +20,9 @@ import org.springframework.stereotype.Component;
  * @Description
  */
 @Component
-public class BizImMsgHandler implements SimplyHandler {
+public class BusinessImMessageHandler implements SimplyHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(BizImMsgHandler.class);
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(BusinessImMessageHandler.class);
     @Resource
     private MQProducer mqProducer;
 
@@ -49,7 +48,7 @@ public class BizImMsgHandler implements SimplyHandler {
         message.setBody(body);
         try {
             SendResult sendResult = mqProducer.send(message);
-            LOGGER.info("[BizImMsgHandler]Message Sending Results:{}", sendResult);
+            LOGGER.info("[BusinessImMessageHandler]Message Sending Results:{}", sendResult);
         } catch (Exception e) {
             LOGGER.error("Sending Error! Error is :", e);
             throw new RuntimeException(e);

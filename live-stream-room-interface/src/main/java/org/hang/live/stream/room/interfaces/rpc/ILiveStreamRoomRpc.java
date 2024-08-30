@@ -2,9 +2,9 @@ package org.hang.live.stream.room.interfaces.rpc;
 
 
 import org.hang.live.common.interfaces.dto.PageWrapper;
-import org.hang.live.stream.room.interfaces.dto.LivingPkRespDTO;
-import org.hang.live.stream.room.interfaces.dto.LivingRoomReqDTO;
-import org.hang.live.stream.room.interfaces.dto.LivingRoomRespDTO;
+import org.hang.live.stream.room.interfaces.dto.LivePkStreamRoomRespDTO;
+import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomReqDTO;
+import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomRespDTO;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @Date: Created in 21:20 2024/8/14
  * @Description
  */
-public interface ILivingRoomRpc {
+public interface ILiveStreamRoomRpc {
 
 
     /**
@@ -22,7 +22,7 @@ public interface ILivingRoomRpc {
      * @param livingRoomReqDTO
      * @return
      */
-    List<Long> queryUserIdByRoomId(LivingRoomReqDTO livingRoomReqDTO);
+    List<Long> queryUserIdByRoomId(LiveStreamRoomReqDTO livingRoomReqDTO);
 
     /**
      * Query all rooms id
@@ -30,15 +30,15 @@ public interface ILivingRoomRpc {
      * @param livingRoomReqDTO
      * @return
      */
-    PageWrapper<LivingRoomRespDTO> list(LivingRoomReqDTO livingRoomReqDTO);
+    PageWrapper<LiveStreamRoomRespDTO> list(LiveStreamRoomReqDTO livingRoomReqDTO);
 
     /**
-     * Check if a user starts live streaming.
+     * Check if a user starts live stream room.
      *
      * @param roomId
      * @return
      */
-    LivingRoomRespDTO queryByRoomId(Integer roomId);
+    LiveStreamRoomRespDTO queryByRoomId(Integer roomId);
 
     /**
      * Starts live stream rooms.
@@ -46,7 +46,7 @@ public interface ILivingRoomRpc {
      * @param livingRoomReqDTO
      * @return
      */
-    Integer startLivingRoom(LivingRoomReqDTO livingRoomReqDTO);
+    Integer startLiveStreamRoom(LiveStreamRoomReqDTO livingRoomReqDTO);
 
     /**
      * Close live stream rooms.
@@ -54,9 +54,9 @@ public interface ILivingRoomRpc {
      * @param livingRoomReqDTO
      * @return
      */
-    boolean closeLiving(LivingRoomReqDTO livingRoomReqDTO);
+    boolean closeLiveStreamRoom(LiveStreamRoomReqDTO livingRoomReqDTO);
 
-    LivingPkRespDTO onlinePk(LivingRoomReqDTO livingRoomReqDTO);
+    LivePkStreamRoomRespDTO joinOnlinePK(LiveStreamRoomReqDTO livingRoomReqDTO);
 
     /**
      * Check who is involved in pk
@@ -72,7 +72,7 @@ public interface ILivingRoomRpc {
      * @param livingRoomReqDTO
      * @return
      */
-    boolean offlinePk(LivingRoomReqDTO livingRoomReqDTO);
+    boolean leaveOnlinePK(LiveStreamRoomReqDTO livingRoomReqDTO);
 
-    LivingRoomRespDTO queryByAnchorId(Long userId);
+    LiveStreamRoomRespDTO queryByAnchorId(Long userId);
 }

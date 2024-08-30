@@ -27,9 +27,9 @@ import java.util.concurrent.TimeUnit;
  * @Description
  */
 @Component
-public class HeartBeatImMsgHandler implements SimplyHandler {
+public class HeartBeatImMessageHandler implements SimplyHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HeartBeatImMsgHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HeartBeatImMessageHandler.class);
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;

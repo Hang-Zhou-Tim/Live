@@ -35,9 +35,9 @@ import java.util.concurrent.TimeUnit;
  * @Description
  */
 @Component
-public class LoginMsgHandler implements SimplyHandler {
+public class LoginMessageHandler implements SimplyHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoginMsgHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginMessageHandler.class);
 
     @Resource
     private ImTokenService imTokenService;

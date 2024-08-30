@@ -2,7 +2,7 @@ package org.hang.live.stream.room.provider.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.hang.live.stream.room.provider.dao.po.LivingRoomRecordPO;
+import org.hang.live.stream.room.provider.dao.po.LiveStreamRoomRecordPO;
 
 /**
  * @Author hang
@@ -10,5 +10,5 @@ import org.hang.live.stream.room.provider.dao.po.LivingRoomRecordPO;
  * @Description
  */
 @Mapper
-public interface LivingRoomRecordMapper extends BaseMapper<LivingRoomRecordPO> {
+public interface LiveStreamRoomRecordMapper extends BaseMapper<LiveStreamRoomRecordPO> {
 }

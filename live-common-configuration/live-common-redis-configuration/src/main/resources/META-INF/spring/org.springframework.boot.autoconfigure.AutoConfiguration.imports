@@ -3,3 +3,5 @@ org.hang.live.common.redis.configuration.key.UserProviderCacheKeyBuilder
 org.hang.live.common.redis.configuration.key.ImMessageProviderCacheKeyBuilder
 org.hang.live.common.redis.configuration.key.ImCoreServerProviderCacheKeyBuilder
 org.hang.live.common.redis.configuration.key.StreamRoomProviderCacheKeyBuilder
+org.hang.live.common.redis.configuration.key.GiftProviderCacheKeyBuilder
+org.hang.live.common.redis.configuration.key.BankProviderCacheKeyBuilder

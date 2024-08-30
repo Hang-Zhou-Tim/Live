@@ -18,7 +18,7 @@ public interface IRouterHandlerService {
 
 
     /**
-     * 发送消息给客户端
+     * Send message back to client
      *
      * @param imMsgBody
      */

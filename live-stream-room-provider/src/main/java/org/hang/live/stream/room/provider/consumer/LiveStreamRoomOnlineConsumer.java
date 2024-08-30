@@ -7,10 +7,10 @@ import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
-import org.hang.live.stream.room.provider.service.ILivingRoomService;
+import org.hang.live.stream.room.provider.service.ILiveStreamRoomService;
 import org.hang.live.common.interfaces.topic.ImCoreServerProviderTopicNames;
 import org.hang.live.common.mq.configuration.properties.RocketMQConsumerProperties;
-import org.hang.live.im.core.server.interfaces.dto.ImOfflineDTO;
+import org.hang.live.im.core.server.interfaces.dto.ImOnlineDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -18,33 +18,31 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * @Author idea
- * @Date: Created in 15:04 2023/7/11
+ * @Author hang
+ * @Date: Created in 15:04 2024/8/14
  * @Description
  */
 @Component
-public class LivingRoomOfflineConsumer implements InitializingBean {
+public class LiveStreamRoomOnlineConsumer implements InitializingBean {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LivingRoomOfflineConsumer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LiveStreamRoomOnlineConsumer.class);
     @Resource
     private RocketMQConsumerProperties rocketMQConsumerProperties;
     @Resource
-    private ILivingRoomService livingRoomService;
+    private ILiveStreamRoomService liveStreamRoomService;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         DefaultMQPushConsumer mqPushConsumer = new DefaultMQPushConsumer();
         mqPushConsumer.setVipChannelEnabled(false);
         mqPushConsumer.setNamesrvAddr(rocketMQConsumerProperties.getNameSrv());
-        mqPushConsumer.setConsumerGroup(rocketMQConsumerProperties.getGroupName() + "_" + LivingRoomOfflineConsumer.class.getSimpleName());
-        //consume at most 10 message at once.
+        mqPushConsumer.setConsumerGroup(rocketMQConsumerProperties.getGroupName() + "_" + LiveStreamRoomOnlineConsumer.class.getSimpleName());
         mqPushConsumer.setConsumeMessageBatchMaxSize(10);
         mqPushConsumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_LAST_OFFSET);
-        //Listen room offline topics sent by core server.
-        mqPushConsumer.subscribe(ImCoreServerProviderTopicNames.IM_OFFLINE_TOPIC, "");
+        mqPushConsumer.subscribe(ImCoreServerProviderTopicNames.IM_ONLINE_TOPIC, "");
         mqPushConsumer.setMessageListener((MessageListenerConcurrently) (msgs, context) -> {
             for (MessageExt msg : msgs) {
-                livingRoomService.userOfflineHandler(JSON.parseObject(new String(msg.getBody()), ImOfflineDTO.class));
+                liveStreamRoomService.handleUserOnlineConnection(JSON.parseObject(new String(msg.getBody()),ImOnlineDTO.class));
             }
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
         });

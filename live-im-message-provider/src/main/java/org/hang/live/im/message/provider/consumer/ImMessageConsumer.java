@@ -23,9 +23,9 @@ import org.springframework.stereotype.Component;
  * @Description
  */
 @Component
-public class ImMsgConsumer implements InitializingBean {
+public class ImMessageConsumer implements InitializingBean {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ImMsgConsumer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ImMessageConsumer.class);
     @Resource
     private RocketMQConsumerProperties rocketMQConsumerProperties;
     @Resource
@@ -37,7 +37,7 @@ public class ImMsgConsumer implements InitializingBean {
         DefaultMQPushConsumer mqPushConsumer = new DefaultMQPushConsumer();
         mqPushConsumer.setVipChannelEnabled(false);
         mqPushConsumer.setNamesrvAddr(rocketMQConsumerProperties.getNameSrv());
-        mqPushConsumer.setConsumerGroup(rocketMQConsumerProperties.getGroupName() + "_" + ImMsgConsumer.class.getSimpleName());
+        mqPushConsumer.setConsumerGroup(rocketMQConsumerProperties.getGroupName() + "_" + ImMessageConsumer.class.getSimpleName());
         mqPushConsumer.setConsumeMessageBatchMaxSize(10);
         mqPushConsumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
         mqPushConsumer.subscribe(ImCoreServerProviderTopicNames.LIVE_IM_BIZ_MSG_TOPIC, "");

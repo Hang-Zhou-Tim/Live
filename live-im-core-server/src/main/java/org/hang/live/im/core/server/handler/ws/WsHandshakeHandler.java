@@ -11,7 +11,7 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
 import jakarta.annotation.Resource;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.hang.live.im.core.server.handler.impl.LoginMsgHandler;
+import org.hang.live.im.core.server.handler.impl.LoginMessageHandler;
 import org.hang.live.im.core.server.interfaces.rpc.ImTokenRpc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,7 @@ public class WsHandshakeHandler extends ChannelInboundHandlerAdapter {
     @DubboReference
     private ImTokenRpc imTokenRpc;
     @Resource
-    private LoginMsgHandler loginMsgHandler;
+    private LoginMessageHandler loginMsgHandler;
 
     private WebSocketServerHandshaker webSocketServerHandshaker;
     private static Logger logger = LoggerFactory.getLogger(WsHandshakeHandler.class);

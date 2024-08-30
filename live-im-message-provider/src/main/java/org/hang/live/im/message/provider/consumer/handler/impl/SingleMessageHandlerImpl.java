@@ -7,8 +7,8 @@ import org.hang.live.im.core.server.interfaces.dto.ImMsgBody;
 import org.hang.live.im.message.provider.consumer.handler.MessageHandler;
 import org.hang.live.im.server.router.interfaces.constants.ImMsgBizCodeEnum;
 import org.hang.live.im.server.router.interfaces.rpc.ImRouterRpc;
-import org.hang.live.stream.room.interfaces.dto.LivingRoomReqDTO;
-import org.hang.live.stream.room.interfaces.rpc.ILivingRoomRpc;
+import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomReqDTO;
+import org.hang.live.stream.room.interfaces.rpc.ILiveStreamRoomRpc;
 import org.hang.live.im.message.dto.MessageDTO;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -28,7 +28,7 @@ public class SingleMessageHandlerImpl implements MessageHandler {
     @DubboReference
     private ImRouterRpc routerRpc;
     @DubboReference
-    private ILivingRoomRpc livingRoomRpc;
+    private ILiveStreamRoomRpc liveStreamRoomRpc;
 
     // Broadcaster Batched Message for the Room
     @Override
@@ -39,11 +39,11 @@ public class SingleMessageHandlerImpl implements MessageHandler {
 
             MessageDTO messageDTO = JSON.parseObject(imMsgBody.getData(), MessageDTO.class);
             Integer roomId = messageDTO.getRoomId();
-            LivingRoomReqDTO reqDTO = new LivingRoomReqDTO();
+            LiveStreamRoomReqDTO reqDTO = new LiveStreamRoomReqDTO();
             reqDTO.setRoomId(roomId);
             reqDTO.setAppId(imMsgBody.getAppId());
             //Exclude the sender
-            List<Long> userIdList = livingRoomRpc.queryUserIdByRoomId(reqDTO).stream().filter(x->!x.equals(imMsgBody.getUserId())).collect(Collectors.toList());
+            List<Long> userIdList = liveStreamRoomRpc.queryUserIdByRoomId(reqDTO).stream().filter(x->!x.equals(imMsgBody.getUserId())).collect(Collectors.toList());
             if(CollectionUtils.isEmpty(userIdList)) {
                 return;
             }

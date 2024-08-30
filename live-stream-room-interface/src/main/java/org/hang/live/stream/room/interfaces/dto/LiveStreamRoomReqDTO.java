@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @Date: Created in 15:49 2024/8/14
  * @Description
  */
-public class LivingRoomReqDTO implements Serializable {
+public class LiveStreamRoomReqDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -4370401310595190339L;

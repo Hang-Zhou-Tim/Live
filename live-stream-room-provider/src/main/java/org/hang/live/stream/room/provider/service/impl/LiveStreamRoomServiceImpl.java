@@ -18,15 +18,15 @@ import org.hang.live.im.core.server.interfaces.dto.ImOnlineDTO;
 import org.hang.live.im.core.server.interfaces.dto.ImMsgBody;
 import org.hang.live.im.server.router.interfaces.constants.ImMsgBizCodeEnum;
 import org.hang.live.im.server.router.interfaces.rpc.ImRouterRpc;
-import org.hang.live.stream.room.interfaces.constants.LivingRoomTypeEnum;
-import org.hang.live.stream.room.interfaces.dto.LivingPkRespDTO;
-import org.hang.live.stream.room.interfaces.dto.LivingRoomReqDTO;
-import org.hang.live.stream.room.interfaces.dto.LivingRoomRespDTO;
-import org.hang.live.stream.room.provider.dao.mapper.LivingRoomMapper;
-import org.hang.live.stream.room.provider.dao.mapper.LivingRoomRecordMapper;
-import org.hang.live.stream.room.provider.dao.po.LivingRoomPO;
-import org.hang.live.stream.room.provider.service.ILivingRoomService;
-import org.hang.live.stream.room.provider.service.ILivingRoomTxService;
+import org.hang.live.stream.room.interfaces.constants.LiveStreamRoomTypeEnum;
+import org.hang.live.stream.room.interfaces.dto.LivePkStreamRoomRespDTO;
+import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomReqDTO;
+import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomRespDTO;
+import org.hang.live.stream.room.provider.dao.mapper.LiveStreamRoomMapper;
+import org.hang.live.stream.room.provider.dao.mapper.LiveStreamRoomRecordMapper;
+import org.hang.live.stream.room.provider.dao.po.LiveStreamRoomPO;
+import org.hang.live.stream.room.provider.service.ILiveStreamRoomService;
+import org.hang.live.stream.room.provider.service.ILiveStreamRoomCloseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.Cursor;
@@ -45,30 +45,30 @@ import java.util.stream.Collectors;
  * @Description
  */
 @Service
-public class LivingRoomServiceImpl implements ILivingRoomService {
+public class LiveStreamRoomServiceImpl implements ILiveStreamRoomService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LivingRoomServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LiveStreamRoomServiceImpl.class);
 
     @Resource
-    private LivingRoomMapper livingRoomMapper;
+    private LiveStreamRoomMapper liveStreamRoomMapper;
     @Resource
     private MQProducer mqProducer;
     @Resource
-    private LivingRoomRecordMapper livingRoomRecordMapper;
+    private LiveStreamRoomRecordMapper liveStreamRoomRecordMapper;
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
     @Resource
     private StreamRoomProviderCacheKeyBuilder cacheKeyBuilder;
     @Resource
-    private ILivingRoomTxService livingRoomTxService;
+    private ILiveStreamRoomCloseService livingRoomTxService;
     @DubboReference
     private ImRouterRpc imRouterRpc;
 
     //Get all online users connected in a room
     @Override
-    public List<Long> queryUserIdByRoomId(LivingRoomReqDTO livingRoomReqDTO) {
-        Integer roomId = livingRoomReqDTO.getRoomId();
-        Integer appId = livingRoomReqDTO.getAppId();
+    public List<Long> queryUserIdByRoomId(LiveStreamRoomReqDTO liveStreamRoomReqDTO) {
+        Integer roomId = liveStreamRoomReqDTO.getRoomId();
+        Integer appId = liveStreamRoomReqDTO.getAppId();
         String cacheKey = cacheKeyBuilder.buildLiveStreamRoomUserSet(roomId, appId);
         //Here we get 100 ids each, 0-99,100-199,200-299
         //Due to distributed situation, it should not scan all message at once to avoid Redis performance degrade.
@@ -82,7 +82,7 @@ public class LivingRoomServiceImpl implements ILivingRoomService {
     }
 
     @Override
-    public void userOfflineHandler(ImOfflineDTO imOfflineDTO) {
+    public void handleUserOfflineConnection(ImOfflineDTO imOfflineDTO) {
         LOGGER.info("offline handler,imOfflineDTO is {}", imOfflineDTO);
         Long userId = imOfflineDTO.getUserId();
         Integer roomId = imOfflineDTO.getRoomId();
@@ -90,17 +90,17 @@ public class LivingRoomServiceImpl implements ILivingRoomService {
         String cacheKey = cacheKeyBuilder.buildLiveStreamRoomUserSet(roomId, appId);
         redisTemplate.opsForSet().remove(cacheKey, userId);
         //When user get offline
-        LivingRoomReqDTO roomReqDTO = new LivingRoomReqDTO();
+        LiveStreamRoomReqDTO roomReqDTO = new LiveStreamRoomReqDTO();
         roomReqDTO.setRoomId(imOfflineDTO.getRoomId());
         roomReqDTO.setPkObjId(imOfflineDTO.getUserId());
         roomReqDTO.setAnchorId(imOfflineDTO.getUserId());
-        this.offlinePk(roomReqDTO);
+        this.leaveOnlinePK(roomReqDTO);
         //When broadcaster logout im server, close the live stream room as well.
-        livingRoomTxService.closeLiving(roomReqDTO);
+        livingRoomTxService.closeLiveStreamRoom(roomReqDTO);
     }
 
     @Override
-    public void userOnlineHandler(ImOnlineDTO imOnlineDTO) {
+    public void handleUserOnlineConnection(ImOnlineDTO imOnlineDTO) {
         LOGGER.info("online handler,imOnlineDTO is {}", imOnlineDTO);
         Long userId = imOnlineDTO.getUserId();
         Integer roomId = imOnlineDTO.getRoomId();
@@ -112,43 +112,43 @@ public class LivingRoomServiceImpl implements ILivingRoomService {
     }
 
     @Override
-    public List<LivingRoomRespDTO> listAllLivingRoomFromDB(Integer type) {
+    public List<LiveStreamRoomRespDTO> listAllLiveStreamRoomsFromDB(Integer type) {
         //Get at most 1000 rooms in the front page.
-        LambdaQueryWrapper<LivingRoomPO> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(LivingRoomPO::getStatus, CommonStatusEnum.VALID_STATUS.getCode());
-        queryWrapper.eq(LivingRoomPO::getType, type);
+        LambdaQueryWrapper<LiveStreamRoomPO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(LiveStreamRoomPO::getStatus, CommonStatusEnum.VALID_STATUS.getCode());
+        queryWrapper.eq(LiveStreamRoomPO::getType, type);
         //based on id desc order.
-        queryWrapper.orderByDesc(LivingRoomPO::getId);
+        queryWrapper.orderByDesc(LiveStreamRoomPO::getId);
         queryWrapper.last("limit 1000");
-        return ConvertBeanUtils.convertList(livingRoomMapper.selectList(queryWrapper), LivingRoomRespDTO.class);
+        return ConvertBeanUtils.convertList(liveStreamRoomMapper.selectList(queryWrapper), LiveStreamRoomRespDTO.class);
     }
 
     @Override
-    public PageWrapper<LivingRoomRespDTO> list(LivingRoomReqDTO livingRoomReqDTO) {
+    public PageWrapper<LiveStreamRoomRespDTO> list(LiveStreamRoomReqDTO liveStreamRoomReqDTO) {
         //Get a page of rooms (20 to 30) in the front page.
         //The room is already cached and update every 1 second. So we can directly check Redis.
-        String cacheKey = cacheKeyBuilder.buildLiveStreamRoomList(livingRoomReqDTO.getType());
-        int page = livingRoomReqDTO.getPage();
-        int pageSize = livingRoomReqDTO.getPageSize();
+        String cacheKey = cacheKeyBuilder.buildLiveStreamRoomList(liveStreamRoomReqDTO.getType());
+        int page = liveStreamRoomReqDTO.getPage();
+        int pageSize = liveStreamRoomReqDTO.getPageSize();
         long total = redisTemplate.opsForList().size(cacheKey);
         List<Object> resultList = redisTemplate.opsForList().range(cacheKey, (page - 1) * pageSize, (page * pageSize));
-        PageWrapper<LivingRoomRespDTO> pageWrapper = new PageWrapper<>();
+        PageWrapper<LiveStreamRoomRespDTO> pageWrapper = new PageWrapper<>();
         if (CollectionUtils.isEmpty(resultList)) {
             pageWrapper.setList(Collections.emptyList());
             pageWrapper.setHasNext(false);
             return pageWrapper;
         } else {
-            List<LivingRoomRespDTO> livingRoomRespDTOS = ConvertBeanUtils.convertList(resultList, LivingRoomRespDTO.class);
-            pageWrapper.setList(livingRoomRespDTOS);
+            List<LiveStreamRoomRespDTO> LiveStreamRoomRespDTOS = ConvertBeanUtils.convertList(resultList, LiveStreamRoomRespDTO.class);
+            pageWrapper.setList(LiveStreamRoomRespDTOS);
             pageWrapper.setHasNext(page * pageSize < total);
             return pageWrapper;
         }
     }
 
     @Override
-    public LivingRoomRespDTO queryByRoomId(Integer roomId) {
+    public LiveStreamRoomRespDTO queryByRoomId(Integer roomId) {
         String cacheKey = cacheKeyBuilder.buildLiveStreamRoomObj(roomId);
-        LivingRoomRespDTO queryResult = (LivingRoomRespDTO) redisTemplate.opsForValue().get(cacheKey);
+        LiveStreamRoomRespDTO queryResult = (LiveStreamRoomRespDTO) redisTemplate.opsForValue().get(cacheKey);
         if (queryResult != null) {
             //Empty value cached.
             if (queryResult.getId() == null) {
@@ -156,17 +156,17 @@ public class LivingRoomServiceImpl implements ILivingRoomService {
             }
             return queryResult;
         }
-        LambdaQueryWrapper<LivingRoomPO> queryWrapper = new LambdaQueryWrapper();
-        queryWrapper.eq(LivingRoomPO::getId, roomId);
-        queryWrapper.eq(LivingRoomPO::getStatus, CommonStatusEnum.VALID_STATUS.getCode());
+        LambdaQueryWrapper<LiveStreamRoomPO> queryWrapper = new LambdaQueryWrapper();
+        queryWrapper.eq(LiveStreamRoomPO::getId, roomId);
+        queryWrapper.eq(LiveStreamRoomPO::getStatus, CommonStatusEnum.VALID_STATUS.getCode());
         queryWrapper.last("limit 1");
-        queryResult = ConvertBeanUtils.convert(livingRoomMapper.selectOne(queryWrapper), LivingRoomRespDTO.class);
+        queryResult = ConvertBeanUtils.convert(liveStreamRoomMapper.selectOne(queryWrapper), LiveStreamRoomRespDTO.class);
         if (queryResult == null) {
             //Empty value cached.
-            redisTemplate.opsForValue().set(cacheKey, new LivingRoomRespDTO(), 1, TimeUnit.MINUTES);
+            redisTemplate.opsForValue().set(cacheKey, new LiveStreamRoomRespDTO(), 1, TimeUnit.MINUTES);
             return null;
         }
-        if (LivingRoomTypeEnum.PK_LIVING_ROOM.getCode().equals(queryResult.getType())) {
+        if (LiveStreamRoomTypeEnum.PK_LIVE_STREAM_ROOM.getCode().equals(queryResult.getType())) {
             queryResult.setPkObjId(this.queryOnlinePkUserId(roomId));
         }
         redisTemplate.opsForValue().set(cacheKey, queryResult, 30, TimeUnit.MINUTES);
@@ -174,25 +174,25 @@ public class LivingRoomServiceImpl implements ILivingRoomService {
     }
 
     @Override
-    public Integer startLivingRoom(LivingRoomReqDTO livingRoomReqDTO) {
-        LivingRoomPO livingRoomPO = ConvertBeanUtils.convert(livingRoomReqDTO, LivingRoomPO.class);
-        livingRoomPO.setStatus(CommonStatusEnum.VALID_STATUS.getCode());
-        livingRoomPO.setStartTime(new Date());
-        livingRoomMapper.insert(livingRoomPO);
-        String cacheKey = cacheKeyBuilder.buildLiveStreamRoomObj(livingRoomPO.getId());
+    public Integer startLiveStreamRoom(LiveStreamRoomReqDTO liveStreamRoomReqDTO) {
+        LiveStreamRoomPO LiveStreamRoomPO = ConvertBeanUtils.convert(liveStreamRoomReqDTO, LiveStreamRoomPO.class);
+        LiveStreamRoomPO.setStatus(CommonStatusEnum.VALID_STATUS.getCode());
+        LiveStreamRoomPO.setStartTime(new Date());
+        liveStreamRoomMapper.insert(LiveStreamRoomPO);
+        String cacheKey = cacheKeyBuilder.buildLiveStreamRoomObj(LiveStreamRoomPO.getId());
         //When the room is started
         redisTemplate.delete(cacheKey);
 
         Message message = new Message();
-        message.setTopic(GiftProviderTopicNames.START_LIVING_ROOM);
-        message.setBody(String.valueOf(livingRoomReqDTO.getAnchorId()).getBytes());
+        message.setTopic(GiftProviderTopicNames.PREPARE_STOCK);
+        message.setBody(String.valueOf(liveStreamRoomReqDTO.getAnchorId()).getBytes());
         SendResult sendResult = null;
         try {
             sendResult = mqProducer.send(message);
             LOGGER.info("[StartLiveStreamRoom] send message to anchor to prepare stock is {}", sendResult);
         } catch (Exception e) {}
 
-        return livingRoomPO.getId();
+        return LiveStreamRoomPO.getId();
     }
 
 
@@ -204,20 +204,20 @@ public class LivingRoomServiceImpl implements ILivingRoomService {
     }
 
     @Override
-    public LivingPkRespDTO onlinePk(LivingRoomReqDTO livingRoomReqDTO) {
-        LivingRoomRespDTO currentLivingRoom = this.queryByRoomId(livingRoomReqDTO.getRoomId());
-        LivingPkRespDTO respDTO = new LivingPkRespDTO();
+    public LivePkStreamRoomRespDTO joinOnlinePK(LiveStreamRoomReqDTO liveStreamRoomReqDTO) {
+        LiveStreamRoomRespDTO currentLivingRoom = this.queryByRoomId(liveStreamRoomReqDTO.getRoomId());
+        LivePkStreamRoomRespDTO respDTO = new LivePkStreamRoomRespDTO();
         respDTO.setOnlineStatus(false);
-        if (currentLivingRoom.getAnchorId().equals(livingRoomReqDTO.getPkObjId())) {
+        if (currentLivingRoom.getAnchorId().equals(liveStreamRoomReqDTO.getPkObjId())) {
             respDTO.setMsg("You are the anchor of this room, so yourself cannot enter PK.");
             return respDTO;
         }
-        String cacheKey = cacheKeyBuilder.buildLiveStreamRoomOnlinePk(livingRoomReqDTO.getRoomId());
-        boolean tryOnline = redisTemplate.opsForValue().setIfAbsent(cacheKey, livingRoomReqDTO.getPkObjId(), 30, TimeUnit.HOURS);
+        String cacheKey = cacheKeyBuilder.buildLiveStreamRoomOnlinePk(liveStreamRoomReqDTO.getRoomId());
+        boolean tryOnline = redisTemplate.opsForValue().setIfAbsent(cacheKey, liveStreamRoomReqDTO.getPkObjId(), 30, TimeUnit.HOURS);
         if (tryOnline) {
-            List<Long> userIdList = this.queryUserIdByRoomId(livingRoomReqDTO);
+            List<Long> userIdList = this.queryUserIdByRoomId(liveStreamRoomReqDTO);
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("pkObjId", livingRoomReqDTO.getPkObjId());
+            jsonObject.put("pkObjId", liveStreamRoomReqDTO.getPkObjId());
             jsonObject.put("pkObjAvatar", "https://picdm.sunbangyan.cn/2023/08/29/w2qq1k.jpeg");
             batchSendImMsg(userIdList, ImMsgBizCodeEnum.LIVING_ROOM_PK_ONLINE.getCode(), jsonObject);
             respDTO.setMsg("pk connection success");
@@ -229,11 +229,11 @@ public class LivingRoomServiceImpl implements ILivingRoomService {
     }
 
     @Override
-    public boolean offlinePk(LivingRoomReqDTO livingRoomReqDTO) {
-        Integer roomId = livingRoomReqDTO.getRoomId();
+    public boolean leaveOnlinePK(LiveStreamRoomReqDTO liveStreamRoomReqDTO) {
+        Integer roomId = liveStreamRoomReqDTO.getRoomId();
         Long pkUserId = this.queryOnlinePkUserId(roomId);
         // delete if the one who is offline is user joined in PK.
-        if (!livingRoomReqDTO.getPkObjId().equals(pkUserId)) {
+        if (!liveStreamRoomReqDTO.getPkObjId().equals(pkUserId)) {
             System.out.println("Delete Failed");
             return false;
         }
@@ -258,12 +258,12 @@ public class LivingRoomServiceImpl implements ILivingRoomService {
     }
 
     @Override
-    public LivingRoomRespDTO queryByAnchorId(Long anchorId){
-        LambdaQueryWrapper<LivingRoomPO> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(LivingRoomPO::getAnchorId, anchorId);
-        queryWrapper.eq(LivingRoomPO::getStatus, CommonStatusEnum.VALID_STATUS.getCode());
+    public LiveStreamRoomRespDTO queryByAnchorId(Long anchorId){
+        LambdaQueryWrapper<LiveStreamRoomPO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(LiveStreamRoomPO::getAnchorId, anchorId);
+        queryWrapper.eq(LiveStreamRoomPO::getStatus, CommonStatusEnum.VALID_STATUS.getCode());
         queryWrapper.last("limit 1");
-        return ConvertBeanUtils.convert(livingRoomMapper.selectOne(queryWrapper), LivingRoomRespDTO.class);
+        return ConvertBeanUtils.convert(liveStreamRoomMapper.selectOne(queryWrapper), LiveStreamRoomRespDTO.class);
     }
 
 }

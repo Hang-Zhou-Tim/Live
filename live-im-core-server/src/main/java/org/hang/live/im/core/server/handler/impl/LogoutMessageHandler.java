@@ -28,9 +28,9 @@ import org.springframework.stereotype.Component;
  * @Description
  */
 @Component
-public class LogoutMsgHandler implements SimplyHandler {
+public class LogoutMessageHandler implements SimplyHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LogoutMsgHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogoutMessageHandler.class);
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;

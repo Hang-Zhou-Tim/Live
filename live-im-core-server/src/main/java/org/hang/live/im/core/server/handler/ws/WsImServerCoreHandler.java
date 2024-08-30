@@ -11,7 +11,7 @@ import jakarta.annotation.Resource;
 import org.hang.live.im.core.server.common.ImContextUtils;
 import org.hang.live.im.core.server.common.ImMsg;
 import org.hang.live.im.core.server.handler.ImHandlerFactory;
-import org.hang.live.im.core.server.handler.impl.LogoutMsgHandler;
+import org.hang.live.im.core.server.handler.impl.LogoutMessageHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -35,7 +35,7 @@ public class WsImServerCoreHandler extends SimpleChannelInboundHandler {
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
     @Resource
-    private LogoutMsgHandler logoutMsgHandler;
+    private LogoutMessageHandler logoutMsgHandler;
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
