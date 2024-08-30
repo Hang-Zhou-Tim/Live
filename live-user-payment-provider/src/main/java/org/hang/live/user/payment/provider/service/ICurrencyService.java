@@ -1,6 +1,6 @@
 package org.hang.live.user.payment.provider.service;
 
-import org.hang.live.user.payment.dto.PayProductDTO;
+import org.hang.live.user.payment.dto.CurrencyDTO;
 
 import java.util.List;
 
@@ -9,20 +9,20 @@ import java.util.List;
  * @Date: Created in 22:54 2024/8/27
  * @Description
  */
-public interface IPayProductService {
+public interface ICurrencyService {
 
     /**
-     * Return a batch of products in database.
+     * Return a batch of currency amount in database.
      *
      * @param type business type
      */
-    List<PayProductDTO> products(Integer type);
+    List<CurrencyDTO> getAllCurrencyAmounts(Integer type);
 
     /**
      * Query product based on id.
      *
-     * @param productId
+     * @param currencyId
      * @return
      */
-    PayProductDTO getByProductId(Integer productId);
+    CurrencyDTO getByCurrencyId(Integer currencyId);
 }

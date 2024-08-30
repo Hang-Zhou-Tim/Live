@@ -9,9 +9,9 @@ import org.hang.live.user.payment.constants.PaySourceEnum;
  * @Date: Created in 22:54 2024/8/21
  * @Description
  */
-public class PayProductReqVO {
+public class BuyCurrencyReqVO {
 
-    private Integer productId;
+    private Integer currencyId;
 
     /**
      * payment source (pay initialise in user center or live stream room?)
@@ -25,12 +25,12 @@ public class PayProductReqVO {
      */
     private Integer payChannel;
 
-    public Integer getProductId() {
-        return productId;
+    public Integer getCurrencyId() {
+        return currencyId;
     }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public void setCurrencyId(Integer currencyId) {
+        this.currencyId = currencyId;
     }
 
     public Integer getPaySource() {
@@ -52,7 +52,7 @@ public class PayProductReqVO {
     @Override
     public String toString() {
         return "PayProductReqVO{" +
-                "productId=" + productId +
+                "currencyId=" + currencyId +
                 ", payChannel=" + payChannel +
                 ", paySource=" + paySource +
                 '}';

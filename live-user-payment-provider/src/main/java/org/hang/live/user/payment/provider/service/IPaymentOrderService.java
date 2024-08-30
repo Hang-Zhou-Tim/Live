@@ -1,14 +1,14 @@
 package org.hang.live.user.payment.provider.service;
 
-import org.hang.live.user.payment.dto.PayOrderDTO;
-import org.hang.live.user.payment.provider.dao.po.PayOrderPO;
+import org.hang.live.user.payment.dto.PaymentOrderDTO;
+import org.hang.live.user.payment.provider.dao.po.PaymentOrderPO;
 
 /**
  * @Author hang
  * @Date: Created in 22:54 2024/8/27
  * @Description
  */
-public interface IPayOrderService {
+public interface IPaymentOrderService {
 
 
     /**
@@ -16,14 +16,14 @@ public interface IPayOrderService {
      *
      * @param orderId
      */
-    PayOrderPO queryByOrderId(String orderId);
+    PaymentOrderPO queryByOrderId(String orderId);
 
     /**
      * insert payment order
      *
      * @param payOrderPO
      */
-    String insertOne(PayOrderPO payOrderPO);
+    String insertOne(PaymentOrderPO payOrderPO);
 
 
     /**
@@ -48,5 +48,5 @@ public interface IPayOrderService {
      * @param payOrderDTO
      * @return
      */
-    boolean payNotify(PayOrderDTO payOrderDTO);
+    boolean paymentCallback(PaymentOrderDTO payOrderDTO);
 }

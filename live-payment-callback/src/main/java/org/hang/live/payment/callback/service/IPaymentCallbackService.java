@@ -5,8 +5,8 @@ package org.hang.live.payment.callback.service;
  * @Date: Created in 22:54 2024/8/27
  * @Description
  */
-public interface IPayNotifyService {
+public interface IPaymentCallbackService {
 
 
-    String notifyHandler(String paramJson);
+    String paymentCallback(String paramJson);
 }

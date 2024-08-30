@@ -8,15 +8,15 @@ import org.hang.live.user.payment.dto.TransactionTurnoverRespDTO;
  * @Date: Created in 22:54 2024/8/27
  * @Description
  */
-public interface IAccountBalanceRpc {
+public interface IAccountBalanceRPC {
 
     /**
-     * Increment Virtual Coint in User Account.
+     * Increment Virtual Coins in User Account.
      *
      * @param userId
      * @param num
      */
-    void incr(long userId,int num);
+    void incrementBalance(long userId,int num);
 
     /**
      * Decrement Virtual Coint in User Account.
@@ -24,7 +24,7 @@ public interface IAccountBalanceRpc {
      * @param userId
      * @param num
      */
-    void decr(long userId,int num);
+    void decrementBalance(long userId,int num);
 
     /**
      * Query Balance of User Account.

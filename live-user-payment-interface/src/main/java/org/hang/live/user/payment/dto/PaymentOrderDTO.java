@@ -9,13 +9,13 @@ import java.util.Date;
  * @Date: Created in 22:54 2024/8/27
  * @Description
  */
-public class PayOrderDTO implements Serializable {
+public class PaymentOrderDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = -9209044050847451420L;
 
     private Long id;
     private String orderId;
-    private Integer productId;
+    private Integer currencyId;
     private Integer bizCode;
     private Long userId;
     private Integer source;
@@ -40,11 +40,11 @@ public class PayOrderDTO implements Serializable {
     }
 
     public Integer getProductId() {
-        return productId;
+        return currencyId;
     }
 
-    public void setProductId(Integer productId) {
-        this.productId = productId;
+    public void setCurrencyId(Integer currencyId) {
+        this.currencyId = currencyId;
     }
 
     public Long getUserId() {
@@ -97,10 +97,10 @@ public class PayOrderDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "PayOrderDTO{" +
+        return "PaymentOrderDTO{" +
                 "id=" + id +
                 ", orderId='" + orderId + '\'' +
-                ", productId=" + productId +
+                ", currencyId=" + currencyId +
                 ", userId=" + userId +
                 ", bizCode=" + bizCode +
                 ", source=" + source +

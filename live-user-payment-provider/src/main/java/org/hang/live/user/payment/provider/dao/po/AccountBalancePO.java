@@ -72,7 +72,7 @@ public class AccountBalancePO {
 
     @Override
     public String toString() {
-        return "QiyuCurrencyAccount{" +
+        return "AccountBalance{" +
                 "userId=" + userId +
                 ", currentBalance=" + currentBalance +
                 ", totalCharged=" + totalCharged +

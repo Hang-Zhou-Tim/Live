@@ -4,18 +4,19 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import jakarta.annotation.Resource;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.hang.live.api.service.IBankService;
-import org.hang.live.api.vo.req.PayProductReqVO;
+import org.hang.live.api.service.IPaymentService;
+import org.hang.live.api.vo.req.BuyCurrencyReqVO;
+import org.hang.live.api.vo.resp.BuyCurrencyRespVO;
 import org.hang.live.api.vo.resp.PayProductItemVO;
-import org.hang.live.api.vo.resp.PayProductRespVO;
 import org.hang.live.api.vo.resp.PayProductVO;
 import org.hang.live.user.payment.constants.OrderStatusEnum;
 import org.hang.live.user.payment.constants.PaySourceEnum;
-import org.hang.live.user.payment.dto.PayOrderDTO;
-import org.hang.live.user.payment.dto.PayProductDTO;
-import org.hang.live.user.payment.interfaces.IPayOrderRpc;
-import org.hang.live.user.payment.interfaces.IPayProductRpc;
-import org.hang.live.user.payment.interfaces.IAccountBalanceRpc;
+import org.hang.live.user.payment.dto.CurrencyDTO;
+import org.hang.live.user.payment.dto.PaymentOrderDTO;
+import org.hang.live.user.payment.interfaces.IAccountBalanceRPC;
+import org.hang.live.user.payment.interfaces.ICurrencyRPC;
+import org.hang.live.user.payment.interfaces.IPaymentOrderRPC;
+import org.hang.live.user.payment.interfaces.ICurrencyRPC;
 import org.hang.live.common.web.configuration.context.RequestContext;
 import org.hang.live.common.web.configuration.error.BizBaseErrorEnum;
 import org.hang.live.common.web.configuration.error.ErrorAssert;
@@ -35,14 +36,14 @@ import java.util.Optional;
  * @Description
  */
 @Service
-public class BankServiceImpl implements IBankService {
+public class PaymentServiceImpl implements IPaymentService {
 
     @DubboReference(timeout = 3000)
-    private IPayProductRpc payProductRpc;
+    private ICurrencyRPC currencyRPC;
     @DubboReference
-    private IAccountBalanceRpc accountBalanceRpc;
+    private IAccountBalanceRPC accountBalanceRPC;
     @DubboReference
-    private IPayOrderRpc payOrderRpc;
+    private IPaymentOrderRPC paymentOrderRPC;
     @Resource
     private RestTemplate restTemplate;
 
@@ -53,45 +54,45 @@ public class BankServiceImpl implements IBankService {
     private String port;
 
     @Override
-    public PayProductVO products(Integer type) {
+    public PayProductVO getAllCurrencyAmounts(Integer type) {
         //Get list of products for users to pay with info including name, number.
-        List<PayProductDTO> payProductDTOS = payProductRpc.products(type);
+        List<CurrencyDTO> currencyDTOS = currencyRPC.getAllCurrencyAmounts(type);
         PayProductVO payProductVO = new PayProductVO();
         List<PayProductItemVO> itemList = new ArrayList<>();
-        for (PayProductDTO payProductDTO : payProductDTOS) {
+        for (CurrencyDTO currencyDTO : currencyDTOS) {
             PayProductItemVO itemVO = new PayProductItemVO();
-            itemVO.setName(payProductDTO.getName());
-            itemVO.setId(payProductDTO.getId());
-            itemVO.setCoinNum(JSON.parseObject(payProductDTO.getExtra()).getInteger("coin"));
+            itemVO.setName(currencyDTO.getName());
+            itemVO.setId(currencyDTO.getId());
+            itemVO.setCoinNum(JSON.parseObject(currencyDTO.getExtra()).getInteger("coin"));
             itemList.add(itemVO);
         }
         payProductVO.setPayProductItemVOList(itemList);
         //Also Refresh User's Balance
-        payProductVO.setCurrentBalance(Optional.ofNullable(accountBalanceRpc.getBalance(RequestContext.getUserId())).orElse(0));
+        payProductVO.setCurrentBalance(Optional.ofNullable(accountBalanceRPC.getBalance(RequestContext.getUserId())).orElse(0));
         return payProductVO;
     }
 
     @Override
-    public PayProductRespVO payProduct(PayProductReqVO payProductReqVO) {
+    public BuyCurrencyRespVO buyCurrency(BuyCurrencyReqVO buyCurrencyReqVO) {
         //Validate the product that user wants to pay
-        ErrorAssert.isTure(payProductReqVO != null && payProductReqVO.getProductId() != null && payProductReqVO.getPaySource() != null, BizBaseErrorEnum.PARAM_ERROR);
-        ErrorAssert.isNotNull(PaySourceEnum.find(payProductReqVO.getPaySource()), BizBaseErrorEnum.PARAM_ERROR);
+        ErrorAssert.isTure(buyCurrencyReqVO != null && buyCurrencyReqVO.getCurrencyId() != null && buyCurrencyReqVO.getPaySource() != null, BizBaseErrorEnum.PARAM_ERROR);
+        ErrorAssert.isNotNull(PaySourceEnum.find(buyCurrencyReqVO.getPaySource()), BizBaseErrorEnum.PARAM_ERROR);
         //Get the product info
-        PayProductDTO payProductDTO = payProductRpc.getByProductId(payProductReqVO.getProductId());
-        ErrorAssert.isNotNull(payProductDTO, BizBaseErrorEnum.PARAM_ERROR);
+        CurrencyDTO currencyDTO = currencyRPC.getByCurrencyId(buyCurrencyReqVO.getCurrencyId());
+        ErrorAssert.isNotNull(currencyDTO, BizBaseErrorEnum.PARAM_ERROR);
 
         //Insert an product payment order
-        PayOrderDTO payOrderDTO = new PayOrderDTO();
-        payOrderDTO.setProductId(payProductReqVO.getProductId());
-        payOrderDTO.setUserId(RequestContext.getUserId());
-        payOrderDTO.setSource(payProductReqVO.getPaySource());
-        payOrderDTO.setPayChannel(payProductReqVO.getPayChannel());
-        String orderId = payOrderRpc.insertOne(payOrderDTO);
+        PaymentOrderDTO paymentOrderDTO = new PaymentOrderDTO();
+        paymentOrderDTO.setCurrencyId(buyCurrencyReqVO.getCurrencyId());
+        paymentOrderDTO.setUserId(RequestContext.getUserId());
+        paymentOrderDTO.setSource(buyCurrencyReqVO.getPaySource());
+        paymentOrderDTO.setPayChannel(buyCurrencyReqVO.getPayChannel());
+        String orderId = paymentOrderRPC.insertOne(paymentOrderDTO);
 
         //Change order status to "Paying"
-        payOrderRpc.updateOrderStatus(orderId, OrderStatusEnum.PAYING.getCode());
-        PayProductRespVO payProductRespVO = new PayProductRespVO();
-        payProductRespVO.setOrderId(orderId);
+        paymentOrderRPC.updateOrderStatus(orderId, OrderStatusEnum.PAYING.getCode());
+        BuyCurrencyRespVO buyCurrencyRespVO = new BuyCurrencyRespVO();
+        buyCurrencyRespVO.setOrderId(orderId);
 
         //I used rest-template to simulate third-party payment finished callback.
         //The url pointed to payment-callback controller's url, where receives payment results and apply callback event.
@@ -104,6 +105,6 @@ public class BankServiceImpl implements IBankService {
         paramMap.put("param",jsonObject.toJSONString());
         ResponseEntity<String> resultEntity = restTemplate.postForEntity("http://" + url + ":" + port + "/payment/callback/paymentNotify/callback?param={param}", null, String.class,paramMap);
         System.out.println(resultEntity.getBody());
-        return payProductRespVO;
+        return buyCurrencyRespVO;
     }
 }

@@ -1,6 +1,6 @@
 package org.hang.live.user.payment.interfaces;
 
-import org.hang.live.user.payment.dto.PayProductDTO;
+import org.hang.live.user.payment.dto.CurrencyDTO;
 
 import java.util.List;
 
@@ -9,14 +9,14 @@ import java.util.List;
  * @Date: Created in 22:54 2024/8/27
  * @Description
  */
-public interface IPayProductRpc {
+public interface ICurrencyRPC {
 
     /**
      * Return a Bunch of Products of A Specific Business Type
      *
      * @param type Business Type (1 for live stream application)
      */
-    List<PayProductDTO> products(Integer type);
+    List<CurrencyDTO> getAllCurrencyAmounts(Integer type);
 
 
     /**
@@ -25,5 +25,5 @@ public interface IPayProductRpc {
      * @param productId
      * @return
      */
-    PayProductDTO getByProductId(Integer productId);
+    CurrencyDTO getByCurrencyId(Integer currencyId);
 }

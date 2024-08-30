@@ -82,7 +82,7 @@ public class TransactionTurnoverPO {
 
     @Override
     public String toString() {
-        return "QiyuCurrencyTradePO{" +
+        return "TransactionTurnoverPO{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", num=" + num +

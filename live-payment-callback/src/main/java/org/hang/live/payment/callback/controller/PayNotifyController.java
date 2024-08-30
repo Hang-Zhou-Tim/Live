@@ -1,7 +1,7 @@
 package org.hang.live.payment.callback.controller;
 
 import jakarta.annotation.Resource;
-import org.hang.live.payment.callback.service.IPayNotifyService;
+import org.hang.live.payment.callback.service.IPaymentCallbackService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class PayNotifyController {
 
     @Resource
-    private IPayNotifyService payNotifyService;
+    private IPaymentCallbackService paymentCallbackService;
 
     @PostMapping("/callback")
     public String paymentCallBack(@RequestParam("param") String param) {
-        return payNotifyService.notifyHandler(param);
+        return paymentCallbackService.paymentCallback(param);
     }
 
 }

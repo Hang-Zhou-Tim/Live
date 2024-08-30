@@ -23,7 +23,7 @@ public interface IAccountBalanceService {
      * @param userId
      * @param num
      */
-    void incr(long userId,int num);
+    void incrementBalance(long userId,int num);
 
     /**
      * decrement virtual coin
@@ -31,7 +31,7 @@ public interface IAccountBalanceService {
      * @param userId
      * @param num
      */
-    void decr(long userId,int num);
+    void decrementBalance(long userId,int num);
 
     /**
      * query balance

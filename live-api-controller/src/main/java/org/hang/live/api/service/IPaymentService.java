@@ -1,7 +1,7 @@
 package org.hang.live.api.service;
 
-import org.hang.live.api.vo.req.PayProductReqVO;
-import org.hang.live.api.vo.resp.PayProductRespVO;
+import org.hang.live.api.vo.req.BuyCurrencyReqVO;
+import org.hang.live.api.vo.resp.BuyCurrencyRespVO;
 import org.hang.live.api.vo.resp.PayProductVO;
 
 /**
@@ -9,7 +9,7 @@ import org.hang.live.api.vo.resp.PayProductVO;
  * @Date: Created in 22:54 2024/8/21
  * @Description
  */
-public interface IBankService {
+public interface IPaymentService {
 
     /**
      * search all products of a specific business type
@@ -17,13 +17,13 @@ public interface IBankService {
      * @param type
      * @return
      */
-    PayProductVO products(Integer type);
+    PayProductVO getAllCurrencyAmounts(Integer type);
 
     /**
      * buy product
      *
-     * @param payProductReqVO
+     * @param buyCurrencyReqVO
      * @return
      */
-    PayProductRespVO payProduct(PayProductReqVO payProductReqVO);
+    BuyCurrencyRespVO buyCurrency(BuyCurrencyReqVO buyCurrencyReqVO);
 }

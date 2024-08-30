@@ -15,7 +15,7 @@ import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomRespDTO;
 import org.hang.live.stream.room.interfaces.rpc.ILiveStreamRoomRpc;
 import org.hang.live.user.payment.dto.TransactionTurnoverReqDTO;
 import org.hang.live.user.payment.dto.TransactionTurnoverRespDTO;
-import org.hang.live.user.payment.interfaces.IAccountBalanceRpc;
+import org.hang.live.user.payment.interfaces.IAccountBalanceRPC;
 import org.hang.live.common.interfaces.dto.SendGiftMq;
 import org.hang.live.common.interfaces.topic.GiftProviderTopicNames;
 import org.hang.live.common.mq.configuration.properties.RocketMQConsumerProperties;
@@ -37,11 +37,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
- * Send Gift Consumer
- *
- * @Author idea
- * @Date: Created in 14:28 2023/8/1
- * @Description
+ * @Author hang
+ * @Date: Created in 22:54 2024/8/27
+ * @Description RocketMQ Consumer that Listen Sending Gifts
  */
 @Configuration
 public class SendGiftConsumer implements InitializingBean {
@@ -69,7 +67,7 @@ public class SendGiftConsumer implements InitializingBean {
     @Resource
     private GiftProviderCacheKeyBuilder cacheKeyBuilder;
     @DubboReference
-    private IAccountBalanceRpc accountBalanceRpc;
+    private IAccountBalanceRPC accountBalanceRpc;
     @DubboReference
     private ILiveStreamRoomRpc liveStreamRoomRpc;
     @DubboReference
@@ -111,9 +109,9 @@ public class SendGiftConsumer implements InitializingBean {
                         reqDTO.setRoomId(sendGiftMq.getRoomId());
                         List<Long> userIdList = liveStreamRoomRpc.queryUserIdByRoomId(reqDTO);
                         this.batchSendImMsg(userIdList, ImMsgBizCodeEnum.LIVING_ROOM_SEND_GIFT_SUCCESS, jsonObject);
-                   } // else if (SendGiftTypeEnum.PK_SEND_GIFT.getCode().equals(sendGiftType)) {
-//                        this.pkImMsgSend(jsonObject, sendGiftMq, receiverId);
-//                    }
+                    } else if (SendGiftTypeEnum.PK_SEND_GIFT.getCode().equals(sendGiftType)) {
+                        this.pkImMsgSend(jsonObject, sendGiftMq, receiverId);
+                    }
                 } else {
                     //Tell the user that gift is failed to send.
                     jsonObject.put("msg", tradeRespDTO.getMsg());

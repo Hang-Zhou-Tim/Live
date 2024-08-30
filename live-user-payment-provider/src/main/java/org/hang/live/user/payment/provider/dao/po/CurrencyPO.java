@@ -12,7 +12,7 @@ import java.util.Date;
  * @Description
  */
 @TableName("t_payment_product")
-public class PayProductPO {
+public class CurrencyPO {
 
     @TableId(type = IdType.AUTO)
     private Long id;

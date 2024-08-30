@@ -5,7 +5,7 @@ package org.hang.live.api.vo.resp;
  * @Date: Created in 22:54 2024/8/24
  * @Description
  */
-public class PayProductRespVO {
+public class BuyCurrencyRespVO {
 
     private String orderId;
 
@@ -20,7 +20,7 @@ public class PayProductRespVO {
 
     @Override
     public String toString() {
-        return "PayProductRespVO{" +
+        return "BuyCurrencyRespVO{" +
                 "orderId='" + orderId + '\'' +
                 '}';
     }

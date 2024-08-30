@@ -12,7 +12,7 @@ import java.util.Date;
  * @Description
  */
 @TableName("t_payment_callback_topic")
-public class PayTopicPO {
+public class PaymentTopicPO {
 
     @TableId(type = IdType.AUTO)
     private Long id;
@@ -81,7 +81,7 @@ public class PayTopicPO {
 
     @Override
     public String toString() {
-        return "PayTopic{" +
+        return "PaymentTopic{" +
                 "id=" + id +
                 ", topic='" + topic + '\'' +
                 ", status='" + status + '\'' +

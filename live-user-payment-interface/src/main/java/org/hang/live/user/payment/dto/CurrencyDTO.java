@@ -10,7 +10,7 @@ import java.util.Date;
  * @Date: Created in 22:54 2024/8/27
  * @Description
  */
-public class PayProductDTO implements Serializable {
+public class CurrencyDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 8737032096039095954L;

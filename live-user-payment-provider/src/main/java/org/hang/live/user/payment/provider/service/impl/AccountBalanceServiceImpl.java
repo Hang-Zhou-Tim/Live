@@ -52,7 +52,7 @@ public class AccountBalanceServiceImpl implements IAccountBalanceService {
     }
 
     @Override
-    public void incr(long userId, int num) {
+    public void incrementBalance(long userId, int num) {
         String cacheKey = cacheKeyBuilder.buildUserBalance(userId);
         if (redisTemplate.hasKey(cacheKey)) {
             redisTemplate.opsForValue().increment(cacheKey, num);
@@ -62,13 +62,13 @@ public class AccountBalanceServiceImpl implements IAccountBalanceService {
             @Override
             public void run() {
                 //Increase Balance of User Account to DB
-                consumeIncrDBHandler(userId, num);
+                incrementBalanceInDB(userId, num);
             }
         });
     }
 
     @Override
-    public void decr(long userId, int num) {
+    public void decrementBalance(long userId, int num) {
         String cacheKey = cacheKeyBuilder.buildUserBalance(userId);
         if (redisTemplate.hasKey(cacheKey)) {
             redisTemplate.opsForValue().decrement(cacheKey, num);
@@ -78,7 +78,7 @@ public class AccountBalanceServiceImpl implements IAccountBalanceService {
             @Override
             public void run() {
                 //Decrement Balance of User Account to DB
-                consumeDecrDBHandler(userId, num);
+                decrementBalanceInDB(userId, num);
             }
         });
     }
@@ -111,12 +111,12 @@ public class AccountBalanceServiceImpl implements IAccountBalanceService {
         if (balance == null || balance < num) {
             return TransactionTurnoverRespDTO.buildFail(userId, "Balance Deduction Failed", 1);
         }
-        this.decr(userId, num);
+        this.decrementBalance(userId, num);
         return TransactionTurnoverRespDTO.buildSuccess(userId, "Balance Deduction Succeeds");
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void consumeIncrDBHandler(long userId, int num) {
+    public void incrementBalanceInDB(long userId, int num) {
         //Get balance with use id
         boolean res = accountBalanceMapper.selectById(userId) == null;
 
@@ -135,7 +135,7 @@ public class AccountBalanceServiceImpl implements IAccountBalanceService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void consumeDecrDBHandler(long userId, int num) {
+    public void decrementBalanceInDB(long userId, int num) {
         //Get balance with use id
         boolean res = accountBalanceMapper.selectById(userId) != null;
         if(!res) {

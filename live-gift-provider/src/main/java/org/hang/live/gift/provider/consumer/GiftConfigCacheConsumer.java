@@ -37,14 +37,12 @@ public class GiftConfigCacheConsumer implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         DefaultMQPushConsumer mqPushConsumer = new DefaultMQPushConsumer();
-        //老版本中会开启，新版本的mq不需要使用到
         mqPushConsumer.setVipChannelEnabled(false);
         mqPushConsumer.setNamesrvAddr(rocketMQConsumerProperties.getNameSrv());
         mqPushConsumer.setConsumerGroup(rocketMQConsumerProperties.getGroupName() + "_" + GiftConfigCacheConsumer.class.getSimpleName());
-        //一次从broker中拉取10条消息到本地内存当中进行消费
         mqPushConsumer.setConsumeMessageBatchMaxSize(10);
         mqPushConsumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
-        //监听礼物缓存数据更新的行为
+        //Listen the event when a gift is updated or removed.
         mqPushConsumer.subscribe(GiftProviderTopicNames.REMOVE_GIFT_CACHE, "");
         mqPushConsumer.setMessageListener((MessageListenerConcurrently) (msgs, context) -> {
             for (MessageExt msg : msgs) {
@@ -60,6 +58,6 @@ public class GiftConfigCacheConsumer implements InitializingBean {
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
         });
         mqPushConsumer.start();
-        LOGGER.info("mq消费者启动成功,namesrv is {}", rocketMQConsumerProperties.getNameSrv());
+        LOGGER.info("RocketMQ that deletes gift cache initialised successfully,namesrv is {}", rocketMQConsumerProperties.getNameSrv());
     }
 }

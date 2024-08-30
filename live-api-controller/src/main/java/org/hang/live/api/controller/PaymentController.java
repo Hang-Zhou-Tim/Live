@@ -1,8 +1,8 @@
 package org.hang.live.api.controller;
 
 import jakarta.annotation.Resource;
-import org.hang.live.api.service.IBankService;
-import org.hang.live.api.vo.req.PayProductReqVO;
+import org.hang.live.api.service.IPaymentService;
+import org.hang.live.api.vo.req.BuyCurrencyReqVO;
 import org.hang.live.common.interfaces.vo.WebResponseVO;
 import org.hang.live.common.web.configuration.error.BizBaseErrorEnum;
 import org.hang.live.common.web.configuration.error.ErrorAssert;
@@ -17,21 +17,21 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description
  */
 @RestController
-@RequestMapping("/bank")
-public class BankController {
+@RequestMapping("/payment")
+public class PaymentController {
 
     @Resource
-    private IBankService bankService;
+    private IPaymentService paymentService;
 
-    @PostMapping("/products")
-    public WebResponseVO products(Integer type) {
+    @PostMapping("/getAllCurrencyAmounts")
+    public WebResponseVO getAllCurrencyAmounts(Integer type) {
         ErrorAssert.isNotNull(type, BizBaseErrorEnum.PARAM_ERROR);
-        return WebResponseVO.success(bankService.products(type));
+        return WebResponseVO.success(paymentService.getAllCurrencyAmounts(type));
     }
 
-    @PostMapping("/payProduct")
-    public WebResponseVO payProduct(PayProductReqVO payProductReqVO) {
-        return WebResponseVO.success(bankService.payProduct(payProductReqVO));
+    @PostMapping("/buyCurrency")
+    public WebResponseVO buyProduct(BuyCurrencyReqVO buyCurrencyReqVO) {
+        return WebResponseVO.success(paymentService.buyCurrency(buyCurrencyReqVO));
     }
 
 }

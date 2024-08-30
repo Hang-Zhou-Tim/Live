@@ -2,7 +2,7 @@ package org.hang.live.user.payment.provider.dao.maper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.hang.live.user.payment.provider.dao.po.PayTopicPO;
+import org.hang.live.user.payment.provider.dao.po.PaymentOrderPO;
 
 /**
  * @Author hang
@@ -10,6 +10,5 @@ import org.hang.live.user.payment.provider.dao.po.PayTopicPO;
  * @Description
  */
 @Mapper
-public interface IPayTopicMapper extends BaseMapper<PayTopicPO> {
-
+public interface IPaymentOrderMapper extends BaseMapper<PaymentOrderPO> {
 }

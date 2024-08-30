@@ -1,21 +1,21 @@
 package org.hang.live.user.payment.interfaces;
 
 
-import org.hang.live.user.payment.dto.PayOrderDTO;
+import org.hang.live.user.payment.dto.PaymentOrderDTO;
 
 /**
  * @Author hang
  * @Date: Created in 22:54 2024/8/27
  * @Description
  */
-public interface IPayOrderRpc {
+public interface IPaymentOrderRPC {
 
     /**
      * Insert a New Payment Order
      *
      * @param payOrderDTO
      */
-    String insertOne(PayOrderDTO payOrderDTO);
+    String insertOne(PaymentOrderDTO payOrderDTO);
 
 
     /**
@@ -41,5 +41,5 @@ public interface IPayOrderRpc {
      * @param payOrderDTO
      * @return
      */
-    boolean payNotify(PayOrderDTO payOrderDTO);
+    boolean paymentCallback(PaymentOrderDTO payOrderDTO);
 }

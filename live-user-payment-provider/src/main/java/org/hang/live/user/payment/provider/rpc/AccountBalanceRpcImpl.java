@@ -4,7 +4,7 @@ import jakarta.annotation.Resource;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.hang.live.user.payment.dto.TransactionTurnoverReqDTO;
 import org.hang.live.user.payment.dto.TransactionTurnoverRespDTO;
-import org.hang.live.user.payment.interfaces.IAccountBalanceRpc;
+import org.hang.live.user.payment.interfaces.IAccountBalanceRPC;
 import org.hang.live.user.payment.provider.service.IAccountBalanceService;
 
 /**
@@ -13,19 +13,19 @@ import org.hang.live.user.payment.provider.service.IAccountBalanceService;
  * @Description
  */
 @DubboService
-public class AccountBalanceRpcImpl implements IAccountBalanceRpc {
+public class AccountBalanceRpcImpl implements IAccountBalanceRPC {
 
     @Resource
     private IAccountBalanceService AccountBalanceService;
 
     @Override
-    public void incr(long userId, int num) {
-        AccountBalanceService.incr(userId, num);
+    public void incrementBalance(long userId, int num) {
+        AccountBalanceService.incrementBalance(userId, num);
     }
 
     @Override
-    public void decr(long userId, int num) {
-        AccountBalanceService.decr(userId, num);
+    public void decrementBalance(long userId, int num) {
+        AccountBalanceService.decrementBalance(userId, num);
     }
 
     @Override
