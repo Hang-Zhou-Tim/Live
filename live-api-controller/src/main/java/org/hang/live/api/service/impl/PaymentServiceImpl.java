@@ -7,16 +7,13 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.hang.live.api.service.IPaymentService;
 import org.hang.live.api.vo.req.BuyCurrencyReqVO;
 import org.hang.live.api.vo.resp.BuyCurrencyRespVO;
-import org.hang.live.api.vo.resp.PayProductItemVO;
-import org.hang.live.api.vo.resp.PayProductVO;
+import org.hang.live.api.vo.resp.CurrencyAmountsVO;
+import org.hang.live.api.vo.resp.CurrencyVO;
 import org.hang.live.user.payment.constants.OrderStatusEnum;
 import org.hang.live.user.payment.constants.PaySourceEnum;
 import org.hang.live.user.payment.dto.CurrencyDTO;
 import org.hang.live.user.payment.dto.PaymentOrderDTO;
-import org.hang.live.user.payment.interfaces.IAccountBalanceRPC;
-import org.hang.live.user.payment.interfaces.ICurrencyRPC;
-import org.hang.live.user.payment.interfaces.IPaymentOrderRPC;
-import org.hang.live.user.payment.interfaces.ICurrencyRPC;
+import org.hang.live.user.payment.interfaces.*;
 import org.hang.live.common.web.configuration.context.RequestContext;
 import org.hang.live.common.web.configuration.error.BizBaseErrorEnum;
 import org.hang.live.common.web.configuration.error.ErrorAssert;
@@ -44,32 +41,27 @@ public class PaymentServiceImpl implements IPaymentService {
     private IAccountBalanceRPC accountBalanceRPC;
     @DubboReference
     private IPaymentOrderRPC paymentOrderRPC;
-    @Resource
-    private RestTemplate restTemplate;
 
-    @Value("${hang.payment.callback.url}")
-    private String url;
-
-    @Value("${hang.payment.callback.port}")
-    private String port;
+    @DubboReference
+    private IPaymentCallbackServiceRPC PaymentCallbackServiceRPC;
 
     @Override
-    public PayProductVO getAllCurrencyAmounts(Integer type) {
+    public CurrencyVO getAllCurrencyAmounts(Integer type) {
         //Get list of products for users to pay with info including name, number.
         List<CurrencyDTO> currencyDTOS = currencyRPC.getAllCurrencyAmounts(type);
-        PayProductVO payProductVO = new PayProductVO();
-        List<PayProductItemVO> itemList = new ArrayList<>();
+        CurrencyVO currencyVO = new CurrencyVO();
+        List<CurrencyAmountsVO> itemList = new ArrayList<>();
         for (CurrencyDTO currencyDTO : currencyDTOS) {
-            PayProductItemVO itemVO = new PayProductItemVO();
+            CurrencyAmountsVO itemVO = new CurrencyAmountsVO();
             itemVO.setName(currencyDTO.getName());
             itemVO.setId(currencyDTO.getId());
             itemVO.setCoinNum(JSON.parseObject(currencyDTO.getExtra()).getInteger("coin"));
             itemList.add(itemVO);
         }
-        payProductVO.setPayProductItemVOList(itemList);
+        currencyVO.setCurrencyItemList(itemList);
         //Also Refresh User's Balance
-        payProductVO.setCurrentBalance(Optional.ofNullable(accountBalanceRPC.getBalance(RequestContext.getUserId())).orElse(0));
-        return payProductVO;
+        currencyVO.setCurrentBalance(Optional.ofNullable(accountBalanceRPC.getBalance(RequestContext.getUserId())).orElse(0));
+        return currencyVO;
     }
 
     @Override
@@ -101,10 +93,8 @@ public class PaymentServiceImpl implements IPaymentService {
         jsonObject.put("orderId", orderId);
         jsonObject.put("userId", RequestContext.getUserId());
         jsonObject.put("bizCode", 10001);
-        HashMap<String,String> paramMap = new HashMap<>();
-        paramMap.put("param",jsonObject.toJSONString());
-        ResponseEntity<String> resultEntity = restTemplate.postForEntity("http://" + url + ":" + port + "/payment/callback/paymentNotify/callback?param={param}", null, String.class,paramMap);
-        System.out.println(resultEntity.getBody());
+        String result = PaymentCallbackServiceRPC.paymentCallback(JSON.toJSONString(jsonObject));
+        System.out.println(result);
         return buyCurrencyRespVO;
     }
 }

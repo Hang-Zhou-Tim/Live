@@ -1,11 +1,11 @@
-package org.hang.live.payment.callback.vo;
+package org.hang.live.user.payment.dto;
 
 /**
  * @Author hang
  * @Date: Created in 22:54 2024/8/27
  * @Description
  */
-public class PaymentCallbackVO {
+public class PaymentCallbackDTO {
 
     private String orderId;
     private Long userId;

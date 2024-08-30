@@ -19,6 +19,7 @@
         <option value="$PROJECT_DIR$/live-im-provider/pom.xml" />
         <option value="$PROJECT_DIR$/live-im-token-interface/pom.xml" />
         <option value="$PROJECT_DIR$/live-living-interfaces/pom.xml" />
+        <option value="$PROJECT_DIR$/live-payment-callback/pom.xml" />
         <option value="$PROJECT_DIR$/live-payment-provider/pom.xml" />
         <option value="$PROJECT_DIR$/qiyu-live-im-core-server-interfaces/pom.xml" />
       </set>

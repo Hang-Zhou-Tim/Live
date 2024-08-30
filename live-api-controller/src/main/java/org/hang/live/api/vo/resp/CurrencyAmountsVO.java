@@ -5,7 +5,7 @@ package org.hang.live.api.vo.resp;
  * @Date: Created in 08:31 2024/8/13
  * @Description
  */
-public class PayProductItemVO {
+public class CurrencyAmountsVO {
 
     private Long id;
 
@@ -39,7 +39,7 @@ public class PayProductItemVO {
 
     @Override
     public String toString() {
-        return "PayProductVO{" +
+        return "CurrencyAmountsVO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", coinNum=" + coinNum +

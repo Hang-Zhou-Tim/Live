@@ -2,7 +2,7 @@ package org.hang.live.api.service;
 
 import org.hang.live.api.vo.req.BuyCurrencyReqVO;
 import org.hang.live.api.vo.resp.BuyCurrencyRespVO;
-import org.hang.live.api.vo.resp.PayProductVO;
+import org.hang.live.api.vo.resp.CurrencyVO;
 
 /**
  * @Author hang
@@ -17,7 +17,7 @@ public interface IPaymentService {
      * @param type
      * @return
      */
-    PayProductVO getAllCurrencyAmounts(Integer type);
+    CurrencyVO getAllCurrencyAmounts(Integer type);
 
     /**
      * buy product

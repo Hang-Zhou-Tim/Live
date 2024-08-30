@@ -1,11 +1,11 @@
-package org.hang.live.payment.callback.service;
+package org.hang.live.user.payment.interfaces;
 
 /**
  * @Author hang
  * @Date: Created in 22:54 2024/8/27
  * @Description
  */
-public interface IPaymentCallbackService {
+public interface IPaymentCallbackServiceRPC {
 
 
     String paymentCallback(String paramJson);

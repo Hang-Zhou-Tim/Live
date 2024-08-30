@@ -11,7 +11,7 @@ import java.util.Date;
  * @Date: Created in 22:54 2024/8/27
  * @Description
  */
-@TableName("t_payment_product")
+@TableName("t_currency")
 public class CurrencyPO {
 
     @TableId(type = IdType.AUTO)
