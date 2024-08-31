@@ -18,7 +18,7 @@ public class GiftProviderTopicNames {
     public static final String SEND_GIFT = "send_gift";
 
     //cache key name used to receive red packet.
-    public static final String RECEIVE_RED_PACKET = "receive-red-packet";
+    public static final String SNATCH_RED_PACKET = "snatch-red-packet";
 
     /**
      * cache key name used to roll back stock.

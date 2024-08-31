@@ -2,6 +2,7 @@ package org.hang.live.api.service;
 
 import org.hang.live.api.vo.req.GiftReqVO;
 import org.hang.live.api.vo.resp.GiftConfigVO;
+import org.hang.live.api.vo.resp.RedPacketReceiveVO;
 
 import java.util.List;
 
@@ -15,4 +16,19 @@ public interface IGiftService {
     List<GiftConfigVO> listGift();
     //Send gifts in the room.
     boolean send(GiftReqVO giftReqVO);
+
+    /**
+     * Anchor clicks on prepare red packet rains
+     */
+    Boolean prepareRedPacket(Long userId, Integer roomId);
+
+    /**
+     * Anchor clicks on start red packet rains
+     */
+    Boolean startRedPacket(Long userId, String code);
+
+    /**
+     * users in the room get the red packet
+     */
+    RedPacketReceiveVO snatchRedPacket(Long userId, String redPacketConfigCode);
 }

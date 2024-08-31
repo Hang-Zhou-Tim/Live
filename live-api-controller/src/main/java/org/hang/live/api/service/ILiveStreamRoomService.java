@@ -55,18 +55,5 @@ public interface ILiveStreamRoomService {
     LiveStreamRoomInitVO getAnchorConfig(Long userId,Integer roomId);
 
     Long queryOnlinePkUserId(Integer roomId);
-    /**
-     * Anchor clicks on prepare red packet rains
-     */
-    Boolean prepareRedPacket(Long userId, Integer roomId);
 
-    /**
-     * Anchor clicks on start red packet rains
-     */
-    Boolean startRedPacket(Long userId, String code);
-
-    /**
-     * users in the room get the red packet
-     */
-    RedPacketReceiveVO getRedPacket(Long userId, String redPacketConfigCode);
 }

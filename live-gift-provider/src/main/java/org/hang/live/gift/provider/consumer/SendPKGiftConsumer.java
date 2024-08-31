@@ -133,7 +133,7 @@ public class SendPKGiftConsumer implements InitializingBean {
         //1. update pk progress bar.
             // Default value for two sides in PK gift bar is 50:50.
             // When users send gift of value 50¥ to left user, then the pk bar will be 55:45.
-            // I only record
+            // I only record the progress of left hand-side in Redis.
         //2. notify gift animation.
         Integer roomId = sendGiftMq.getRoomId();
         String isOverCacheKey = cacheKeyBuilder.buildPKLiveStreamIsOver(roomId);
@@ -148,7 +148,7 @@ public class SendPKGiftConsumer implements InitializingBean {
         Long pkUserId = respDTO.getAnchorId();
         Long pkNum = 0L;
         String pkNumKey = cacheKeyBuilder.buildPKLiveStreamKey(roomId);
-        //Set LUA Script to Atomically Update PK Progress
+        //Set LUA Script to Atomically Update PK Progress, This ensures Atomic Process under Situation of High Concurrency
         DefaultRedisScript<Long> redisScript = new DefaultRedisScript();
         redisScript.setScriptText(LUA_SCRIPT);
         redisScript.setResultType(Long.class);

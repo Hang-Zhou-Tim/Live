@@ -12,14 +12,22 @@ import org.hang.live.api.error.ApiErrorEnum;
 import org.hang.live.api.service.IGiftService;
 import org.hang.live.api.vo.req.GiftReqVO;
 import org.hang.live.api.vo.resp.GiftConfigVO;
+import org.hang.live.api.vo.resp.RedPacketReceiveVO;
 import org.hang.live.common.interfaces.dto.SendGiftMq;
 import org.hang.live.common.interfaces.topic.GiftProviderTopicNames;
 import org.hang.live.common.interfaces.utils.ConvertBeanUtils;
+import org.hang.live.common.web.configuration.error.BizBaseErrorEnum;
 import org.hang.live.gift.constants.SendGiftTypeEnum;
 import org.hang.live.gift.dto.GiftConfigDTO;
+import org.hang.live.gift.dto.RedPacketConfigReqDTO;
+import org.hang.live.gift.dto.SnatchRedPacketDTO;
+import org.hang.live.gift.dto.SnatchRedPacketDTO;
 import org.hang.live.gift.interfaces.IGiftConfigRPC;
 import org.hang.live.common.web.configuration.context.RequestContext;
 import org.hang.live.common.web.configuration.error.ErrorAssert;
+import org.hang.live.gift.interfaces.IRedPacketConfigRPC;
+import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomRespDTO;
+import org.hang.live.stream.room.interfaces.rpc.ILiveStreamRoomRPC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -39,6 +47,12 @@ public class GiftServiceImpl implements IGiftService {
     private static final Logger LOGGER = LoggerFactory.getLogger(GiftServiceImpl.class);
     @DubboReference
     private IGiftConfigRPC giftConfigRPC;
+
+    @DubboReference
+    private IRedPacketConfigRPC redPacketConfigRPC;
+
+    @DubboReference
+    private ILiveStreamRoomRPC liveStreamRoomRPC;
 
     private Cache<Integer,GiftConfigDTO> giftConfigDTOCache = Caffeine.newBuilder().maximumSize(1000).expireAfterWrite(90, TimeUnit.SECONDS).build();
 
@@ -84,5 +98,41 @@ public class GiftServiceImpl implements IGiftService {
             LOGGER.info("[gift-send] send result is error:", e);
         }
         return true;
+    }
+
+    @Override
+    public Boolean prepareRedPacket(Long userId, Integer roomId) {
+        LiveStreamRoomRespDTO livingRoomRespDTO = liveStreamRoomRPC.queryByRoomId(roomId);
+        ErrorAssert.isNotNull(livingRoomRespDTO, BizBaseErrorEnum.PARAM_ERROR);
+        ErrorAssert.isTure(userId.equals(livingRoomRespDTO.getAnchorId()), BizBaseErrorEnum.PARAM_ERROR);
+        return redPacketConfigRPC.prepareRedPacket(userId);
+    }
+
+    @Override
+    public Boolean startRedPacket(Long userId, String code) {
+        RedPacketConfigReqDTO reqDTO = new RedPacketConfigReqDTO();
+        reqDTO.setUserId(userId);
+        reqDTO.setRedPacketConfigCode(code);
+        LiveStreamRoomRespDTO livingRoomRespDTO = liveStreamRoomRPC.queryByAnchorId(userId);
+        ErrorAssert.isNotNull(livingRoomRespDTO, BizBaseErrorEnum.PARAM_ERROR);
+        reqDTO.setRoomId(livingRoomRespDTO.getId());
+        return redPacketConfigRPC.startRedPacket(reqDTO);
+    }
+
+    @Override
+    public RedPacketReceiveVO snatchRedPacket(Long userId, String code) {
+        RedPacketConfigReqDTO reqDTO = new RedPacketConfigReqDTO();
+        reqDTO.setUserId(userId);
+        reqDTO.setRedPacketConfigCode(code);
+        
+        SnatchRedPacketDTO receiveDTO = redPacketConfigRPC.snatchRedPacket(reqDTO);
+        RedPacketReceiveVO respVO = new RedPacketReceiveVO();
+        if (receiveDTO == null) {
+            respVO.setMsg("Preparation of Red Packet Rain is finished!");
+        } else {
+            respVO.setPrice(receiveDTO.getPrice());
+            respVO.setMsg(receiveDTO.getNotifyMsg());
+        }
+        return respVO;
     }
 }

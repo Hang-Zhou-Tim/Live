@@ -17,7 +17,6 @@ import org.hang.live.common.web.configuration.error.ErrorAssert;
 import org.hang.live.common.web.configuration.error.ErrorException;
 import org.hang.live.gift.dto.RedPacketConfigReqDTO;
 import org.hang.live.gift.dto.RedPacketConfigRespDTO;
-import org.hang.live.gift.dto.RedPacketReceiveDTO;
 import org.hang.live.gift.interfaces.IRedPacketConfigRPC;
 import org.hang.live.im.core.server.interfaces.constants.AppIdEnum;
 import org.hang.live.stream.room.interfaces.dto.LivePkStreamRoomRespDTO;
@@ -104,15 +103,14 @@ public class LiveStreamRoomServiceImpl implements ILiveStreamRoomService {
         respVO.setRoomId(respDTO.getId());
         respVO.setAnchorId(respDTO.getAnchorId());
         respVO.setAnchor(respDTO.getAnchorId().equals(userId));
-
-        // Check if the anchor has right to start red packet rain
-        if (respVO.isAnchor()) {
-            RedPacketConfigRespDTO redPacketConfigRespDTO = redPacketConfigRPC.queryByAnchorId(userId);
-            if (redPacketConfigRespDTO != null) {
-                respVO.setRedPacketConfigCode(redPacketConfigRespDTO.getConfigCode());
-            }
-        }
         respVO.setDefaultBgImg("https://picst.sunbangyan.cn/2023/08/29/waxzj0.png");
+        // Check if the anchor has the right to start red packet rain
+         if (respVO.isAnchor()) {
+             RedPacketConfigRespDTO redPacketConfigRespDTO = redPacketConfigRPC.queryByAnchorId(userId);
+             if (redPacketConfigRespDTO != null) {
+                 respVO.setRedPacketConfigCode(redPacketConfigRespDTO.getConfigCode());
+             }
+         }
         return respVO;
     }
 
@@ -132,40 +130,6 @@ public class LiveStreamRoomServiceImpl implements ILiveStreamRoomService {
         return liveStreamRoomRPC.queryOnlinePkUserId(roomId);
     }
 
-    @Override
-    public Boolean prepareRedPacket(Long userId, Integer roomId) {
-        LiveStreamRoomRespDTO livingRoomRespDTO = liveStreamRoomRPC.queryByRoomId(roomId);
-        ErrorAssert.isNotNull(livingRoomRespDTO, BizBaseErrorEnum.PARAM_ERROR);
-        ErrorAssert.isTure(userId.equals(livingRoomRespDTO.getAnchorId()), BizBaseErrorEnum.PARAM_ERROR);
-        return redPacketConfigRPC.prepareRedPacket(userId);
-    }
-
-    @Override
-    public Boolean startRedPacket(Long userId, String code) {
-        RedPacketConfigReqDTO reqDTO = new RedPacketConfigReqDTO();
-        reqDTO.setUserId(userId);
-        reqDTO.setRedPacketConfigCode(code);
-        LiveStreamRoomRespDTO livingRoomRespDTO = liveStreamRoomRPC.queryByAnchorId(userId);
-        ErrorAssert.isNotNull(livingRoomRespDTO, BizBaseErrorEnum.PARAM_ERROR);
-        reqDTO.setRoomId(livingRoomRespDTO.getId());
-        return redPacketConfigRPC.startRedPacket(reqDTO);
-    }
-
-    @Override
-    public RedPacketReceiveVO getRedPacket(Long userId, String code) {
-        RedPacketConfigReqDTO reqDTO = new RedPacketConfigReqDTO();
-        reqDTO.setUserId(userId);
-        reqDTO.setRedPacketConfigCode(code);
-        RedPacketReceiveDTO receiveDTO = redPacketConfigRPC.receiveRedPacket(reqDTO);
-        RedPacketReceiveVO respVO = new RedPacketReceiveVO();
-        if (receiveDTO == null) {
-            respVO.setMsg("Preparation of Red Packet Rain is finished!");
-        } else {
-            respVO.setPrice(receiveDTO.getPrice());
-            respVO.setMsg(receiveDTO.getNotifyMsg());
-        }
-        return respVO;
-    }
 
 
 }

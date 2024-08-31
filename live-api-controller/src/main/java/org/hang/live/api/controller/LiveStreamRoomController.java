@@ -80,6 +80,4 @@ public class LiveStreamRoomController {
     public WebResponseVO queryOnlinePkUserId(Integer roomId) {
         return WebResponseVO.success(liveStreamRoomService.queryOnlinePkUserId(roomId));
     }
-
-
 }
