@@ -13,7 +13,7 @@ import java.util.List;
  * @Date: Created in 21:20 2024/8/14
  * @Description
  */
-public interface ILiveStreamRoomRpc {
+public interface ILiveStreamRoomRPC {
 
 
     /**

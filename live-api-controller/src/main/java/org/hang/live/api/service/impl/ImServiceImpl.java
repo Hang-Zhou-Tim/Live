@@ -5,7 +5,7 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.hang.live.api.service.ImService;
 import org.hang.live.api.vo.resp.ImConfigVO;
 import org.hang.live.im.core.server.interfaces.constants.AppIdEnum;
-import org.hang.live.im.core.server.interfaces.rpc.ImTokenRpc;
+import org.hang.live.im.core.server.interfaces.rpc.ImTokenRPC;
 import org.hang.live.common.web.configuration.context.RequestContext;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
@@ -24,7 +24,7 @@ import java.util.List;
 public class ImServiceImpl implements ImService {
 
     @DubboReference
-    private ImTokenRpc imTokenRpc;
+    private ImTokenRPC imTokenRPC;
     @Value("${hang.im.ws.port}")
     private int port;
     @Resource
@@ -33,7 +33,7 @@ public class ImServiceImpl implements ImService {
     @Override
     public ImConfigVO getImConfig() {
         ImConfigVO imConfigVO = new ImConfigVO();
-        imConfigVO.setToken(imTokenRpc.createImLoginToken(RequestContext.getUserId(), AppIdEnum.LIVE_BIZ.getCode()));
+        imConfigVO.setToken(imTokenRPC.createImLoginToken(RequestContext.getUserId(), AppIdEnum.LIVE_BIZ.getCode()));
         buildImServerAddress(imConfigVO);
         return imConfigVO;
     }

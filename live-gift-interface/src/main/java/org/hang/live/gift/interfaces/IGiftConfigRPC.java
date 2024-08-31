@@ -10,7 +10,7 @@ import java.util.List;
  * @Date: Created in 22:54 2024/8/27
  * @Description CRUD Gift Configuration Record RPC
  */
-public interface IGiftConfigRpc {
+public interface IGiftConfigRPC {
 
     /**
      * Query Gift Config by Gift Id

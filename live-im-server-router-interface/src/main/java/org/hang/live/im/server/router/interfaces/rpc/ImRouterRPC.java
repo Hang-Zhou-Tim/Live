@@ -8,7 +8,7 @@ import java.util.List;
  * @Date: Created in 16:21 2024/8/12
  * @Description
  */
-public interface ImRouterRpc {
+public interface ImRouterRPC {
 
 
     /**

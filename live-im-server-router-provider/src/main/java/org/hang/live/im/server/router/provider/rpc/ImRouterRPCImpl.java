@@ -3,7 +3,7 @@ package org.hang.live.im.server.router.provider.rpc;
 import jakarta.annotation.Resource;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.hang.live.im.core.server.interfaces.dto.ImMsgBody;
-import org.hang.live.im.server.router.interfaces.rpc.ImRouterRpc;
+import org.hang.live.im.server.router.interfaces.rpc.ImRouterRPC;
 import org.hang.live.im.server.router.provider.service.ImRouterService;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * @Description
  */
 @DubboService
-public class ImRouterRpcImpl implements ImRouterRpc {
+public class ImRouterRPCImpl implements ImRouterRPC {
 
     @Resource
     private ImRouterService routerService;

@@ -2,7 +2,7 @@ package org.hang.live.im.core.server.rpc;
 
 import jakarta.annotation.Resource;
 import org.apache.dubbo.config.annotation.DubboService;
-import org.hang.live.im.core.server.interfaces.rpc.ImTokenRpc;
+import org.hang.live.im.core.server.interfaces.rpc.ImTokenRPC;
 import org.hang.live.im.core.server.service.ImTokenService;
 
 /**
@@ -13,7 +13,7 @@ import org.hang.live.im.core.server.service.ImTokenService;
  * @Description
  */
 @DubboService
-public class ImTokenRpcImpl implements ImTokenRpc {
+public class ImTokenRPCImpl implements ImTokenRPC {
 
     @Resource
     private ImTokenService imTokenService;

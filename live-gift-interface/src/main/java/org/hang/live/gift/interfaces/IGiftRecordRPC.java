@@ -9,7 +9,7 @@ import org.hang.live.gift.dto.GiftRecordDTO;
  * @Date: Created in 22:54 2024/8/27
  * @Description Sending Gift Record RPC
  */
-public interface IGiftRecordRpc {
+public interface IGiftRecordRPC {
 
     /**
      * Insert a Gift by GiftRecordDTO

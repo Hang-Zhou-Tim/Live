@@ -11,7 +11,7 @@ import org.hang.live.id.generator.service.IdGenerateService;
  * @Description
  */
 @DubboService
-public class IdGenerateRpcImpl implements IdGenerateRPC {
+public class IdGenerateRPCImpl implements IdGenerateRPC {
 
     @Resource
     private IdGenerateService idGenerateService;

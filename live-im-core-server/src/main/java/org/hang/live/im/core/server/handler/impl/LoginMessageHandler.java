@@ -17,7 +17,7 @@ import org.hang.live.im.core.server.handler.SimplyHandler;
 import org.hang.live.im.core.server.interfaces.constants.ImCoreServerConstants;
 import org.hang.live.im.core.server.interfaces.dto.ImOnlineDTO;
 import org.hang.live.im.core.server.interfaces.dto.ImMsgBody;
-import org.hang.live.im.core.server.interfaces.rpc.ImTokenRpc;
+import org.hang.live.im.core.server.interfaces.rpc.ImTokenRPC;
 import org.hang.live.im.core.server.service.ImTokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

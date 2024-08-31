@@ -6,9 +6,9 @@ import org.hang.live.im.core.server.interfaces.constants.AppIdEnum;
 import org.hang.live.im.core.server.interfaces.dto.ImMsgBody;
 import org.hang.live.im.message.provider.consumer.handler.MessageHandler;
 import org.hang.live.im.server.router.interfaces.constants.ImMsgBizCodeEnum;
-import org.hang.live.im.server.router.interfaces.rpc.ImRouterRpc;
+import org.hang.live.im.server.router.interfaces.rpc.ImRouterRPC;
 import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomReqDTO;
-import org.hang.live.stream.room.interfaces.rpc.ILiveStreamRoomRpc;
+import org.hang.live.stream.room.interfaces.rpc.ILiveStreamRoomRPC;
 import org.hang.live.im.message.dto.MessageDTO;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -26,9 +26,9 @@ import java.util.stream.Collectors;
 public class SingleMessageHandlerImpl implements MessageHandler {
 
     @DubboReference
-    private ImRouterRpc routerRpc;
+    private ImRouterRPC routerRPC;
     @DubboReference
-    private ILiveStreamRoomRpc liveStreamRoomRpc;
+    private ILiveStreamRoomRPC liveStreamRoomRpc;
 
     // Broadcaster Batched Message for the Room
     @Override
@@ -58,7 +58,7 @@ public class SingleMessageHandlerImpl implements MessageHandler {
                 imMsgBodies.add(respMsg);
             });
             //Broadcaster all messages to router
-            routerRpc.batchSendMsg(imMsgBodies);
+            routerRPC.batchSendMsg(imMsgBodies);
         }
     }
 }

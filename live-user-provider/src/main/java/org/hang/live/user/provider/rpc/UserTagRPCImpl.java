@@ -12,7 +12,7 @@ import org.hang.live.user.provider.service.IUserTagService;
  * @Description
  */
 @DubboService
-public class UserTagRpcImpl implements IUserTagRPC {
+public class UserTagRPCImpl implements IUserTagRPC {
 
     @Resource
     private IUserTagService userTagService;

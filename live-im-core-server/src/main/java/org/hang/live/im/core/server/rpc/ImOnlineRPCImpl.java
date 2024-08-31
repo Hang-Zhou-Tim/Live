@@ -2,7 +2,7 @@ package org.hang.live.im.core.server.rpc;
 
 import jakarta.annotation.Resource;
 import org.apache.dubbo.config.annotation.DubboService;
-import org.hang.live.im.core.server.interfaces.rpc.ImOnlineRpc;
+import org.hang.live.im.core.server.interfaces.rpc.ImOnlineRPC;
 import org.hang.live.im.core.server.service.ImOnlineService;
 
 /**
@@ -11,7 +11,7 @@ import org.hang.live.im.core.server.service.ImOnlineService;
  * @Description
  */
 @DubboService
-public class ImOnlineRpcImpl implements ImOnlineRpc {
+public class ImOnlineRPCImpl implements ImOnlineRPC {
 
     @Resource
     private ImOnlineService imOnlineService;

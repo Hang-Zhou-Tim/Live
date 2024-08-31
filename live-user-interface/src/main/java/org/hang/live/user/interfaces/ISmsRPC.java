@@ -5,11 +5,11 @@ import org.hang.live.user.dto.MsgCheckDTO;
 import org.hang.live.user.enums.MsgSendResultEnum;
 
 /**
- * @Author idea
- * @Date: Created in 17:21 2023/6/11
+ * @Author hang
+ * @Date: Created in 10:13 2024/8/10
  * @Description
  */
-public interface ISmsRpc {
+public interface ISmsRPC {
 
     /**
      * Send SMS message

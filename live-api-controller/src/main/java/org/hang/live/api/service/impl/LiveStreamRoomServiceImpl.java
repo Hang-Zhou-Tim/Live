@@ -6,15 +6,24 @@ import org.hang.live.api.service.ILiveStreamRoomService;
 import org.hang.live.api.vo.LiveStreamRoomInitVO;
 import org.hang.live.api.vo.req.LiveStreamRoomReqVO;
 //import org.hang.live.api.vo.req.OnlinePkReqVO;
+import org.hang.live.api.vo.req.OnlinePkReqVO;
 import org.hang.live.api.vo.resp.LiveStreamRoomPageRespVO;
 import org.hang.live.api.vo.resp.LiveStreamRoomRespVO;
+import org.hang.live.api.vo.resp.RedPacketReceiveVO;
 import org.hang.live.common.interfaces.dto.PageWrapper;
 import org.hang.live.common.interfaces.utils.ConvertBeanUtils;
+import org.hang.live.common.web.configuration.error.BizBaseErrorEnum;
+import org.hang.live.common.web.configuration.error.ErrorAssert;
+import org.hang.live.common.web.configuration.error.ErrorException;
+import org.hang.live.gift.dto.RedPacketConfigReqDTO;
 import org.hang.live.gift.dto.RedPacketConfigRespDTO;
-import org.hang.live.gift.interfaces.IRedPacketConfigRpc;
+import org.hang.live.gift.dto.RedPacketReceiveDTO;
+import org.hang.live.gift.interfaces.IRedPacketConfigRPC;
+import org.hang.live.im.core.server.interfaces.constants.AppIdEnum;
+import org.hang.live.stream.room.interfaces.dto.LivePkStreamRoomRespDTO;
 import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomReqDTO;
 import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomRespDTO;
-import org.hang.live.stream.room.interfaces.rpc.ILiveStreamRoomRpc;
+import org.hang.live.stream.room.interfaces.rpc.ILiveStreamRoomRPC;
 import org.hang.live.user.dto.UserDTO;
 import org.hang.live.user.interfaces.IUserRPC;
 import org.hang.live.common.web.configuration.context.RequestContext;
@@ -38,14 +47,14 @@ public class LiveStreamRoomServiceImpl implements ILiveStreamRoomService {
     @DubboReference
     private IUserRPC userRpc;
     @DubboReference
-    private ILiveStreamRoomRpc liveStreamRoomRpc;
+    private ILiveStreamRoomRPC liveStreamRoomRPC;
 
     @DubboReference
-    private IRedPacketConfigRpc redPacketConfigRpc;
+    private IRedPacketConfigRPC redPacketConfigRPC;
 
     @Override
     public LiveStreamRoomPageRespVO list(LiveStreamRoomReqVO livingRoomReqVO) {
-        PageWrapper<LiveStreamRoomRespDTO>  resultPage = liveStreamRoomRpc.list(ConvertBeanUtils.convert(livingRoomReqVO,LiveStreamRoomReqDTO.class));
+        PageWrapper<LiveStreamRoomRespDTO>  resultPage = liveStreamRoomRPC.list(ConvertBeanUtils.convert(livingRoomReqVO,LiveStreamRoomReqDTO.class));
         LiveStreamRoomPageRespVO livingRoomPageRespVO = new LiveStreamRoomPageRespVO();
         livingRoomPageRespVO.setList(ConvertBeanUtils.convertList(resultPage.getList(), LiveStreamRoomRespVO.class));
         livingRoomPageRespVO.setHasNext(resultPage.isHasNext());
@@ -61,7 +70,7 @@ public class LiveStreamRoomServiceImpl implements ILiveStreamRoomService {
         liveStreamRoomReqDTO.setRoomName("Anchor-" + RequestContext.getUserId() + "'s Room");
         liveStreamRoomReqDTO.setCovertImg(userDTO.getAvatar());
         liveStreamRoomReqDTO.setType(type);
-        return liveStreamRoomRpc.startLiveStreamRoom(liveStreamRoomReqDTO);
+        return liveStreamRoomRPC.startLiveStreamRoom(liveStreamRoomReqDTO);
     }
 
     //Handle when user close the live stream.
@@ -70,12 +79,12 @@ public class LiveStreamRoomServiceImpl implements ILiveStreamRoomService {
         LiveStreamRoomReqDTO liveStreamRoomReqDTO = new LiveStreamRoomReqDTO();
         liveStreamRoomReqDTO.setRoomId(roomId);
         liveStreamRoomReqDTO.setAnchorId(RequestContext.getUserId());
-        return liveStreamRoomRpc.closeLiveStreamRoom(liveStreamRoomReqDTO);
+        return liveStreamRoomRPC.closeLiveStreamRoom(liveStreamRoomReqDTO);
     }
     //When entered the room, get the details of user and anchor like nickname, userid, avatar, room background, etc.
     @Override
     public LiveStreamRoomInitVO getAnchorConfig(Long userId, Integer roomId) {
-        LiveStreamRoomRespDTO respDTO = liveStreamRoomRpc.queryByRoomId(roomId);
+        LiveStreamRoomRespDTO respDTO = liveStreamRoomRPC.queryByRoomId(roomId);
         //ErrorAssert.isNotNull(respDTO,ApiErrorEnum.LIVING_ROOM_END);
         Map<Long,UserDTO> userDTOMap = userRpc.batchQueryUserInfo(Arrays.asList(respDTO.getAnchorId(),userId).stream().distinct().collect(Collectors.toList()));
         UserDTO anchor = userDTOMap.get(respDTO.getAnchorId());
@@ -98,7 +107,7 @@ public class LiveStreamRoomServiceImpl implements ILiveStreamRoomService {
 
         // Check if the anchor has right to start red packet rain
         if (respVO.isAnchor()) {
-            RedPacketConfigRespDTO redPacketConfigRespDTO = redPacketConfigRpc.queryByAnchorId(userId);
+            RedPacketConfigRespDTO redPacketConfigRespDTO = redPacketConfigRPC.queryByAnchorId(userId);
             if (redPacketConfigRespDTO != null) {
                 respVO.setRedPacketConfigCode(redPacketConfigRespDTO.getConfigCode());
             }
@@ -107,56 +116,56 @@ public class LiveStreamRoomServiceImpl implements ILiveStreamRoomService {
         return respVO;
     }
 
-//    @Override
-//    public boolean joinOnlinePK(OnlinePkReqVO onlinePkReqVO) {
-//        LiveStreamRoomReqDTO reqDTO = new LiveStreamRoomReqDTO();
-//        reqDTO.setRoomId(onlinePkReqVO.getRoomId());
-//        reqDTO.setAppId(AppIdEnum.LIVE_BIZ.getCode());
-//        reqDTO.setPkObjId(RequestContext.getUserId());
-//        LivePkStreamRoomRespDTO tryOnlineStatus = liveStreamRoomRpc.joinOnlinePK(reqDTO);
-//        ErrorAssert.isTure(tryOnlineStatus.isOnlineStatus(), new ErrorException(-1, tryOnlineStatus.getMsg()));
-//        return true;
-//    }
-//
-//    @Override
-//    public Long queryOnlinePkUserId(Integer roomId) {
-//        return liveStreamRoomRpc.queryOnlinePkUserId(roomId);
-//    }
+    @Override
+    public boolean joinOnlinePK(OnlinePkReqVO onlinePkReqVO) {
+        LiveStreamRoomReqDTO reqDTO = new LiveStreamRoomReqDTO();
+        reqDTO.setRoomId(onlinePkReqVO.getRoomId());
+        reqDTO.setAppId(AppIdEnum.LIVE_BIZ.getCode());
+        reqDTO.setPkObjId(RequestContext.getUserId());
+        LivePkStreamRoomRespDTO tryOnlineStatus = liveStreamRoomRPC.joinOnlinePK(reqDTO);
+        ErrorAssert.isTure(tryOnlineStatus.isOnlineStatus(), new ErrorException(-1, tryOnlineStatus.getMsg()));
+        return true;
+    }
 
-//    @Override
-//    public Boolean prepareRedPacket(Long userId, Integer roomId) {
-//        LiveStreamRoomRespDTO livingRoomRespDTO = liveStreamRoomRpc.queryByRoomId(roomId);
-//        ErrorAssert.isNotNull(livingRoomRespDTO, BizBaseErrorEnum.PARAM_ERROR);
-//        ErrorAssert.isTure(userId.equals(livingRoomRespDTO.getAnchorId()), BizBaseErrorEnum.PARAM_ERROR);
-//        return redPacketConfigRpc.prepareRedPacket(userId);
-//    }
-//
-//    @Override
-//    public Boolean startRedPacket(Long userId, String code) {
-//        RedPacketConfigReqDTO reqDTO = new RedPacketConfigReqDTO();
-//        reqDTO.setUserId(userId);
-//        reqDTO.setRedPacketConfigCode(code);
-//        LiveStreamRoomRespDTO livingRoomRespDTO = liveStreamRoomRpc.queryByAnchorId(userId);
-//        ErrorAssert.isNotNull(livingRoomRespDTO, BizBaseErrorEnum.PARAM_ERROR);
-//        reqDTO.setRoomId(livingRoomRespDTO.getId());
-//        return redPacketConfigRpc.startRedPacket(reqDTO);
-//    }
+    @Override
+    public Long queryOnlinePkUserId(Integer roomId) {
+        return liveStreamRoomRPC.queryOnlinePkUserId(roomId);
+    }
 
-//    @Override
-//    public RedPacketReceiveVO getRedPacket(Long userId, String code) {
-//        RedPacketConfigReqDTO reqDTO = new RedPacketConfigReqDTO();
-//        reqDTO.setUserId(userId);
-//        reqDTO.setRedPacketConfigCode(code);
-//        RedPacketReceiveDTO receiveDTO = redPacketConfigRpc.receiveRedPacket(reqDTO);
-//        RedPacketReceiveVO respVO = new RedPacketReceiveVO();
-//        if (receiveDTO == null) {
-//            respVO.setMsg("Preparation of Red Packet Rain is finished!");
-//        } else {
-//            respVO.setPrice(receiveDTO.getPrice());
-//            respVO.setMsg(receiveDTO.getNotifyMsg());
-//        }
-//        return respVO;
-//    }
+    @Override
+    public Boolean prepareRedPacket(Long userId, Integer roomId) {
+        LiveStreamRoomRespDTO livingRoomRespDTO = liveStreamRoomRPC.queryByRoomId(roomId);
+        ErrorAssert.isNotNull(livingRoomRespDTO, BizBaseErrorEnum.PARAM_ERROR);
+        ErrorAssert.isTure(userId.equals(livingRoomRespDTO.getAnchorId()), BizBaseErrorEnum.PARAM_ERROR);
+        return redPacketConfigRPC.prepareRedPacket(userId);
+    }
+
+    @Override
+    public Boolean startRedPacket(Long userId, String code) {
+        RedPacketConfigReqDTO reqDTO = new RedPacketConfigReqDTO();
+        reqDTO.setUserId(userId);
+        reqDTO.setRedPacketConfigCode(code);
+        LiveStreamRoomRespDTO livingRoomRespDTO = liveStreamRoomRPC.queryByAnchorId(userId);
+        ErrorAssert.isNotNull(livingRoomRespDTO, BizBaseErrorEnum.PARAM_ERROR);
+        reqDTO.setRoomId(livingRoomRespDTO.getId());
+        return redPacketConfigRPC.startRedPacket(reqDTO);
+    }
+
+    @Override
+    public RedPacketReceiveVO getRedPacket(Long userId, String code) {
+        RedPacketConfigReqDTO reqDTO = new RedPacketConfigReqDTO();
+        reqDTO.setUserId(userId);
+        reqDTO.setRedPacketConfigCode(code);
+        RedPacketReceiveDTO receiveDTO = redPacketConfigRPC.receiveRedPacket(reqDTO);
+        RedPacketReceiveVO respVO = new RedPacketReceiveVO();
+        if (receiveDTO == null) {
+            respVO.setMsg("Preparation of Red Packet Rain is finished!");
+        } else {
+            respVO.setPrice(receiveDTO.getPrice());
+            respVO.setMsg(receiveDTO.getNotifyMsg());
+        }
+        return respVO;
+    }
 
 
 }

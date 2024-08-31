@@ -12,7 +12,7 @@ import org.apache.rocketmq.common.message.MessageExt;
 import org.hang.live.common.redis.configuration.key.GiftProviderCacheKeyBuilder;
 import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomReqDTO;
 import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomRespDTO;
-import org.hang.live.stream.room.interfaces.rpc.ILiveStreamRoomRpc;
+import org.hang.live.stream.room.interfaces.rpc.ILiveStreamRoomRPC;
 import org.hang.live.user.payment.dto.TransactionTurnoverReqDTO;
 import org.hang.live.user.payment.dto.TransactionTurnoverRespDTO;
 import org.hang.live.user.payment.interfaces.IAccountBalanceRPC;
@@ -23,7 +23,7 @@ import org.hang.live.gift.constants.SendGiftTypeEnum;
 import org.hang.live.im.core.server.interfaces.constants.AppIdEnum;
 import org.hang.live.im.core.server.interfaces.dto.ImMsgBody;
 import org.hang.live.im.server.router.interfaces.constants.ImMsgBizCodeEnum;
-import org.hang.live.im.server.router.interfaces.rpc.ImRouterRpc;
+import org.hang.live.im.server.router.interfaces.rpc.ImRouterRPC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -69,9 +69,9 @@ public class SendGiftConsumer implements InitializingBean {
     @DubboReference
     private IAccountBalanceRPC accountBalanceRpc;
     @DubboReference
-    private ILiveStreamRoomRpc liveStreamRoomRpc;
+    private ILiveStreamRoomRPC liveStreamRoomRPC;
     @DubboReference
-    private ImRouterRpc routerRpc;
+    private ImRouterRPC routerRPC;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -107,7 +107,7 @@ public class SendGiftConsumer implements InitializingBean {
                         LiveStreamRoomReqDTO reqDTO = new LiveStreamRoomReqDTO();
                         reqDTO.setAppId(AppIdEnum.LIVE_BIZ.getCode());
                         reqDTO.setRoomId(sendGiftMq.getRoomId());
-                        List<Long> userIdList = liveStreamRoomRpc.queryUserIdByRoomId(reqDTO);
+                        List<Long> userIdList = liveStreamRoomRPC.queryUserIdByRoomId(reqDTO);
                         this.batchSendImMsg(userIdList, ImMsgBizCodeEnum.LIVING_ROOM_SEND_GIFT_SUCCESS, jsonObject);
                     } else if (SendGiftTypeEnum.PK_SEND_GIFT.getCode().equals(sendGiftType)) {
                         this.pkImMsgSend(jsonObject, sendGiftMq, receiverId);
@@ -139,7 +139,7 @@ public class SendGiftConsumer implements InitializingBean {
         imMsgBody.setBizCode(bizCode);
         imMsgBody.setUserId(userId);
         imMsgBody.setData(jsonObject.toJSONString());
-        routerRpc.sendMsg(imMsgBody);
+        routerRPC.sendMsg(imMsgBody);
     }
 
     private void pkImMsgSend(JSONObject jsonObject, SendGiftMq sendGiftMq, Long receiverId) {
@@ -153,8 +153,8 @@ public class SendGiftConsumer implements InitializingBean {
         if (redisTemplate.hasKey(isOverCacheKey)) {
             return;
         }
-        LiveStreamRoomRespDTO respDTO = liveStreamRoomRpc.queryByRoomId(roomId);
-        Long pkObjId = liveStreamRoomRpc.queryOnlinePkUserId(roomId);
+        LiveStreamRoomRespDTO respDTO = liveStreamRoomRPC.queryByRoomId(roomId);
+        Long pkObjId = liveStreamRoomRPC.queryOnlinePkUserId(roomId);
         if (pkObjId == null || respDTO == null || respDTO.getAnchorId() == null) {
             return;
         }
@@ -187,7 +187,7 @@ public class SendGiftConsumer implements InitializingBean {
         LiveStreamRoomReqDTO livingRoomReqDTO = new LiveStreamRoomReqDTO();
         livingRoomReqDTO.setRoomId(roomId);
         livingRoomReqDTO.setAppId(AppIdEnum.LIVE_BIZ.getCode());
-        List<Long> userIdList = liveStreamRoomRpc.queryUserIdByRoomId(livingRoomReqDTO);
+        List<Long> userIdList = liveStreamRoomRPC.queryUserIdByRoomId(livingRoomReqDTO);
         this.batchSendImMsg(userIdList, ImMsgBizCodeEnum.LIVING_ROOM_PK_SEND_GIFT_SUCCESS, jsonObject);
     }
 
@@ -207,6 +207,6 @@ public class SendGiftConsumer implements InitializingBean {
             imMsgBody.setData(jsonObject.toJSONString());
             return imMsgBody;
         }).collect(Collectors.toList());
-        routerRpc.batchSendMsg(imMsgBodies);
+        routerRPC.batchSendMsg(imMsgBodies);
     }
 }

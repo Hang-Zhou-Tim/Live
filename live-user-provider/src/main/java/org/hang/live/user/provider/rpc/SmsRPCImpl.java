@@ -4,7 +4,7 @@ import jakarta.annotation.Resource;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.hang.live.user.dto.MsgCheckDTO;
 import org.hang.live.user.enums.MsgSendResultEnum;
-import org.hang.live.user.interfaces.ISmsRpc;
+import org.hang.live.user.interfaces.ISmsRPC;
 import org.hang.live.user.provider.service.ISmsService;
 
 
@@ -14,7 +14,7 @@ import org.hang.live.user.provider.service.ISmsService;
  * @Description
  */
 @DubboService
-public class SmsRpcImpl implements ISmsRpc {
+public class SmsRPCImpl implements ISmsRPC {
 
     @Resource
     private ISmsService smsService;

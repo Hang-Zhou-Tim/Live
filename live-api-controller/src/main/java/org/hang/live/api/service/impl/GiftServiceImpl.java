@@ -16,7 +16,7 @@ import org.hang.live.common.interfaces.dto.SendGiftMq;
 import org.hang.live.common.interfaces.topic.GiftProviderTopicNames;
 import org.hang.live.common.interfaces.utils.ConvertBeanUtils;
 import org.hang.live.gift.dto.GiftConfigDTO;
-import org.hang.live.gift.interfaces.IGiftConfigRpc;
+import org.hang.live.gift.interfaces.IGiftConfigRPC;
 import org.hang.live.common.web.configuration.context.RequestContext;
 import org.hang.live.common.web.configuration.error.ErrorAssert;
 import org.slf4j.Logger;
@@ -37,7 +37,7 @@ public class GiftServiceImpl implements IGiftService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GiftServiceImpl.class);
     @DubboReference
-    private IGiftConfigRpc giftConfigRpc;
+    private IGiftConfigRPC giftConfigRPC;
 
     private Cache<Integer,GiftConfigDTO> giftConfigDTOCache = Caffeine.newBuilder().maximumSize(1000).expireAfterWrite(90, TimeUnit.SECONDS).build();
 
@@ -46,7 +46,7 @@ public class GiftServiceImpl implements IGiftService {
 
     @Override
     public List<GiftConfigVO> listGift() {
-        List<GiftConfigDTO> giftConfigDTOList = giftConfigRpc.queryGiftList();
+        List<GiftConfigDTO> giftConfigDTOList = giftConfigRPC.queryGiftList();
         return ConvertBeanUtils.convertList(giftConfigDTOList, GiftConfigVO.class);
     }
 
@@ -54,7 +54,7 @@ public class GiftServiceImpl implements IGiftService {
     public boolean send(GiftReqVO giftReqVO) {
         int giftId = giftReqVO.getGiftId();
         //I used Caffine local cache map: if there exists id, return gift config, otherwise get it by RPC call.
-        GiftConfigDTO giftConfigDTO = giftConfigDTOCache.get(giftId, id -> giftConfigRpc.getByGiftId(giftId));
+        GiftConfigDTO giftConfigDTO = giftConfigDTOCache.get(giftId, id -> giftConfigRPC.getByGiftId(giftId));
         ErrorAssert.isNotNull(giftConfigDTO, ApiErrorEnum.GIFT_CONFIG_ERROR);
         ErrorAssert.isTure(!giftReqVO.getReceiverId().equals(giftReqVO.getSenderUserId()), ApiErrorEnum.NOT_SEND_TO_YOURSELF);
         SendGiftMq sendGiftMq = new SendGiftMq();

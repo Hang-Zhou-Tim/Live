@@ -7,7 +7,7 @@ package org.hang.live.im.core.server.interfaces.rpc;
  * @Date: Created in 09:28 2024/8/14
  * @Description
  */
-public interface ImTokenRpc {
+public interface ImTokenRPC {
 
     /**
      * Create im token for user

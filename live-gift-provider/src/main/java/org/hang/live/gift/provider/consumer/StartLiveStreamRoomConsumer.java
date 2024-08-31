@@ -8,7 +8,7 @@ import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.hang.live.common.interfaces.topic.GiftProviderTopicNames;
 import org.hang.live.common.mq.configuration.properties.RocketMQConsumerProperties;
-import org.hang.live.gift.interfaces.ISkuStockInfoRpc;
+import org.hang.live.gift.interfaces.ISkuStockInfoRPC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -23,7 +23,7 @@ public class StartLiveStreamRoomConsumer implements InitializingBean {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(StartLiveStreamRoomConsumer.class);
     @Resource
-    private ISkuStockInfoRpc skuStockInfoRpc;
+    private ISkuStockInfoRPC skuStockInfoRpc;
 
     @Resource
     private RocketMQConsumerProperties rocketMQConsumerProperties;

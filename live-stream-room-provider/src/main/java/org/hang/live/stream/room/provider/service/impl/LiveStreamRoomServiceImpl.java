@@ -17,7 +17,7 @@ import org.hang.live.im.core.server.interfaces.dto.ImOfflineDTO;
 import org.hang.live.im.core.server.interfaces.dto.ImOnlineDTO;
 import org.hang.live.im.core.server.interfaces.dto.ImMsgBody;
 import org.hang.live.im.server.router.interfaces.constants.ImMsgBizCodeEnum;
-import org.hang.live.im.server.router.interfaces.rpc.ImRouterRpc;
+import org.hang.live.im.server.router.interfaces.rpc.ImRouterRPC;
 import org.hang.live.stream.room.interfaces.constants.LiveStreamRoomTypeEnum;
 import org.hang.live.stream.room.interfaces.dto.LivePkStreamRoomRespDTO;
 import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomReqDTO;
@@ -62,7 +62,7 @@ public class LiveStreamRoomServiceImpl implements ILiveStreamRoomService {
     @Resource
     private ILiveStreamRoomCloseService livingRoomTxService;
     @DubboReference
-    private ImRouterRpc imRouterRpc;
+    private ImRouterRPC imRouterRpc;
 
     //Get all online users connected in a room
     @Override

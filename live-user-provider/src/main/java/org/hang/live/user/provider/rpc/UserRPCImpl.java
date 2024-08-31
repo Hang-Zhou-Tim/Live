@@ -15,7 +15,7 @@ import java.util.Map;
  * @Description
  */
 @DubboService
-public class UserRpcImpl implements IUserRPC {
+public class UserRPCImpl implements IUserRPC {
 
     @Resource
     private IUserService userService;

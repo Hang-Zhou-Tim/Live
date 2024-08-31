@@ -10,7 +10,7 @@ import org.hang.live.common.interfaces.utils.ConvertBeanUtils;
 import org.hang.live.common.interfaces.vo.WebResponseVO;
 import org.hang.live.user.dto.MsgCheckDTO;
 import org.hang.live.user.enums.MsgSendResultEnum;
-import org.hang.live.user.interfaces.ISmsRpc;
+import org.hang.live.user.interfaces.ISmsRPC;
 import org.hang.live.user.constants.UserTagsEnum;
 import org.hang.live.user.dto.UserLoginDTO;
 import org.hang.live.user.interfaces.IAccountTokenRPC;
@@ -35,7 +35,7 @@ public class UserLoginServiceImpl implements IUserLoginService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserLoginServiceImpl.class);
 
     @DubboReference(timeout = 30000)
-    private ISmsRpc smsRpc;
+    private ISmsRPC smsRPC;
     @DubboReference(timeout = 30000)
     private IUserPhoneRPC userPhoneRPC;
     @DubboReference(timeout = 30000)
@@ -48,7 +48,7 @@ public class UserLoginServiceImpl implements IUserLoginService {
     public WebResponseVO sendLoginCode(String phone) {
         ErrorAssert.isNotBlank(phone, ApiErrorEnum.PHONE_IS_EMPTY);
         ErrorAssert.isTure(Pattern.matches(PHONE_REG, phone), ApiErrorEnum.PHONE_IN_VALID);
-        MsgSendResultEnum msgSendResultEnum = smsRpc.sendLoginCode(phone);
+        MsgSendResultEnum msgSendResultEnum = smsRPC.sendLoginCode(phone);
         if (msgSendResultEnum == MsgSendResultEnum.SEND_SUCCESS) {
             return WebResponseVO.success();
         }
@@ -57,7 +57,7 @@ public class UserLoginServiceImpl implements IUserLoginService {
 
     @Override
     public WebResponseVO login(String phone, Integer code, HttpServletResponse response) {
-        MsgCheckDTO msgCheckDTO = smsRpc.checkLoginCode(phone, code);
+        MsgCheckDTO msgCheckDTO = smsRPC.checkLoginCode(phone, code);
         if (!msgCheckDTO.isCheckStatus()) {
             return WebResponseVO.bizError(msgCheckDTO.getDesc());
         }

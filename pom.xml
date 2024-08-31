@@ -28,7 +28,6 @@
       <module>live-gift-provider</module>
       <module>live-user-payment-interface</module>
     <module>live-user-payment-provider</module>
-      <module>live-payment-callback</module>
   </modules>
 
   <properties>

@@ -2,7 +2,9 @@ package org.hang.live.api.service;
 
 import org.hang.live.api.vo.LiveStreamRoomInitVO;
 import org.hang.live.api.vo.req.LiveStreamRoomReqVO;
+import org.hang.live.api.vo.req.OnlinePkReqVO;
 import org.hang.live.api.vo.resp.LiveStreamRoomPageRespVO;
+import org.hang.live.api.vo.resp.RedPacketReceiveVO;
 
 /**
  * @Author hang
@@ -27,13 +29,13 @@ public interface ILiveStreamRoomService {
     Integer startLiveStreamRoom(Integer type);
 
 
-//    /**
-//     * Deal with user pk live stream room connection.
-//     *
-//     * @param onlinePkReqVO
-//     * @return
-//     */
-//    boolean joinOnlinePK(OnlinePkReqVO onlinePkReqVO);
+    /**
+     * Deal with user pk live stream room connection.
+     *
+     * @param onlinePkReqVO
+     * @return
+     */
+    boolean joinOnlinePK(OnlinePkReqVO onlinePkReqVO);
 
     /**
      * close live stream room
@@ -52,19 +54,19 @@ public interface ILiveStreamRoomService {
      */
     LiveStreamRoomInitVO getAnchorConfig(Long userId,Integer roomId);
 
-//    Long queryOnlinePkUserId(Integer roomId);
-//    /**
-//     * Anchor clicks on prepare red packet rains
-//     */
-//    Boolean prepareRedPacket(Long userId, Integer roomId);
-//
-//    /**
-//     * Anchor clicks on start red packet rains
-//     */
-//    Boolean startRedPacket(Long userId, String code);
+    Long queryOnlinePkUserId(Integer roomId);
+    /**
+     * Anchor clicks on prepare red packet rains
+     */
+    Boolean prepareRedPacket(Long userId, Integer roomId);
 
-//    /**
-//     * users in the room get the red packet
-//     */
-//    RedPacketReceiveVO getRedPacket(Long userId, String redPacketConfigCode);
+    /**
+     * Anchor clicks on start red packet rains
+     */
+    Boolean startRedPacket(Long userId, String code);
+
+    /**
+     * users in the room get the red packet
+     */
+    RedPacketReceiveVO getRedPacket(Long userId, String redPacketConfigCode);
 }

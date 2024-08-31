@@ -12,7 +12,7 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
 import jakarta.annotation.Resource;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.hang.live.im.core.server.handler.impl.LoginMessageHandler;
-import org.hang.live.im.core.server.interfaces.rpc.ImTokenRpc;
+import org.hang.live.im.core.server.interfaces.rpc.ImTokenRPC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,7 +37,7 @@ public class WsHandshakeHandler extends ChannelInboundHandlerAdapter {
     private int port;
     private String serverIp;
     @DubboReference
-    private ImTokenRpc imTokenRpc;
+    private ImTokenRPC imTokenRpc;
     @Resource
     private LoginMessageHandler loginMsgHandler;
 

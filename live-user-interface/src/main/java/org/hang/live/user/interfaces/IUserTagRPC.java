@@ -4,9 +4,9 @@ package org.hang.live.user.interfaces;
 import org.hang.live.user.constants.UserTagsEnum;
 
 /**
- * @Author idea
- * @Date: Created in 15:42 2023/4/16
- * @Description User Tag RPC service
+ * @Author hang
+ * @Date: Created in 10:13 2024/8/10
+ * @Description User tag rpc
  */
 public interface IUserTagRPC {
 

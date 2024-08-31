@@ -3,7 +3,7 @@ package org.hang.live.gift.provider.rpc;
 import jakarta.annotation.Resource;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.hang.live.gift.dto.GiftConfigDTO;
-import org.hang.live.gift.interfaces.IGiftConfigRpc;
+import org.hang.live.gift.interfaces.IGiftConfigRPC;
 import org.hang.live.gift.provider.service.IGiftConfigService;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * @Description
  */
 @DubboService
-public class GiftConfigRpcImpl implements IGiftConfigRpc {
+public class GiftConfigRPCImpl implements IGiftConfigRPC {
 
     @Resource
     private IGiftConfigService giftConfigService;

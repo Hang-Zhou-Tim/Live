@@ -3,7 +3,7 @@ package org.hang.live.gift.provider.rpc;
 import jakarta.annotation.Resource;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.hang.live.gift.dto.GiftRecordDTO;
-import org.hang.live.gift.interfaces.IGiftRecordRpc;
+import org.hang.live.gift.interfaces.IGiftRecordRPC;
 import org.hang.live.gift.provider.service.IGiftRecordService;
 
 /**
@@ -12,7 +12,7 @@ import org.hang.live.gift.provider.service.IGiftRecordService;
  * @Description
  */
 @DubboService
-public class GiftRecordRpcImpl implements IGiftRecordRpc {
+public class GiftRecordRPCImpl implements IGiftRecordRPC {
 
     @Resource
     private IGiftRecordService giftRecordService;

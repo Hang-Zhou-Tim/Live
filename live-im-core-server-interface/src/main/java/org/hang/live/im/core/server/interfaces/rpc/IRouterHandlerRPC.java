@@ -11,7 +11,7 @@ import java.util.List;
  * @Date: Created in 10:19 2024/8/14
  * @Description
  */
-public interface IRouterHandlerRpc {
+public interface IRouterHandlerRPC {
 
     /**
      * Send message based on user id.

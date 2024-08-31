@@ -7,6 +7,7 @@ import java.util.Map;
 
 /**
  * @Author hang
+ * @Date: Created in 10:13 2024/8/10
  * @Description
  */
 public interface IUserRPC {

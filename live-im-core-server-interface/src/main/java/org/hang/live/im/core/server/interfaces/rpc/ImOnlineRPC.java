@@ -5,6 +5,6 @@ package org.hang.live.im.core.server.interfaces.rpc;
  * @Date: Created in 11:06 2024/8/13
  * @Description
  */
-public interface ImOnlineRpc {
+public interface ImOnlineRPC {
     boolean isOnline(long userId,int appId);
 }

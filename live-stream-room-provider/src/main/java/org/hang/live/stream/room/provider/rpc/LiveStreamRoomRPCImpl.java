@@ -5,7 +5,7 @@ import org.apache.dubbo.config.annotation.DubboService;
 import org.hang.live.stream.room.interfaces.dto.LivePkStreamRoomRespDTO;
 import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomReqDTO;
 import org.hang.live.stream.room.interfaces.dto.LiveStreamRoomRespDTO;
-import org.hang.live.stream.room.interfaces.rpc.ILiveStreamRoomRpc;
+import org.hang.live.stream.room.interfaces.rpc.ILiveStreamRoomRPC;
 import org.hang.live.stream.room.provider.service.ILiveStreamRoomService;
 import org.hang.live.stream.room.provider.service.ILiveStreamRoomCloseService;
 import org.hang.live.common.interfaces.dto.PageWrapper;
@@ -18,7 +18,7 @@ import java.util.List;
  * @Description
  */
 @DubboService
-public class LiveStreamRoomRpcImpl implements ILiveStreamRoomRpc {
+public class LiveStreamRoomRPCImpl implements ILiveStreamRoomRPC {
 
     @Resource
     private ILiveStreamRoomService liveStreamRoomService;
