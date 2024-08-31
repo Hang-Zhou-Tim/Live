@@ -15,6 +15,7 @@ import org.hang.live.api.vo.resp.GiftConfigVO;
 import org.hang.live.common.interfaces.dto.SendGiftMq;
 import org.hang.live.common.interfaces.topic.GiftProviderTopicNames;
 import org.hang.live.common.interfaces.utils.ConvertBeanUtils;
+import org.hang.live.gift.constants.SendGiftTypeEnum;
 import org.hang.live.gift.dto.GiftConfigDTO;
 import org.hang.live.gift.interfaces.IGiftConfigRPC;
 import org.hang.live.common.web.configuration.context.RequestContext;
@@ -63,12 +64,18 @@ public class GiftServiceImpl implements IGiftService {
         sendGiftMq.setRoomId(giftReqVO.getRoomId());
         sendGiftMq.setReceiverId(giftReqVO.getReceiverId());
         sendGiftMq.setUrl(giftConfigDTO.getSvgaUrl());
-        sendGiftMq.setType(giftReqVO.getType());
+        int sendGiftType = giftReqVO.getType();
+        sendGiftMq.setType(sendGiftType);
         sendGiftMq.setPrice(giftConfigDTO.getPrice());
         //Used uuid to avoid duplicate consume
         sendGiftMq.setUuid(UUID.randomUUID().toString());
         Message message = new Message();
-        message.setTopic(GiftProviderTopicNames.SEND_GIFT);
+        if(SendGiftTypeEnum.PK_SEND_GIFT.getCode().equals(sendGiftType)){
+            message.setTopic(GiftProviderTopicNames.SEND_PK_GIFT);
+        }else{
+            message.setTopic(GiftProviderTopicNames.SEND_GIFT);
+        }
+
         message.setBody(JSON.toJSONBytes(sendGiftMq));
         try {
             SendResult sendResult = mqProducer.send(message);

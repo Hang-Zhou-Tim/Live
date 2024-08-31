@@ -28,4 +28,5 @@ public class GiftProviderTopicNames {
      * cache key name used to prepare stock.
      */
     public static final String PREPARE_STOCK = "prepare-stock";
+    public static final String SEND_PK_GIFT = "send_pk_gift";
 }

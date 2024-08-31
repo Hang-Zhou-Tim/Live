@@ -42,9 +42,23 @@ import java.util.stream.Collectors;
  * @Description RocketMQ Consumer that Listen Sending Gifts
  */
 @Configuration
-public class SendGiftConsumer implements InitializingBean {
+public class SendPKGiftConsumer implements InitializingBean {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SendGiftConsumer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SendPKGiftConsumer.class);
+
+    private static final Long PK_INIT_NUM = 50L;
+    private static final Long PK_MAX_NUM = 100L;
+    private static final Long PK_MIN_NUM = 0L;
+    private String LUA_SCRIPT =
+            "if (redis.call('exists', KEYS[1])) == 1 then " +
+                    " local currentNum=redis.call('get',KEYS[1]) " +
+                    " if (tonumber(currentNum)<=tonumber(ARGV[2]) and tonumber(currentNum)>=tonumber(ARGV[3])) then " +
+                    " return redis.call('incrby',KEYS[1],tonumber(ARGV[4])) " +
+                    " else return currentNum end " +
+                    "else " +
+                    "redis.call('set', KEYS[1], tonumber(ARGV[1])) " +
+                    "redis.call('EXPIRE', KEYS[1], 3600 * 12) " +
+                    "return redis.call('incrby',KEYS[1],tonumber(ARGV[4])) end";
 
     @Resource
     private RocketMQConsumerProperties rocketMQConsumerProperties;
@@ -64,11 +78,11 @@ public class SendGiftConsumer implements InitializingBean {
         DefaultMQPushConsumer mqPushConsumer = new DefaultMQPushConsumer();
         mqPushConsumer.setVipChannelEnabled(false);
         mqPushConsumer.setNamesrvAddr(rocketMQConsumerProperties.getNameSrv());
-        mqPushConsumer.setConsumerGroup(rocketMQConsumerProperties.getGroupName() + "_" + SendGiftConsumer.class.getSimpleName());
+        mqPushConsumer.setConsumerGroup(rocketMQConsumerProperties.getGroupName() + "_" + SendPKGiftConsumer.class.getSimpleName());
         mqPushConsumer.setConsumeMessageBatchMaxSize(10);
         mqPushConsumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
         //Listen the situation when a user sends a gift.
-        mqPushConsumer.subscribe(GiftProviderTopicNames.SEND_GIFT, "");
+        mqPushConsumer.subscribe(GiftProviderTopicNames.SEND_PK_GIFT, "");
         mqPushConsumer.setMessageListener((MessageListenerConcurrently) (msgs, context) -> {
             for (MessageExt msg : msgs) {
                 SendGiftMq sendGiftMq = JSON.parseObject(new String(msg.getBody()), SendGiftMq.class);
@@ -86,27 +100,20 @@ public class SendGiftConsumer implements InitializingBean {
                 //If the account balance is deduced successfully, send the gift message to all users in room, so they can view the animation.
                 if (tradeRespDTO.isSuccess()) {
                     Long receiverId = sendGiftMq.getReceiverId();
-                    //Notify all users.
-                    jsonObject.put("url", sendGiftMq.getUrl());
-                    LiveStreamRoomReqDTO reqDTO = new LiveStreamRoomReqDTO();
-                    reqDTO.setAppId(AppIdEnum.LIVE_BIZ.getCode());
-                    reqDTO.setRoomId(sendGiftMq.getRoomId());
-                    List<Long> userIdList = liveStreamRoomRPC.queryUserIdByRoomId(reqDTO);
-                    this.sendImNotificationInBatch(userIdList, ImMsgBizCodeEnum.LIVING_ROOM_SEND_GIFT_SUCCESS, jsonObject);
+                    this.sendOnlinePKGiftNotification(jsonObject, sendGiftMq, receiverId);
                 } else {
                     //Tell the user that gift is failed to send.
                     jsonObject.put("msg", tradeRespDTO.getMsg());
                     this.sendSingleImNotification(sendGiftMq.getUserId(), ImMsgBizCodeEnum.LIVING_ROOM_SEND_GIFT_FAIL.getCode(), jsonObject);
                 }
-//                LOGGER.info("[SendGiftConsumer] msg is {}", msg);
             }
             return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
         });
         mqPushConsumer.start();
-        LOGGER.info("RocketMQ consuemr that listens sending gift is initialised,namesrv is {}", rocketMQConsumerProperties.getNameSrv());
+        LOGGER.info("RocketMQ consuemr that listens sending pk gift is initialised,namesrv is {}", rocketMQConsumerProperties.getNameSrv());
     }
 
-    /**
+/**
      * Send IM Message.
      *
      * @param userId
@@ -120,6 +127,55 @@ public class SendGiftConsumer implements InitializingBean {
         imMsgBody.setUserId(userId);
         imMsgBody.setData(jsonObject.toJSONString());
         routerRPC.sendMsg(imMsgBody);
+    }
+
+    private void sendOnlinePKGiftNotification(JSONObject jsonObject, SendGiftMq sendGiftMq, Long receiverId) {
+        //1. update pk progress bar.
+            // Default value for two sides in PK gift bar is 50:50.
+            // When users send gift of value 50¥ to left user, then the pk bar will be 55:45.
+            // I only record
+        //2. notify gift animation.
+        Integer roomId = sendGiftMq.getRoomId();
+        String isOverCacheKey = cacheKeyBuilder.buildPKLiveStreamIsOver(roomId);
+        if (redisTemplate.hasKey(isOverCacheKey)) {
+            return;
+        }
+        LiveStreamRoomRespDTO respDTO = liveStreamRoomRPC.queryByRoomId(roomId);
+        Long pkObjId = liveStreamRoomRPC.queryOnlinePkUserId(roomId);
+        if (pkObjId == null || respDTO == null || respDTO.getAnchorId() == null) {
+            return;
+        }
+        Long pkUserId = respDTO.getAnchorId();
+        Long pkNum = 0L;
+        String pkNumKey = cacheKeyBuilder.buildPKLiveStreamKey(roomId);
+        //Set LUA Script to Atomically Update PK Progress
+        DefaultRedisScript<Long> redisScript = new DefaultRedisScript();
+        redisScript.setScriptText(LUA_SCRIPT);
+        redisScript.setResultType(Long.class);
+        Long sendGiftSeqNum = System.currentTimeMillis();
+        if (pkUserId.equals(receiverId)) {
+            Integer moveStep = sendGiftMq.getPrice() / 10;
+            pkNum = this.redisTemplate.execute(redisScript, Collections.singletonList(pkNumKey), PK_INIT_NUM, PK_MAX_NUM, PK_MIN_NUM, moveStep);
+            if (PK_MAX_NUM <= pkNum) {
+                jsonObject.put("winnerId", pkUserId);
+            }
+        } else if (pkObjId.equals(receiverId)) {
+            Integer moveStep = sendGiftMq.getPrice() / 10 * -1;
+            pkNum = this.redisTemplate.execute(redisScript, Collections.singletonList(pkNumKey), PK_INIT_NUM, PK_MAX_NUM, PK_MIN_NUM, moveStep);
+            if (PK_MIN_NUM >= pkNum) {
+                this.redisTemplate.opsForValue().set(cacheKeyBuilder.buildPKLiveStreamIsOver(roomId),-1);
+                jsonObject.put("winnerId", pkObjId);
+            }
+        }
+        jsonObject.put("receiverId", sendGiftMq.getReceiverId());
+        jsonObject.put("sendGiftSeqNum", sendGiftSeqNum);
+        jsonObject.put("pkNum", pkNum);
+        jsonObject.put("url", sendGiftMq.getUrl());
+        LiveStreamRoomReqDTO livingRoomReqDTO = new LiveStreamRoomReqDTO();
+        livingRoomReqDTO.setRoomId(roomId);
+        livingRoomReqDTO.setAppId(AppIdEnum.LIVE_BIZ.getCode());
+        List<Long> userIdList = liveStreamRoomRPC.queryUserIdByRoomId(livingRoomReqDTO);
+        this.sendImNotificationInBatch(userIdList, ImMsgBizCodeEnum.LIVING_ROOM_PK_SEND_GIFT_SUCCESS, jsonObject);
     }
 
     /**

@@ -2,7 +2,7 @@ package org.hang.live.user.payment.provider.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import jakarta.annotation.Resource;
-import org.hang.live.common.redis.configuration.key.BankProviderCacheKeyBuilder;
+import org.hang.live.common.redis.configuration.key.UserPaymentProviderCacheKeyBuilder;
 import org.hang.live.user.payment.dto.CurrencyDTO;
 import org.hang.live.user.payment.provider.dao.maper.ICurrencyMapper;
 import org.hang.live.user.payment.provider.dao.po.CurrencyPO;
@@ -31,7 +31,7 @@ public class CurrencyServiceImpl implements ICurrencyService {
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
     @Resource
-    private BankProviderCacheKeyBuilder cacheKeyBuilder;
+    private UserPaymentProviderCacheKeyBuilder cacheKeyBuilder;
 
     @Override
     public List<CurrencyDTO> getAllCurrencyAmounts(Integer type) {

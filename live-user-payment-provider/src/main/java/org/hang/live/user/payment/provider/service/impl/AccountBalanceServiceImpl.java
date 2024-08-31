@@ -5,7 +5,7 @@ import org.hang.live.user.payment.provider.dao.maper.IAccountBalanceMapper;
 import org.hang.live.user.payment.provider.dao.po.AccountBalancePO;
 import org.hang.live.user.payment.provider.service.IAccountBalanceService;
 import org.hang.live.user.payment.provider.service.ITransactionTurnoverService;
-import org.hang.live.common.redis.configuration.key.BankProviderCacheKeyBuilder;
+import org.hang.live.common.redis.configuration.key.UserPaymentProviderCacheKeyBuilder;
 import org.hang.live.user.payment.constants.PaymentTypeEnum;
 import org.hang.live.user.payment.dto.TransactionTurnoverReqDTO;
 import org.hang.live.user.payment.dto.TransactionTurnoverRespDTO;
@@ -33,7 +33,7 @@ public class AccountBalanceServiceImpl implements IAccountBalanceService {
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
     @Resource
-    private BankProviderCacheKeyBuilder cacheKeyBuilder;
+    private UserPaymentProviderCacheKeyBuilder cacheKeyBuilder;
     @Resource
     private ITransactionTurnoverService transactionTurnoverService;
 
