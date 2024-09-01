@@ -6,9 +6,9 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.concurrent.ThreadLocalRandom;
 
-/*
- *
+/**
  * @Author hang
+ * @Date: Created in 22:54 2024/8/20
  * @Description
  */
 public class IpLogConversionRule extends PropertyDefinerBase {

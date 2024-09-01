@@ -5,9 +5,8 @@ import java.util.List;
 
 /**
  * Used for query a page of PO.
- *
- * @Author idea
- * @Date: Created in 18:41 2023/7/23
+ * @Author hang
+ * @Date: Created in 22:54 2024/8/27
  * @Description
  */
 public class PageWrapper<T> implements Serializable {

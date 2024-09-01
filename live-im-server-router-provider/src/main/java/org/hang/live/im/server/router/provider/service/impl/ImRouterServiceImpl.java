@@ -7,6 +7,8 @@ import org.hang.live.im.core.server.interfaces.constants.ImCoreServerConstants;
 import org.hang.live.im.core.server.interfaces.rpc.IRouterHandlerRPC;
 import org.hang.live.im.core.server.interfaces.dto.ImMsgBody;
 import org.hang.live.im.server.router.provider.service.ImRouterService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -30,6 +32,8 @@ public class ImRouterServiceImpl implements ImRouterService {
     private IRouterHandlerRPC routerHandlerRpc;
     @Resource
     private StringRedisTemplate stringRedisTemplate;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ImRouterServiceImpl.class);
+
 
     @Override
     public boolean sendMsg(ImMsgBody imMsgBody) {
@@ -84,6 +88,7 @@ public class ImRouterServiceImpl implements ImRouterService {
                 ImMsgBody imMsgBody = userIdMsgMap.get(userId);
                 batchSendMsgGroupByIpList.add(imMsgBody);
             }
+            LOGGER.info("Sending notification message to websocket server ip: {}", currentIp);
             routerHandlerRpc.batchSendMsg(batchSendMsgGroupByIpList);
         }
     }

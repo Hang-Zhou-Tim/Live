@@ -5,6 +5,9 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 /**
  * @Author hang
  * @Date: Created in 22:54 2024/8/24
@@ -13,7 +16,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication  //Auto Load Packages and Context
 @EnableDiscoveryClient  //Enable Service Discovery
 public class ApiControllerApplication /*implements CommandLineRunner*/ {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnknownHostException {
+        String ip = InetAddress.getLocalHost().getHostAddress();
+        System.out.println(ip);
         //Initialise spring application with this class
         SpringApplication springApplication = new SpringApplication(ApiControllerApplication.class);
         springApplication.setWebApplicationType(WebApplicationType.SERVLET); //None means it will not work as servlet-based web service, and not initialise Tomcat;

@@ -1,5 +1,6 @@
 package org.hang.live.api.service.impl;
 
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.dubbo.config.annotation.DubboReference;
@@ -19,6 +20,7 @@ import org.hang.live.user.interfaces.IUserTagRPC;
 import org.hang.live.common.web.configuration.error.ErrorAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Pattern;
@@ -44,6 +46,9 @@ public class UserLoginServiceImpl implements IUserLoginService {
     @DubboReference(timeout = 30000)
     private IUserTagRPC userTagRPC;
 
+    @Resource
+    private Environment environment;
+
     @Override
     public WebResponseVO sendLoginCode(String phone) {
         ErrorAssert.isNotBlank(phone, ApiErrorEnum.PHONE_IS_EMPTY);
@@ -68,7 +73,7 @@ public class UserLoginServiceImpl implements IUserLoginService {
         //Set the user to be vip, so it can create room and live stream under test environment
         userTagRPC.setTag(userLoginDTO.getUserId(), UserTagsEnum.IS_VIP);
         Cookie cookie = new Cookie("hlivetoken", token);
-        cookie.setDomain("127.0.0.1");
+        cookie.setDomain(environment.getProperty("DUBBO_IP_TO_REGISTRY"));
         cookie.setPath("/");
         //cookie expiration date with Second Unit
         cookie.setMaxAge(30 * 24 * 3600);

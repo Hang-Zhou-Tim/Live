@@ -52,7 +52,7 @@ public class AccountCheckFilter implements GlobalFilter, Ordered {
 
         //Add this to avoid CORS
         HttpHeaders headers = response.getHeaders();
-        headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://127.0.0.1:5500");
+        headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, request.getHeaders().getOrigin());
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, "POST, GET");
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
         headers.add(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "*");

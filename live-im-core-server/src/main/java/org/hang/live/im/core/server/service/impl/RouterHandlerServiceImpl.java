@@ -9,6 +9,8 @@ import org.hang.live.im.core.server.common.ImMsg;
 import org.hang.live.im.core.server.service.IMsgAckCheckService;
 import org.hang.live.im.core.server.service.IRouterHandlerService;
 import org.hang.live.im.core.server.interfaces.dto.ImMsgBody;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -20,6 +22,9 @@ import java.util.UUID;
  */
 @Service
 public class RouterHandlerServiceImpl implements IRouterHandlerService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RouterHandlerServiceImpl.class);
+
 
     @Resource
     private IMsgAckCheckService msgAckCheckService;
@@ -38,6 +43,7 @@ public class RouterHandlerServiceImpl implements IRouterHandlerService {
     public boolean sendMsgToClient(ImMsgBody imMsgBody) {
         Long userId = imMsgBody.getUserId();
         ChannelHandlerContext ctx = ChannelHandlerContextCache.get(userId);
+        LOGGER.info("Sending message to user-{}", imMsgBody.getUserId());
         if (ctx != null) {
             String msgId = UUID.randomUUID().toString();
             imMsgBody.setMsgId(msgId);

@@ -186,13 +186,16 @@ public class RedPacketConfigServiceImpl implements IRedPacketConfigService {
     @Override
     public Boolean startRedPacket(RedPacketConfigReqDTO reqDTO) {
         String code = reqDTO.getRedPacketConfigCode();
+
         // If the red packet list is not prepared, return false.
         if (Boolean.FALSE.equals(redisTemplate.hasKey(cacheKeyBuilder.buildRedPacketPrepareSuccess(code)))) {
+            LOGGER.info("This red packet rain event is not prepared before.");
             return false;
         }
         // If the red packet rain is already started, then return false.
         String notifySuccessCacheKey = cacheKeyBuilder.buildRedPacketNotify(code);
         if (Boolean.TRUE.equals(redisTemplate.hasKey(notifySuccessCacheKey))) {
+            LOGGER.info("This red packet rain event is already sent by users.");
             return false;
         }
         redisTemplate.opsForValue().set(notifySuccessCacheKey, 1, 1L, TimeUnit.MINUTES);
@@ -204,8 +207,14 @@ public class RedPacketConfigServiceImpl implements IRedPacketConfigService {
         livingRoomReqDTO.setRoomId(reqDTO.getRoomId());
         livingRoomReqDTO.setAppId(AppIdEnum.LIVE_BIZ.getCode());
         List<Long> userIdList = liveStreamRoomRPC.queryUserIdByRoomId(livingRoomReqDTO);
-        if (CollectionUtils.isEmpty(userIdList)) return false;
+        if (CollectionUtils.isEmpty(userIdList)){
+            LOGGER.info("There is no one else in the room. Please reconnect to this room.");
+            return false;
+        }
+
+        LOGGER.info("Sending Red Packet Rain Event Notification to All Users in This Rooms.");
         this.batchSendImMessage(userIdList, ImMsgBizCodeEnum.RED_PACKET_CONFIG.getCode(), jsonObject);
+        LOGGER.info("Sending Finished");
         // Set the status of red packet rain to send.
         redPacketConfigPO.setStatus(RedPacketStatusEnum.IS_SEND.getCode());
         this.updateById(redPacketConfigPO);

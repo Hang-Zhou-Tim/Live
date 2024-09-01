@@ -5,12 +5,12 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @Author hang
- * @Date: Created in 10:23 2024/8/20
+ * @Date: Created in 10:23 2024/8/30
  * @Description
  */
 @Configuration
 @Conditional(RedisKeyLoadMatch.class)
-public class BankProviderCacheKeyBuilder extends RedisKeyBuilder {
+public class UserPaymentProviderCacheKeyBuilder extends RedisKeyBuilder {
 
     private static String BALANCE_CACHE = "balance_cache";
 

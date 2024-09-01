@@ -2,9 +2,8 @@ package org.hang.live.common.interfaces.vo;
 
 /**
  * United way to send back VO object.
- *
- * @Author idea
- * @Date: Created in 10:45 2023/6/15
+ * @Author hang
+ * @Date: Created in 22:54 2024/8/27
  * @Description
  */
 public class WebResponseVO {

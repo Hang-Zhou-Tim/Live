@@ -11,7 +11,11 @@ import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
-
+/**
+ * @Author hang
+ * @Date: Created in 22:54 2024/8/11
+ * @Description
+ */
 public class DESUtils {
 
     // Algorithm Name
