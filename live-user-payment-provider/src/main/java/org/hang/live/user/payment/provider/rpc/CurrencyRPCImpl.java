@@ -25,7 +25,7 @@ public class CurrencyRPCImpl implements ICurrencyRPC {
     }
 
     @Override
-    public CurrencyDTO getByCurrencyId(Integer productId) {
-        return payProductService.getByCurrencyId(productId);
+    public CurrencyDTO getByCurrencyId(Integer currencyId) {
+        return payProductService.getByCurrencyId(currencyId);
     }
 }

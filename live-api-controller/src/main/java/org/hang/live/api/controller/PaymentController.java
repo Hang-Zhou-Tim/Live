@@ -30,7 +30,7 @@ public class PaymentController {
     }
 
     @PostMapping("/buyCurrency")
-    public WebResponseVO buyProduct(BuyCurrencyReqVO buyCurrencyReqVO) {
+    public WebResponseVO buyCurrency(BuyCurrencyReqVO buyCurrencyReqVO) {
         return WebResponseVO.success(paymentService.buyCurrency(buyCurrencyReqVO));
     }
 

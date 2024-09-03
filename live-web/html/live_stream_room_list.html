@@ -1,0 +1,127 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Live Stream Rooms</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"> -->
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/live_stream_room_list.css">
+    <script src="../js/vue.js"></script>
+    <script src="../js/index.js"></script>
+    <script src="../js/axios.min.js"></script>
+    <script src="../js/constants.js"></script>
+</head>
+
+<body class="main-content">
+    <div id="app">
+        <div class="top-tab">
+            <div>
+                <span>
+                    <img src="../img/livingroom.jpg" class="top-logo" alt="">
+                </span>
+                <span class="top-title">
+                    Hang Live Stream
+                </span>
+                <span class="top-title top-title-link" id="default_living_room" @click="chooseLivingType(1,'default_living_room')">
+                    Live Stream Rooms
+                </span>
+                <span class="top-title top-title-link" id="pk_living_room" @click="chooseLivingType(2,'pk_living_room')">
+                    PK Stream Rooms
+                </span>
+                <span>
+                    <input type="search" class="top-search-input" placeholder="Type what you want: " style="margin-left: 50px;">
+                </span>
+                <span v-show="isLogin==false" class="top-title top-login top-title-link" style="margin-left: 200px;"
+                    @click="showLoginPopNow()">
+                    {{loginBtnMsg}}
+                </span>
+                <span v-show="isLogin==true" class="top-title top-login" style="margin-top: 10px;">
+                    <span v-show="initInfo.showStartLivingBtn==true">
+                        <button class="start_living_room_btn" @click="showStartLivingRoomTab()">Start Live Stream</button>
+                    </span>
+                    <span>
+                        <!-- <img :src="initInfo.avatar" style="height: 30px;width: 30px;border-radius: 50%;" alt=""> -->
+                    </span>
+                    <span style="position:relative;top: -12px;left:10px;">
+                     {{initInfo.nickName}}
+                    </span>
+                </span>
+                <el-dialog title="Live Stream Type" :visible.sync="startLivingRoomTab" width="30%" center>
+                    <el-button @click="jumpToLivingRoomPage(1)">Normal</el-button>
+                    <el-button @click="jumpToLivingRoomPage(2)">PK</el-button>
+                </el-dialog>
+
+            </div>
+        </div>
+        <div >
+            <div style="text-align: center;margin-bottom: 50px;margin-top: 90px;"></div>
+            <div> 
+                <div style="position:relative;
+            /*left: 26%;*/
+            top:200px; width: 1000px;margin: auto;padding-top: 50px;" 
+            >
+                <div>
+                    <div id="living_room_list_div">
+                    <el-row  :gutter="24" >
+                        <el-col :span="6" v-for="item in livingRoomList"  >
+                            <img :src="item.covertImg" class="living_room_cover" @click="jumpToLivingRoom(item.id,item.type)">
+                            <div class="living_room_tab" @click="jumpToLivingRoom(item.id,item.type)">
+                                <img src="../img/head.jpeg" alt="" class="living_room_head">
+                                <span class="living_room_name">{{item.roomName}}</span>
+                                <span class="online_count"><i class="el-icon-view"></i>{{item.watchNum}}</span>
+                                <span class="good_count"><i class="el-icon-star-on"></i>{{item.goodNum}}</span>
+                            </div>
+                        </el-col>
+                    </el-row>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="grey_bg" v-show="showLoginPop==true" @click="hiddenLoginPopNow()"></div>
+        <div class="login_pop" v-show="showLoginPop==true">
+            <div>
+                <span>
+                    <img src="../img/livingroom.jpg" alt=""
+                        style="width: 30px;height: 30px;position:relative; top: 20px;left: 40px;">
+                </span>
+                <span style="position: relative;top: 10px;left: 40px;">
+                    Login
+                </span>
+            </div>
+            <div style="position: relative;top: -6%;left: 2%;">
+                <div class="login_input_line">
+                    <span style="margin-right: 20px;">
+                        Phone:
+                    </span>
+                    <span>
+                        <input type="tel" class="login_input" v-model="mobile" >
+                    </span>
+                </div>
+                <div class="login_input_line" style="margin-top: 20px;">
+                    <span style="margin-right: 20px;">
+                        Code：
+                    </span>
+                    <span>
+                        <input type="tel" class="login_input" v-model="code" style="width: 30%;" >
+                        <template>
+                            <button class="login_sms_code" @click="sendSmsCode()">{{loginCodeBtn}}</button>
+                        </template>
+                    </span>
+                </div>
+                <div class="login_input_line" style="margin-top: 20px;">
+                    <span>
+                        <input type="submit" class="login_input login_btn" @click="mobileLogin()" value="Login">
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+<script src="../js/utils.js"></script>
+<script src="../js/live_stream_room_list.js"></script>
+
+</html>

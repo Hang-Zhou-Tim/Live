@@ -42,19 +42,19 @@ public class GiftController {
 
     @RequestLimit(limit = 1, second = 10, msg = "Preparing Red Packet. Please Wait!")
     @PostMapping("/prepareRedPacket")
-    public WebResponseVO prepareRedPacket(LiveStreamRoomReqVO livingRoomReqVO) {
-        return WebResponseVO.success(giftService.prepareRedPacket(RequestContext.getUserId(), livingRoomReqVO.getRoomId()));
+    public WebResponseVO prepareRedPacket(LiveStreamRoomReqVO liveStreamRoomReqVO) {
+        return WebResponseVO.success(giftService.prepareRedPacket(RequestContext.getUserId(), liveStreamRoomReqVO.getRoomId()));
     }
 
     @RequestLimit(limit = 1, second = 10, msg = "Red Packet Rain Has Acticated!")
     @PostMapping("/startRedPacket")
-    public WebResponseVO startRedPacket(LiveStreamRoomReqVO livingRoomReqVO) {
-        return WebResponseVO.success(giftService.startRedPacket(RequestContext.getUserId(), livingRoomReqVO.getRedPacketConfigCode()));
+    public WebResponseVO startRedPacket(LiveStreamRoomReqVO liveStreamRoomReqVO) {
+        return WebResponseVO.success(giftService.startRedPacket(RequestContext.getUserId(), liveStreamRoomReqVO.getRedPacketConfigCode()));
     }
 
     @RequestLimit(limit = 1, second = 1, msg = "")
     @PostMapping("/snatchRedPacket")
-    public WebResponseVO getRedPacket(LiveStreamRoomReqVO livingRoomReqVO) {
-        return WebResponseVO.success(giftService.snatchRedPacket(RequestContext.getUserId(), livingRoomReqVO.getRedPacketConfigCode()));
+    public WebResponseVO getRedPacket(LiveStreamRoomReqVO liveStreamRoomReqVO) {
+        return WebResponseVO.success(giftService.snatchRedPacket(RequestContext.getUserId(), liveStreamRoomReqVO.getRedPacketConfigCode()));
     }
 }

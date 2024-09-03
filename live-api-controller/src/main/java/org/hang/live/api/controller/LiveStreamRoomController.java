@@ -32,10 +32,10 @@ public class LiveStreamRoomController {
 
 
     @PostMapping("/list")
-    public WebResponseVO list(LiveStreamRoomReqVO livingRoomReqVO) {
-        ErrorAssert.isTure(livingRoomReqVO != null && livingRoomReqVO.getType() != null, BizBaseErrorEnum.PARAM_ERROR);
-        ErrorAssert.isTure(livingRoomReqVO.getPage() > 0 && livingRoomReqVO.getPageSize() <= 100, BizBaseErrorEnum.PARAM_ERROR);
-        return WebResponseVO.success(liveStreamRoomService.list(livingRoomReqVO));
+    public WebResponseVO list(LiveStreamRoomReqVO liveStreamRoomReqVO) {
+        ErrorAssert.isTure(liveStreamRoomReqVO != null && liveStreamRoomReqVO.getType() != null, BizBaseErrorEnum.PARAM_ERROR);
+        ErrorAssert.isTure(liveStreamRoomReqVO.getPage() > 0 && liveStreamRoomReqVO.getPageSize() <= 100, BizBaseErrorEnum.PARAM_ERROR);
+        return WebResponseVO.success(liveStreamRoomService.list(liveStreamRoomReqVO));
     }
 
     @RequestLimit(limit = 1, second = 10, msg = "Request too frequent. Try it later.")
@@ -50,7 +50,7 @@ public class LiveStreamRoomController {
 
     @RequestLimit(limit = 1, second = 10, msg = "Request too frequent. Try it later.")
     @PostMapping("/closeLiveStreamRoom")
-    public WebResponseVO closeLiving(Integer roomId) {
+    public WebResponseVO closeLiveStreamRoom(Integer roomId) {
         ErrorAssert.isNotNull(roomId, BizBaseErrorEnum.PARAM_ERROR);
         boolean closeStatus = liveStreamRoomService.closeLiveStreamRoom(roomId);
         if (closeStatus) {

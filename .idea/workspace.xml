@@ -1,0 +1,806 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ef1e4172-cf40-450d-8a1e-517d9af08a9c" name="Changes" comment="Finalised Frontend Code and Finalise This Project.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="module" />
+    </option>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2k8Gt8XY6iW970RmWRZaDVrkokw" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.docker.live-api-controller-9098: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-api-gateway-80: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-api-gateway-docker-80: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-api-gateway-docker: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-gift-provider-9097: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-gift-provider-docker-9097: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-id-generator-9088: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-id-generator-docker-1: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-id-generator-docker-9088: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-im-core-server-docker-1: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-im-core-server-docker-dubbo-9090-netty-9091: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-im-core-server-dubbo-9090-netty-9091: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-im-message-provider-9096: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-im-server-router-provider-1: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-im-server-router-provider-9092: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-payment-callback-provider-9095: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-stream-room-provider-1: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-stream-room-provider-9093: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-user-payment-provider-1: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-user-payment-provider-9094: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-user-provider-8089: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-user-provider-docker-1: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker.live-user-provider-docker-8089: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker: Compose Deployment (1).executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker: Compose Deployment (2).executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-account-interface [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-account-interface [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-account-interface [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-account-provider [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-account-provider [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-account-provider [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-api [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-api [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-api-controller [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-api-controller [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-api-controller [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-api-gateway [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-api-gateway [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-api-gateway [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-app [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-app [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-app [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-app [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-common-interface [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-common-interface [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-common-interface [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-common-interface [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-framework [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-framework [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-framework-datasource-starter [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-framework-datasource-starter [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-framework-datasource-starter [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-framework-mq-starter [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-framework-mq-starter [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-framework-redis-starter [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-framework-redis-starter [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-framework-redis-starter [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-framework-redis-starter [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-framework-web-starter [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-gateway [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-gateway [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-gift-interface [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-gift-interface [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-gift-provider [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-gift-provider [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-gift-provider [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-id-generate-provider [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-id-generate-provider [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-id-generator [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-id-generator-interface [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-im-core-server [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-im-message-provider [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-im-server-router-provider [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-msg-interface [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-msg-interface [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-msg-provider [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-msg-provider [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-msg-provider [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-payment-callback [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-stream-room-interface [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-stream-room-interface [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-stream-room-interface [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-stream-room-provider [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-stream-room-provider [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-stream-room-provider [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-stream-room-provider [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-stream-room-provider [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-user-interface [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-user-interface [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-user-interface [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-user-payment-provider [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-user-provider [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-user-provider [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.live-user-provider [install].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.AccountProviderApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.AccountProviderApplication-Dubbo9079.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.AccountProviderApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ApiControllerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ApiGatewayApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ApiWebApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ApiWebApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.BankApiApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.BankProviderApplication-Dubbo9081.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.BankProviderApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.GatewayApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.GiftProviderApplication (1).executor&quot;: &quot;Debug&quot;,
+    &quot;Spring Boot.GiftProviderApplication-Dubbo9097.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.GiftProviderApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.IdGenerateApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.IdGeneratorApplication-Dubbo8088.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.IdGeneratorApplication-Dubbo9088.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.IdGeneratorApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ImCoreServerApplication-Dubbo9090,Netty9091.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ImCoreServerApplication-Netty9086.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ImCoreServerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ImMessageProviderApplication-Dubbo9096.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ImMessageProviderApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ImProviderApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ImRouterProviderApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ImServerRouterProviderApplication-Dubbo9092.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ImServerRouterProviderApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.LiveStreamProviderApplication-Dubbo9082.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.LiveStreamProviderApplication-Dubbo9093.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.LivingProviderApplication-Dubbo9082.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.LivingProviderApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.MsgProviderApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PaymentCallBackApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PaymentCallbackApplication-Dubbo9095.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PaymentCallbackApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserPaymentAccountProviderApplication-Dubbo9081.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserPaymentProviderApplication-Dubbo9094.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserPaymentProviderApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserProviderApplication (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserProviderApplication-Dubbo8089.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserProviderApplication-Dubbo9089.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserProviderApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-17&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hang/OneDrive/文档/Java学习资源/直播项目/项目/live-app/live-gift-provider/src/main/java/org/hang/live/gift/provider/consumer&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;,
+      &quot;redis&quot;
+    ]
+  }
+}</component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Hang\OneDrive\文档\Java学习资源\直播项目\项目\live-app\live-gift-provider\src\main\java\org\hang\live\gift\provider\consumer" />
+      <recent name="C:\Users\Hang\OneDrive\文档\Java学习资源\直播项目\项目\live-app\live-stream-room-provider\src\main\resources" />
+      <recent name="C:\Users\Hang\OneDrive\文档\Java学习资源\直播项目\项目\live-app\live-id-generator\docker" />
+      <recent name="C:\Users\Hang\OneDrive\文档\Java学习资源\直播项目\项目\live-app\live-user-provider\docker" />
+      <recent name="C:\Users\Hang\OneDrive\文档\Java学习资源\直播项目\项目\live-app\live-gift-provider" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Hang\OneDrive\文档\Java学习资源\直播项目\项目\live-app\live-im-server-router-provider" />
+      <recent name="C:\Users\Hang\OneDrive\文档\Java学习资源\直播项目\项目\live-app\live-stream-room-provider" />
+      <recent name="C:\Users\Hang\OneDrive\文档\Java学习资源\直播项目\项目\live-app\live-im-core-server\src\main\java\org\hang\live\im\core\server\service\impl" />
+      <recent name="C:\Users\Hang\OneDrive\文档\Java学习资源\直播项目\项目\live-app\live-framework\live-framework-web-starter\src\main\resources\META-INF" />
+      <recent name="C:\Users\Hang\OneDrive\文档\Java学习资源\直播项目\项目\live-app\live-framework\live-framework-mq-starter\src\main\resources\META-INF\spring" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="org.hang.live.web.starter.context" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.hang.live.user.payment.dto" />
+      <recent name="org.hang.live.user.payment.provider.rpc" />
+      <recent name="org.hang.live.user.payment.interfaces" />
+      <recent name="org.hang.live.msg.dto" />
+      <recent name="org.hang.live.user.provider.enums" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="Application" />
+        <option value="ChromiumRemoteDebugType" />
+        <option value="JarApplication" />
+        <option value="MavenRunConfiguration" />
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.ApiControllerApplication">
+    <configuration name="live_user_payment.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/sql/live_user_payment.sql" />
+      <script-mode>FILE</script-mode>
+      <method v="2" />
+    </configuration>
+    <configuration name="ApiControllerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="live-api-controller" />
+      <option name="SHORTEN_COMMAND_LINE" value="MANIFEST" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.hang.live.api.ApiControllerApplication" />
+      <option name="VM_PARAMETERS" value="-DDUBBO_IP_TO_REGISTRY=192.168.1.3 -DDUBBO_PORT_TO_REGISTRY=9098" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.hang.live.api.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ApiGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="live-api-gateway" />
+      <option name="SHORTEN_COMMAND_LINE" value="MANIFEST" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.hang.live.gateway.ApiGatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GiftProviderApplication-Dubbo9097" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="live-gift-provider" />
+      <option name="SHORTEN_COMMAND_LINE" value="NONE" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.hang.live.gift.provider.GiftProviderApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.hang.live.gift.provider.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="IdGeneratorApplication-Dubbo9088" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="live-id-generator" />
+      <option name="SHORTEN_COMMAND_LINE" value="MANIFEST" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.hang.live.id.generator.IdGeneratorApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.hang.live.id.generator.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ImCoreServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="live-im-core-server" />
+      <option name="SHORTEN_COMMAND_LINE" value="MANIFEST" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.hang.live.im.core.server.ImCoreServerApplication" />
+      <option name="VM_PARAMETERS" value="-DDUBBO_IP_TO_REGISTRY=192.168.0.103 -DDUBBO_PORT_TO_REGISTRY=9090" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ImMessageProviderApplication-Dubbo9096" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="live-im-message-provider" />
+      <option name="SHORTEN_COMMAND_LINE" value="MANIFEST" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.hang.live.im.message.provider.ImMessageProviderApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ImServerRouterProviderApplication-Dubbo9092" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="live-im-server-router-provider" />
+      <option name="SHORTEN_COMMAND_LINE" value="MANIFEST" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.hang.live.im.server.router.provider.ImServerRouterProviderApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.hang.live.im.router.provider.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LiveStreamProviderApplication-Dubbo9093" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="live-stream-room-provider" />
+      <option name="SHORTEN_COMMAND_LINE" value="MANIFEST" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.hang.live.stream.room.provider.LiveStreamRoomProviderApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.hang.live.stream.room.provider.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserPaymentProviderApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="live-user-payment-provider" />
+      <option name="SHORTEN_COMMAND_LINE" value="MANIFEST" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.hang.live.user.payment.provider.UserPaymentProviderApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserProviderApplication-Dubbo9089" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="live-user-provider" />
+      <option name="SHORTEN_COMMAND_LINE" value="MANIFEST" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.hang.live.user.provider.UserProviderApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <option name="SHORTEN_COMMAND_LINE" value="ARGS_FILE" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker: Compose Deployment (1)" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="live-api-controller/docker/docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker: Compose Deployment (2)" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="live-gift-provider/docker/docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="live-im-server-router-provider/docker/docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker.live-im-server-router-provider-9092: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="live-im-server-router-provider-9092" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="live-im-server-router-provider/docker/docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Database Script.live_user_payment.sql" />
+      <item itemvalue="Docker.docker.live-im-server-router-provider-9092: Compose Deployment" />
+      <item itemvalue="Docker.docker: Compose Deployment" />
+      <item itemvalue="Docker.docker: Compose Deployment (1)" />
+      <item itemvalue="Docker.docker: Compose Deployment (2)" />
+      <item itemvalue="Spring Boot.UserProviderApplication-Dubbo9089" />
+      <item itemvalue="Spring Boot.ImCoreServerApplication" />
+      <item itemvalue="Spring Boot.UserPaymentProviderApplication" />
+      <item itemvalue="Spring Boot.IdGeneratorApplication-Dubbo9088" />
+      <item itemvalue="Spring Boot.ImServerRouterProviderApplication-Dubbo9092" />
+      <item itemvalue="Spring Boot.LiveStreamProviderApplication-Dubbo9093" />
+      <item itemvalue="Spring Boot.ImMessageProviderApplication-Dubbo9096" />
+      <item itemvalue="Spring Boot.ApiControllerApplication" />
+      <item itemvalue="Spring Boot.GiftProviderApplication-Dubbo9097" />
+      <item itemvalue="Spring Boot.ApiGatewayApplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Database Script.live_user_payment.sql" />
+        <item itemvalue="Docker.docker: Compose Deployment (2)" />
+        <item itemvalue="Docker.docker: Compose Deployment (1)" />
+        <item itemvalue="Docker.docker: Compose Deployment" />
+        <item itemvalue="Docker.docker.live-im-server-router-provider-9092: Compose Deployment" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.10-corretto-17.0.10-3183f394aec4-cf227e86" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ef1e4172-cf40-450d-8a1e-517d9af08a9c" name="Changes" comment="" />
+      <created>1722658003587</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1722658003587</updated>
+      <workItem from="1722658004956" duration="2278000" />
+      <workItem from="1722660889974" duration="464000" />
+      <workItem from="1722708448459" duration="7142000" />
+      <workItem from="1722973283060" duration="11666000" />
+      <workItem from="1723000425743" duration="35924000" />
+      <workItem from="1723095042491" duration="48000" />
+      <workItem from="1723095108755" duration="725000" />
+      <workItem from="1723137363879" duration="14213000" />
+      <workItem from="1723166952166" duration="7763000" />
+      <workItem from="1723187446607" duration="57466000" />
+      <workItem from="1723408991470" duration="3676000" />
+      <workItem from="1723420014429" duration="9816000" />
+      <workItem from="1723510255679" duration="972000" />
+      <workItem from="1723511252691" duration="28102000" />
+      <workItem from="1723830274143" duration="1808000" />
+      <workItem from="1724101428689" duration="755000" />
+      <workItem from="1724115966950" duration="2745000" />
+      <workItem from="1724123695710" duration="60420000" />
+      <workItem from="1724292345211" duration="33888000" />
+      <workItem from="1724375097329" duration="26612000" />
+      <workItem from="1724419895941" duration="2334000" />
+      <workItem from="1724444510392" duration="293000" />
+      <workItem from="1724454544334" duration="2562000" />
+      <workItem from="1724459244819" duration="11216000" />
+      <workItem from="1724481693135" duration="197000" />
+      <workItem from="1724481909308" duration="29614000" />
+      <workItem from="1724551849878" duration="32271000" />
+      <workItem from="1724922105778" duration="2396000" />
+      <workItem from="1724985254030" duration="9739000" />
+      <workItem from="1724997903732" duration="7449000" />
+      <workItem from="1725018614877" duration="6842000" />
+      <workItem from="1725026374299" duration="51404000" />
+      <workItem from="1725196863020" duration="15526000" />
+      <workItem from="1725344355945" duration="6461000" />
+    </task>
+    <task id="LOCAL-00001" summary="Initialise the Live-Streaming backend project.">
+      <option name="closed" value="true" />
+      <created>1722659679918</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1722659679918</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Initialise the Live-Streaming backend project.">
+      <option name="closed" value="true" />
+      <created>1722659807156</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1722659807156</updated>
+    </task>
+    <task id="LOCAL-00003" summary="1. Implement skeleton code for User Module.&#10;2. Finilised Bussiness Logic: User Controller -&gt; User RPC -&gt; User Service -&gt; Dao Layer(Mybatis Plus Mapper + Persistent Object) -&gt; ShardingJDBC Logic Table Query -&gt; MySQL">
+      <option name="closed" value="true" />
+      <created>1722989752285</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1722989752285</updated>
+    </task>
+    <task id="LOCAL-00004" summary="1. Setup RedisTemplate Config class, Make sure the key and value can be serialised by Jackson into Specific Class.&#10;2. Setup Redis Key Builder to make sure the format of redis key is distinct from each module.&#10;3. Integrate the usage of Redis for caching.">
+      <option name="closed" value="true" />
+      <created>1723058564843</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1723058564843</updated>
+    </task>
+    <task id="LOCAL-00005" summary="1. Integrate with RocketMQ.&#10;2. Set up Configuration for both RocketMQ consumer and provider.&#10;3. Utilise RocketMQ to achieve Delayed Second Deletion for Final Consistency between MySQL and Redis.">
+      <option name="closed" value="true" />
+      <created>1723089774264</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1723089774264</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Implement Distributed ID Generator to ensure consistency between distributed machines.">
+      <option name="closed" value="true" />
+      <created>1723157936006</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1723157936006</updated>
+    </task>
+    <task id="LOCAL-00007" summary="1. Implement CRUD for User Tag Business.&#10;1.1 Set or Update User Tag. If update successfully, apply double delayed deletion of keys in Redis.&#10;1.2 Double delayed deletion to Cancelled tags in both redis and mysql.&#10;1.3 When users check if they have the tags, redis will cache the results if they have one.">
+      <option name="closed" value="true" />
+      <created>1723181034349</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1723181034349</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Build Docker Image for User module.">
+      <option name="closed" value="true" />
+      <created>1723253552163</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1723253552163</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Self-implemented ShardingJDBC driver to avoid invalid driver that unsupported to load nacos url">
+      <option name="closed" value="true" />
+      <created>1723256069177</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1723256069177</updated>
+    </task>
+    <task id="LOCAL-00010" summary="1. Integrate with Gateway API to filter requests that is not for login.&#10;2. Implement entire login module:&#10;2.1 Integrate with SMS message provider microservice.  &#10;2.2 Implement Token Generation for User ID&#10;2.3 Implement Registration with User ID.">
+      <option name="closed" value="true" />
+      <created>1723417176937</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1723417176937</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Finished Implementation of Entire IM server:&#10;1. User can get list of live stream rooms.&#10;1.1 The current live stream room records are fetched from db and updated every 1 second to redis.&#10;1.2 Redis locks are applied to avoid different JVM processes update the database in the same time.&#10;1.3 User can get rooms with page number and page size in redis.&#10;2. Users can send broadcast message to other users in the same room.&#10;2.1 Generate IM token and bind user id with the related socket channel.&#10;2.2 Implement core im-server architecture and the idea will be shown in the diagram.&#10;2.3 Rewrited Cluster and Invoker with Dubbo SPI for the router module to send processed message back to specific server that connects to the receiver.&#10;2.4 Implement a mechanism to decide whether needs to resend the processed message to the user. &#10;2.5 Implement Heartbeat mechanisms to ensure users are alive.">
+      <option name="closed" value="true" />
+      <created>1723691283891</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1723691283892</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Finalise Optimisation and Wording of User-Provider Module.">
+      <option name="closed" value="true" />
+      <created>1724735680854</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1724735680854</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Finalise Optimisation of Stream Room and IM server Module.">
+      <option name="closed" value="true" />
+      <created>1724919866737</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1724919866737</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Added Global Error Handler for Controller Layer + Prepare Load Limiter.">
+      <option name="closed" value="true" />
+      <created>1724998260362</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1724998260362</updated>
+    </task>
+    <task id="LOCAL-00015" summary="1. Reformat Live Stream Room Module and IM Core Server Module.&#10;2. Put Related Modules into Docker Container.">
+      <option name="closed" value="true" />
+      <created>1724998448817</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1724998448817</updated>
+    </task>
+    <task id="LOCAL-00016" summary="1. Finished Modules For User to Buy Virtual Coin and Send Gift.">
+      <option name="closed" value="true" />
+      <created>1725024306089</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1725024306090</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Finalised Wording of Gift and User Payment Module.">
+      <option name="closed" value="true" />
+      <created>1725042962106</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1725042962106</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Replaced payment-callback module with a Dubbo RPC provider in live-user-payment module so that the change in deployment address of payment callback can be determined by Dubbo immediately.">
+      <option name="closed" value="true" />
+      <created>1725048457555</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1725048457555</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Reformat Wording of Rpc to RPC.">
+      <option name="closed" value="true" />
+      <created>1725080905332</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1725080905333</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Finalised Implementation of PK Live Stream Room.">
+      <option name="closed" value="true" />
+      <created>1725083570932</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1725083570932</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Finalised Implementation of Red Packet Rain Event.">
+      <option name="closed" value="true" />
+      <created>1725106201500</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1725106201500</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Finalised Implementation for flash sale of SKU products.">
+      <option name="closed" value="true" />
+      <created>1725207748751</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1725207748751</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Finalised Frontend Code and Finalise This Project.">
+      <option name="closed" value="true" />
+      <created>1725402671926</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1725402671926</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-core" />
+    <option featureType="dependencySupport" implementationName="executable:docker" />
+    <option featureType="dependencySupport" implementationName="java:org.apache.dubbo:dubbo" />
+    <option featureType="dependencySupport" implementationName="java:jakarta.validation:jakarta.validation-api" />
+    <option featureType="dependencySupport" implementationName="java:io.projectreactor:reactor-core" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.data:spring-data-commons" />
+    <option featureType="dependencySupport" implementationName="executable:kubectl" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.cloud:spring-cloud-context" />
+    <option featureType="dependencySupport" implementationName="java:org.hibernate.validator:hibernate-validator" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot" />
+    <option featureType="dependencySupport" implementationName="java:org.springframework:spring-webmvc" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="develop" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <MESSAGE value="Initialise the Live-Streaming backend project." />
+    <MESSAGE value="1. Implement skeleton code for User Module.&#10;2. Finilised Bussiness Logic: User Controller -&gt; User RPC -&gt; User Service -&gt; Dao Layer(Mybatis Plus Mapper + Persistent Object) -&gt; ShardingJDBC Logic Table Query -&gt; MySQL" />
+    <MESSAGE value="1. Setup RedisTemplate Config class, Make sure the key and value can be serialised by Jackson into Specific Class.&#10;2. Setup Redis Key Builder to make sure the format of redis key is distinct from each module.&#10;3. Integrate the usage of Redis for caching." />
+    <MESSAGE value="1. Integrate with RocketMQ.&#10;2. Set up Configuration for both RocketMQ consumer and provider.&#10;3. Utilise RocketMQ to achieve Delayed Second Deletion for Final Consistency between MySQL and Redis." />
+    <MESSAGE value="Implement Distributed ID Generator to ensure consistency between distributed machines." />
+    <MESSAGE value="1. Implement CRUD for User Tag Business.&#10;1.1 Set or Update User Tag. If update successfully, apply double delayed deletion of keys in Redis.&#10;1.2 Double delayed deletion to Cancelled tags in both redis and mysql.&#10;1.3 When users check if they have the tags, redis will cache the results if they have one." />
+    <MESSAGE value="Build Docker Image for User module." />
+    <MESSAGE value="Self-implemented ShardingJDBC driver to avoid invalid driver that unsupported to load nacos url" />
+    <MESSAGE value="1. Integrate with Gateway API to filter requests that is not for login.&#10;2. Implement entire login module:&#10;2.1 Integrate with SMS message provider microservice.  &#10;2.2 Implement Token Generation for User ID&#10;2.3 Implement Registration with User ID." />
+    <MESSAGE value="1. Implement entire login module:&#10;1.1 Integrate with SMS message provider microservice (with test mode) to send and check login code.&#10;1.2 Implement Token Generation for User ID.&#10;1.3 Implement Registration with User Phone. The phone number is encrypted.&#10;1.4 Implement a upstream controller layer microservice api which checks code provided by users, &#10;1.5 Integrate with Gateway API to filter requests that is not for login, and check validation of token in the cookie + convert it to user id in header of HTTP requests to other modules.&#10;1.6 Implement a startup configuration that checks HTTP headers and puts user id inside ThreadLocal variables for each module, so user id can be used within the local thread." />
+    <MESSAGE value="Finished Implementation of Entire IM server:&#10;1. User can get list of live stream rooms.&#10;1.1 The current live stream room records are fetched from db and updated every 1 second to redis.&#10;1.2 Redis locks are applied to avoid different JVM processes update the database in the same time.&#10;1.3 User can get rooms with page number and page size in redis.&#10;2. Users can send broadcast message to other users in the same room.&#10;2.1 Generate IM token and bind user id with the related socket channel.&#10;2.2 Implement core im-server architecture and the idea will be shown in the diagram.&#10;2.3 Rewrited Cluster and Invoker with Dubbo SPI for the router module to send processed message back to specific server that connects to the receiver.&#10;2.4 Implement a mechanism to decide whether needs to resend the processed message to the user. &#10;2.5 Implement Heartbeat mechanisms to ensure users are alive." />
+    <MESSAGE value="Finalise Optimisation and Wording of User-Provider Module." />
+    <MESSAGE value="Finalise Optimisation of Stream Room and IM server Module." />
+    <MESSAGE value="Added Global Error Handler for Controller Layer + Prepare Load Limiter." />
+    <MESSAGE value="1. Reformat Live Stream Room Module and IM Core Server Module.&#10;2. Put Related Modules into Docker Container." />
+    <MESSAGE value="1. Finished Modules For User to Buy Virtual Coin and Send Gift." />
+    <MESSAGE value="Finalised Wording of Gift and User Payment Module." />
+    <MESSAGE value="Replaced payment-callback module with a Dubbo RPC provider in live-user-payment module so that the change in deployment address of payment callback can be determined by Dubbo immediately." />
+    <MESSAGE value="Reformat Wording of Rpc to RPC." />
+    <MESSAGE value="Finalised Implementation of PK Live Stream Room." />
+    <MESSAGE value="Finalised Implementation of Red Packet Rain Event." />
+    <MESSAGE value="Finalised Implementation for flash sale of SKU products." />
+    <MESSAGE value="Finalised Frontend Code." />
+    <MESSAGE value="Finalised Frontend Code and Finalise This Project." />
+    <option name="LAST_COMMIT_MESSAGE" value="Finalised Frontend Code and Finalise This Project." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/live-payment-callback/src/main/java/org/hang/live/payment/callback/PaymentCallBackApplication.java</url>
+          <line>15</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/live-api-controller/src/main/java/org/hang/live/api/service/impl/ShopInfoServiceImpl.java</url>
+          <line>72</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/live-gift-provider/src/main/java/org/hang/live/gift/provider/rpc/SkuInfoRpcImpl.java</url>
+          <line>55</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/live-api-controller/src/main/java/org/hang/live/api/service/impl/PaymentServiceImpl.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/live-user-payment-provider/src/main/java/org/hang/live/user/payment/provider/service/impl/CurrencyServiceImpl.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="OracleBreakpointType">
+          <url>file://$PROJECT_DIR$/sql/create_t_user_phone_100.sql</url>
+          <line>36</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/live-api-controller/src/main/java/org/hang/live/api/service/IShopInfoService.java</url>
+          <line>51</line>
+          <properties class="org.hang.live.api.service.IShopInfoService" method="getCarInfo">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

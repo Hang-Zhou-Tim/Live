@@ -1,0 +1,197 @@
+<html>
+<head></head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    body {
+        /* background-color: white; */
+        overflow: hidden;
+    }
+
+    /*
+    animation：
+    important frame animation name
+    animation execution seconds
+    animation delayed seconds
+    animation execution times
+    animation execution velocity
+    Animation Execution Direction:
+                 alternate  delayed sequence ( 0 to 100 to 0 to 100 )
+                 reverse    reverse animation   (100 to 0 )
+                 reverse-alternate   reverse gap animation
+    Animation Execution Mode: 
+                 forwards(Execute at Position where last frame of animation stops)
+                 backwards (Execute at Position where first frame of animation stops)
+                 both(Execute at Position where Both first and last frame of animation stops)
+*/
+    #wrapper img {
+        position: absolute;
+        transform: translateY(-100%);
+        /*Dropdown Animation*/
+        animation: dropDowm 3s forwards;
+        /*Reverse Animation*/
+    }
+
+    @keyframes dropDowm {
+        0% {
+            top: 0px;
+            transform: translateY(-100%) rotate(0deg);
+        }
+
+        100% {
+            top: 110%;
+            transform: translateY(0%) rotate(360deg);
+        }
+    }
+
+    #modol {
+        display: none;
+    }
+
+    #modol::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    #hb {
+        width: 350px;
+        height: 450px;
+        border-radius: 20px;
+        background-color: #e7223e;
+        color: #fad755;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        margin-top: -225px;
+        margin-left: -175px;
+        font-size: 30px;
+        font-weight: 900;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #btn {
+        background-color: #fad755;
+        color: #e7223e;
+        font-size: 18px;
+        margin-top: 10px;
+        padding: 10px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <div id="wrapper" >
+        <img  src="../img/petal.jpg" style="width: 140px;">
+    </div>
+    <div id="modol">
+        <div id="hb">
+            <div id="text"></div>
+            <div id="btn">Continue</div>
+        </div>
+    </div>
+</body>
+
+<script>
+    function init() {
+        var dom = createDom(40);
+        var wrapper = document.getElementById('wrapper');
+        wrapper.appendChild(dom);
+        bindEvent();
+    }
+
+    var totalMoney = 0;   //Total Money of Grabed Red Envelop
+    var delayTime = 0;
+    var lastImg = null;   //Picture of Last Envelop
+
+    //Create Dom Tree for the Red Envelop
+    function createDom(num) {
+        var frag = document.createDocumentFragment();  
+        for (var i = 0; i < num; i++) {
+            var img = new Image();
+            img.src = '../img/petal.jpg';
+            img.style.width = 140 +'px';
+            img.style.left = ranNum(0, window.innerWidth) + 'px';      //Scatter the distribution of Red Envelop
+            var delay = ranNum(0, 100) / 10;
+            img.style.animationDelay = delay + 's';                   //Set coming times for red envelop
+            if (delayTime < delay) {
+                delayTime = delay;
+                lastImg = img;
+            }
+            //data-money
+            img.dataset.money = ranNum(0, 1000) / 100;     //Set Money inside Red Envelop
+            frag.appendChild(img);
+        }
+        return frag;
+    }
+
+    //Bind Event when Click
+    function bindEvent() {
+        var wrapper = document.getElementById('wrapper'),
+            imgList = document.getElementsByTagName('img'),
+            modol = document.getElementById('modol'),
+            text = document.getElementById('text'),
+            btn = document.getElementById('btn');   
+        
+        //Click the Red Packets
+        addEvent(wrapper, 'mousedown', function (e) {
+            var event = e || window.event,
+                target = event.target || event.srcElement,
+                money = event.target.dataset.money;
+            if (money) {
+                text.innerText = 'Snatched ' + money + '¥';
+                for (var i = 0, len = imgList.length; i < len; i++) {
+                    imgList[i].style.animationPlayState = 'paused';
+                }
+                modol.style.display = 'block';
+                totalMoney += Number(money);
+            }
+        });    
+        //Continue Clicking Events
+        addEvent(btn, 'click', function () {
+            modol.style.display = 'none';
+            for (var i = 0, len = imgList.length; i < len; i++) {
+                imgList[i].style.animationPlayState = 'running';
+            }
+        });
+        //After all red envelop are snatched
+        addEvent(lastImg, 'webkitAnimationEnd', function () {
+            modol.style.display = 'block';
+            text.innerText = 'You Get ' + totalMoney.toFixed(2) + '¥';
+            btn.style.display = 'none';
+        });
+    }
+
+    //random min to max
+    function ranNum(min, max) {
+        return Math.ceil(Math.random() * (max - min) + min);
+    }
+
+    //Add event
+    function addEvent(elem, type, handle) {
+        if (elem.addEventListener) {
+            elem.addEventListener(type, handle, false);
+        } else if (elem.attachEvent) {
+            elem.attachEvent('on' + type, function () {
+                handle.call(elem);
+            })
+        } else {
+            elem['on' + type] = handle;
+        }
+    }
+
+    init();
+</script>
+
+</html>
