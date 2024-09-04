@@ -4,7 +4,7 @@
 
 ### 整体业务流程
 
-![live stream businesss process diagram](business logic flow diagrams\live stream businesss process diagram.png)
+![live stream businesss process diagram](diagrams/live_stream_business_process_diagram.png)
 
 用户会先进入到前端的直播间列表页面，但此时他必须先登录才能访问其他服务，登录后，首先获取直播间列表，然后进入到直播间内，在直播间内，用户可以与直播进行互动比如群发消息，送礼物，PK，抢红包雨，或者购买秒杀商品和充值虚拟货币。
 
@@ -165,7 +165,7 @@ Gateway系统的入口点，处理来自客户端的所有请求，并将请求�
 我主要是因为以下三点:
 
 1. **异步解耦:** 上游业务不需要搞懂下游义务的实现，更改下游业务代码不影响上游业务的代码。
-2. **延迟消息: **可以针对业务搞一些操作，比如秒杀服务下，用户预下单时，就可以在下单前发送延迟消息，如果规定时间内订单没有支付，就可以回滚库存。
+2. **延迟消息:** 可以针对业务搞一些操作，比如秒杀服务下，用户预下单时，就可以在下单前发送延迟消息，如果规定时间内订单没有支付，就可以回滚库存。
 3. **削峰:** 如果某个时间点，请求数巨高，那我可以通过消息的形式，存放这些请求，保证下游服务的并发量不受影响。
 
 #### 它的性能如何？
@@ -245,7 +245,7 @@ Hashmap或者Caffine本地缓存虽好，但是毕竟用的是本机内存，需
 
 **水平分库:** 将同一张表的数据按某种规则（如根据用户ID、订单ID等）分散存储到多个数据库实例中。主要用于处理单表数据量巨大、需要高并发读写的场景，通过将同一个表的数据拆分到不同的数据库中，来实现横向扩展和负载均衡。
 
-**垂直分库: **将数据库中的不同表或不同业务模块的数据分布到多个数据库中，每个数据库负责不同的业务模块。 更适用于业务模块分离明显的系统，通过将不同的业务模块分布到不同的数据库中，来实现更好的业务隔离、灵活优化以及独立扩展。
+**垂直分库:** 将数据库中的不同表或不同业务模块的数据分布到多个数据库中，每个数据库负责不同的业务模块。 更适用于业务模块分离明显的系统，通过将不同的业务模块分布到不同的数据库中，来实现更好的业务隔离、灵活优化以及独立扩展。
 
 **水平分表:** 将同一张表的数据按某种规则（如ID、时间等）拆分为多个子表，每个子表的结构相同，但存储的数据不同。所有子表在逻辑上仍然表示同一张大表。适合处理单表数据量巨大、查询性能下降的问题，通过将数据分布在多个表中，降低单表压力，提升查询效率。
 
@@ -283,11 +283,11 @@ Reactor模式下，**Boss Group** 负责监听客户端连接，接收新连接�
 
 #### 粘包半包问题？
 
-**粘包**：多个数据包被粘连在一起，接收方一次性读取了多个包的数据，导致无法区分数据的边界。
+**粘包**:多个数据包被粘连在一起，接收方一次性读取了多个包的数据，导致无法区分数据的边界。
 
-**半包**：发送的数据包过大，接收方一次只接收到了数据包的一部分，导致数据不完整。
+**半包**:发送的数据包过大，接收方一次只接收到了数据包的一部分，导致数据不完整。
 
-**解决该类问题：**
+**解决该类问题:**
 
 **1. 基于固定长度的解码器**：
 
@@ -317,7 +317,7 @@ new LengthFieldBasedFrameDecoder(
 
   
 
-**实现机制: **
+**实现机制:**
 
 - **消息拆分**：在 Netty 中，通过解码器，将接收到的 ByteBuf 数据拆分成一条条完整的消息。如果一个 ByteBuf 包含了多个消息，解码器会分割它们；如果 ByteBuf 只包含部分消息，解码器会等待接收到更多数据后再拼凑成完整消息。
 - **处理半包**：如果当前读取的数据不足以组成一个完整的消息，Netty 会暂时保存这部分数据，直到有新的数据到达并能够组成完整消息后，再进行处理。
@@ -340,7 +340,7 @@ new LengthFieldBasedFrameDecoder(
 
 ### 项目整体架构是怎么样的？
 
-![live stream skeleton architecture.drawio](business logic flow diagrams\live stream skeleton architecture.drawio.png)
+![live stream skeleton architecture.drawio](diagrams/live_stream_skeleton_architecture.drawio.png)
 
 Frontend 发送请求时，会经过API Gateway 层， 如果通过它的断言，就会进入到API层，那里会对微服务的调用做业务上的整合处理，并且应用普遍操作比如消息日志。Controller使用Dubbo对各个微服务进行通信。这些微服务通常会先选择处理在Redis里数据，之后再去异步(比如用线程池/RocketMQ) 同步数据到Mysql中，而不是直接跟数据库交互（因为数据库处理速度比Redis慢10倍，会导致用户交互体验差）。
 
@@ -364,7 +364,7 @@ API跟前端打交道，主要整合各个微服务的结果完成业务操作�
 
 ### 用户中台业务是怎么实现的？请说说具体流程？
 
-![Live-Stream-User-Module-RPC-Architecture.drawio](business logic flow diagrams\Live-Stream-User-Module-RPC-Architecture.drawio.png)
+![Live-Stream-User-Module-RPC-Architecture.drawio](diagrams/Live-Stream-User-Module-RPC-Architecture.drawio.png)
 
 1. **用户发起码:** 首先用户需要输入手机号并请求SMS码，后端获取此次请求前需要通过gateway层鉴权。之后该请求会来到User Controller层，这里专门管理用户模块的Dubbo远程服务调用。最后，Controller层会远程调用SMS消息模块，它会生成4位code，调用第三方SMS消息服务发送消息，然后把phone和code作为键值对记录到Redis中。
 
@@ -384,9 +384,9 @@ API跟前端打交道，主要整合各个微服务的结果完成业务操作�
 
 最后，在数据库层面，我使用shardingJDBC做了分表:
 
-**水平分表:**一共100个表。这样，访问数据库操作都会进行了Hash取模，每个表的数据量变小增加查询效率。避免IO争抢并减少锁表的几率。
+**水平分表:** 一共100个表。这样，访问数据库操作都会进行了Hash取模，每个表的数据量变小增加查询效率。避免IO争抢并减少锁表的几率。
 
-**垂直分表: ** 把用户重要的，常被查询的热数据放到一个表中。提升表的效率，不用访问一些字符量大的字段。
+**垂直分表:** 把用户重要的，常被查询的热数据放到一个表中。提升表的效率，不用访问一些字符量大的字段。
 
 
 
@@ -472,13 +472,13 @@ SELECT`current_max_id`,`step`,`version`FROM`sequence_id_generator`where`biz_type
 
 ### 直播业务是怎么实现的？请说说具体流程？
 
-![Live Stream Room Module.drawio](business logic flow diagrams\Live Stream Room Module.drawio.png)
+![Live Stream Room Module.drawio](diagrams/Live_Stream_Room_Module.drawio.png)
 
-0. **直播间列表的更新: **对于获取所有直播间列表的服务，我选择利用Redis缓存直播间列表，而且我进一步做了优化，因为直播间开启和关闭操作比较频繁，为了防止Redis短时间内进行多次写操作，降低性能以及数据双写不一致性，我使用了一个scheduler调度器，每一秒把所有数据库里数据导出，之后放到Redis里。
+0. **直播间列表的更新:** 对于获取所有直播间列表的服务，我选择利用Redis缓存直播间列表，而且我进一步做了优化，因为直播间开启和关闭操作比较频繁，为了防止Redis短时间内进行多次写操作，降低性能以及数据双写不一致性，我使用了一个scheduler调度器，每一秒把所有数据库里数据导出，之后放到Redis里。
 
-1. **用户获取直播间列表: ** 用户在直播间列表页面或持续下拉时，会请求后端获取所有房间的列表。后端收到请求后，首先Gateway对用户进行鉴权，然后通过API层远程调用直播服务的方法，对管理用户列表的Redis缓存进行LRange分页查询，获取出来该页里所有的room的信息，返回到前端。
+1. **用户获取直播间列表:** 用户在直播间列表页面或持续下拉时，会请求后端获取所有房间的列表。后端收到请求后，首先Gateway对用户进行鉴权，然后通过API层远程调用直播服务的方法，对管理用户列表的Redis缓存进行LRange分页查询，获取出来该页里所有的room的信息，返回到前端。
 2. **用户进入直播间:** 用户在直播间列表页面点击进入一个直播间时，会请求后端获取所有房间的信息，比如用户的头像，昵称，主播的头像，等等。后端收到请求后，首先Gateway对用户进行鉴权，然后通过API层远程调用直播服务的方法，查询直播间的设置信息，再调用用户模块，查询用户和主播的信息，用于前端显示。
-3. **主播开启直播间: **用户开启直播间时，会请求后端。后端收到请求后，首先Gateway对用户进行鉴权，然后通过API层远程调用直播服务的方法，获取该用户的信息，然后通过记录直播间的数据到数据库和Redis中，返回前端直播间id，前端将会自动进入直播间。
+3. **主播开启直播间:** 用户开启直播间时，会请求后端。后端收到请求后，首先Gateway对用户进行鉴权，然后通过API层远程调用直播服务的方法，获取该用户的信息，然后通过记录直播间的数据到数据库和Redis中，返回前端直播间id，前端将会自动进入直播间。
 
 
 
@@ -502,9 +502,9 @@ SELECT`current_max_id`,`step`,`version`FROM`sequence_id_generator`where`biz_type
 
 
 
-**1. 用户连接IM服务器: ** 
+**1. 用户连接IM服务器:** 
 
-![live stream connect im core server architecture .drawio](business logic flow diagrams\live stream connect im core server architecture .drawio.png)
+![live stream connect im core server architecture.drawio](diagrams/live_stream_connect_im_core_server_architecture.drawio.png)
 
 1. 在用户进入直播间后，会自动**请求后端获取IM服务器的地址**。注意为了防止没有鉴权的用户肆意建立IM服务器的websocket握手操作，首先会让用户经历Gateway层的鉴权，然后通过API层远程调用IM服务，生成IM token, 并且通过dubbo的discovery client方法获取IM服务器列表，随机获取一个服务器地址。
 
@@ -520,7 +520,7 @@ SELECT`current_max_id`,`step`,`version`FROM`sequence_id_generator`where`biz_type
 
 **2. 用户群发消息:** 
 
-![live stream im core server broadcasting architecture.drawio](business logic flow diagrams\live stream im core server broadcasting architecture.drawio.png)
+![live stream im core server broadcasting architecture.drawio](diagrams/live_stream_im_core_server_broadcasting_architecture.drawio.png)
 
 ​	用户连接IM服务后，进行直播发送操作，首先会把消息发送给RocketMQ中，进行解耦。转发消息服务会监听并接受这条转发消息，调用直播服务，找到所有直播间内，用户的Id。之后，我引入了一个路由层，专门做消息转发的操作，它会找到每个用户连接的im服务器的ip地址，然后把消息，批量把消息给到各个IM服务器，IM服务器再根据每个用户id获取到对应的socket channel context, 完成消息的推送。
 
@@ -530,7 +530,7 @@ SELECT`current_max_id`,`step`,`version`FROM`sequence_id_generator`where`biz_type
 
 **3. 消息的推送细节:** 为了保证每个消息推送的可靠性，我做了重试机制。
 
-![live stream im core server architecture retry mechanism.drawio](business logic flow diagrams\live stream im core server architecture retry mechanism.drawio.png)
+![live stream im core server architecture retry mechanism.drawio](diagrams/live_stream_im_core_server_architecture_retry_mechanism.drawio.png)
 
 ​	用户IM服务器在通知前端时，先把这此通知记录和重试次数到Redis中，然后再通过发送MQ2秒的延时消息用于确认消息是否发送成功。两秒内，如果用户收到消息，会发送ACK包，这样Redis内的消息记录就会被删除。两秒后，IM服务器获取延时消息时，查看消息是否还存在于Redis里，如果还在，就进行重新发送该消息，重试上限为一次。
 
@@ -538,7 +538,7 @@ SELECT`current_max_id`,`step`,`version`FROM`sequence_id_generator`where`biz_type
 
 ### 支付服务是怎么实现的？请说说具体流程？
 
-![Live Stream Buy Currency.drawio](business logic flow diagrams\Live Stream Buy Currency.drawio.png)
+![Live Stream Buy Currency.drawio](diagrams/Live_Stream_Buy_Currency.drawio.png)
 
 前端用户选择购买一定金额的虚拟货币时，会发送给后端请求。之后通过Gateway进行鉴权，来到API层，API层首先通过货币服务获取出该货币金额信息，在数据库中记录订单信息。之后模拟出第三方支付平台支付成功后回调操作，调用用户交易模块的回调服务，增加用户货币的余额，交易的记录，以及更新订单的支付完成状态到数据库中。这些数据库操作都是通过异步线程池完成的(这样用户不需要一直等待数据库IO操作时间)。
 
@@ -546,7 +546,7 @@ SELECT`current_max_id`,`step`,`version`FROM`sequence_id_generator`where`biz_type
 
 ### 礼物服务是怎么实现的？请说说具体流程？
 
-![Live Stream Send Gift.drawio](business logic flow diagrams\Live Stream Send Gift.drawio.png)
+![Live Stream Send Gift.drawio](diagrams/Live_Stream_Send_Gift.drawio.png)
 
 ​	前端用户在前端选择一个礼物，并发送请求给后端。首先请求会经过Gateway鉴权，通过后API层会调用礼物服务查看礼物信息，如果礼物存在，就把礼物消息发送给RocketMQ，礼物服务会监听该类信息。礼物服务之后会扣除用户余额，增加交易订单。如果扣除失败，它会把失败消息发送给IM服务的路由层，路由层根据送礼用户信息通知送礼失败信息。否则，它会把送礼通知给到Router层，以此对直播间内所有在线用户进行送礼通知转发。之后，所有连接到该房间用户的前端页面会根据IM服务器发送的消息，显示sagv礼物动画。
 
@@ -554,24 +554,24 @@ SELECT`current_max_id`,`step`,`version`FROM`sequence_id_generator`where`biz_type
 
 ### 直播PK业务是怎么实现的？请说说具体流程？
 
-![Live Stream PK Connection, Gift, and Progress Update.drawio](business logic flow diagrams\Live Stream PK Connection, Gift, and Progress Update.drawio.png)
+![Live Stream PK Connection, Gift, and Progress Update.drawio](diagrams/Live_Stream_PK_Service.drawio.png)
 
 PK业务主要分为两个流程: 用户连接PK房间，以及用户开始PK。
 
-1. **用户连接PK房间: ** 用户在前端请求连接PK房间，并发送请求给后端。首先请求会经过Gateway鉴权，通过后API层会调用直播服务，直播服务会根据房间ID检查房间类型，之后尝试在Redis中通过setnx记录即将在该room下PK的用户id, 如果Redis记录成功则返回连接成功，否则记录连接失败。
-2. **用户发送礼物给PK用户: **用户选择送礼对象，并且请求发送礼物。首先请求会经过Gateway鉴权，通过后API层会调用礼物服务查看礼物信息，如果该礼物存在，就把礼物消息发送给RocketMQ，礼物服务会监听该类信息。礼物服务之后会扣除用户余额，增加交易订单。如果扣除失败，它会把失败消息发送给IM服务的路由层，路由层根据送礼用户信息通知送礼失败信息。否则，它会先利用LUA脚本，原子性的更新PK进度条。之后把送礼通知和PK进度条信息发送给到Router层，以此对直播间内所有在线用户进行送礼通知转发。之后，所有连接到该房间用户的前端页面会根据IM服务器发送的消息，显示sagv礼物动画。
+1. **用户连接PK房间:** 用户在前端请求连接PK房间，并发送请求给后端。首先请求会经过Gateway鉴权，通过后API层会调用直播服务，直播服务会根据房间ID检查房间类型，之后尝试在Redis中通过setnx记录即将在该room下PK的用户id, 如果Redis记录成功则返回连接成功，否则记录连接失败。
+2. **用户发送礼物给PK用户:** 用户选择送礼对象，并且请求发送礼物。首先请求会经过Gateway鉴权，通过后API层会调用礼物服务查看礼物信息，如果该礼物存在，就把礼物消息发送给RocketMQ，礼物服务会监听该类信息。礼物服务之后会扣除用户余额，增加交易订单。如果扣除失败，它会把失败消息发送给IM服务的路由层，路由层根据送礼用户信息通知送礼失败信息。否则，它会先利用LUA脚本，原子性的更新PK进度条。之后把送礼通知和PK进度条信息发送给到Router层，以此对直播间内所有在线用户进行送礼通知转发。之后，所有连接到该房间用户的前端页面会根据IM服务器发送的消息，显示sagv礼物动画。
 
 > 最初的进度条为50:50, 发送200元的礼物会增加一方20的进度，当某一方进度为100时，礼物服务会通过路由层发送给全体用户某一方PK成功的信息。
 
 ### 红包雨业务是怎么实现的？请说说具体流程？
 
-![live stream red packet rain service.drawio](business logic flow diagrams\live stream red packet rain service.drawio.png)
+![live stream red packet rain service.drawio](diagrams/live_stream_red_packet_rain_service.drawio.png)
 
 红包雨业务主要有三个业务流程: 主播准备红包雨，开始红包雨，以及用户抢红包。
 
-1. **主播准备红包雨: **主播在前端请求准备红包雨，并发送请求给后端。首先请求会经过Gateway鉴权，通过后API层会调用礼物模块查询主播的红包雨配置，如果主播有权开启红包雨，则后端会根据配置，生成红包雨金额列表，放到Redis中，并把数据库中红包雨记录的状态改为已准备好。否则，返回主播无权开启红包雨事件。
-2. **主播开启红包雨: **主播在前端请求开启红包雨，并发送请求给后端。首先请求会经过Gateway鉴权，通过后API层会调用红包雨服务开始红包雨事件，红包雨服务会首先检查红包雨是否已经准备完毕。然后它把通知红包雨事件的消息给到IM服务器的路由层，通过路由层转发消息给房间内所有用户。通知完成后，数据库里的红包雨记录的状态会被更改为已完成。注意: 在群发通知前，会先在Redis记录下来此次通知，防止多次通知。
-3. **用户抢红包: **用户通过IM服务器收到红包雨消息后，浏览器会开始红包雨动画，用户点击红包时，就发送抢红包请求给后端。后端会先通过Gateway对用户进行鉴权，之后API层会调用红包雨管理服务，其会从Redis中获取一个金额，在返回给前端用户前，如果获取成功，会发送RocketMQ异步消息，通知用户余额服务增加用户余额。之后，返回把红包金额给前端用户。
+1. **主播准备红包雨:** 主播在前端请求准备红包雨，并发送请求给后端。首先请求会经过Gateway鉴权，通过后API层会调用礼物模块查询主播的红包雨配置，如果主播有权开启红包雨，则后端会根据配置，生成红包雨金额列表，放到Redis中，并把数据库中红包雨记录的状态改为已准备好。否则，返回主播无权开启红包雨事件。
+2. **主播开启红包雨:** 主播在前端请求开启红包雨，并发送请求给后端。首先请求会经过Gateway鉴权，通过后API层会调用红包雨服务开始红包雨事件，红包雨服务会首先检查红包雨是否已经准备完毕。然后它把通知红包雨事件的消息给到IM服务器的路由层，通过路由层转发消息给房间内所有用户。通知完成后，数据库里的红包雨记录的状态会被更改为已完成。注意: 在群发通知前，会先在Redis记录下来此次通知，防止多次通知。
+3. **用户抢红包:** 用户通过IM服务器收到红包雨消息后，浏览器会开始红包雨动画，用户点击红包时，就发送抢红包请求给后端。后端会先通过Gateway对用户进行鉴权，之后API层会调用红包雨管理服务，其会从Redis中获取一个金额，在返回给前端用户前，如果获取成功，会发送RocketMQ异步消息，通知用户余额服务增加用户余额。之后，返回把红包金额给前端用户。
 
 
 
@@ -581,9 +581,9 @@ PK业务主要分为两个流程: 用户连接PK房间，以及用户开始PK。
 
 > 这里Live-Gift-Provider模块里包含了主播带货的业务，我没有开新的模块，因为现在已经有10个微服务了，并部署在三台服务器上了，我不想再开新的微服务占内存，主要为了省钱。
 
-![live stream sku payment service.drawio](business logic flow diagrams\live stream sku payment service.drawio.png)
+![live stream sku payment service.drawio](diagrams/live_stream_sku_payment_service.drawio.png)
 
-**购物车子业务: **
+**购物车子业务:**
 
 1. **用户获取商品单:** 用户请求获取主播推销的商品单，后端会通过Gateway对用户进行鉴权，然后API层会询问商品服务用户带货的商品单，商品服务从Redis中获取名单，如果没有，则会去MySQL中寻找，返回给前端每个商品的基本信息。
 
@@ -591,12 +591,12 @@ PK业务主要分为两个流程: 用户连接PK房间，以及用户开始PK。
 
    > 添加的数据结构为Hash。key为用户id和房间id的组合，value为商品的ID和商品购买数量。
 
-3. **用户查看购物车信息: **用户请求查看购物车信息，后端通过Gateway对用户进行鉴权，然后API层会调用购物车服务根据用户和房间信息查看Redis的购物车信息，返回购物车信息。
+3. **用户查看购物车信息:** 用户请求查看购物车信息，后端通过Gateway对用户进行鉴权，然后API层会调用购物车服务根据用户和房间信息查看Redis的购物车信息，返回购物车信息。
 
-**商品秒杀子业务: **
+**商品秒杀子业务:**
 
 1. **准备商品库存:** 在主播开启直播间时，会自动发送准备商品以及整理库存的请求，后端通过Gateway对用户进行鉴权，然后API层会调用直播服务，在主播开播时，发送Rocketmq通知商品库存服务从Mysql获取主播带货商品库存并添加到Redis中。
-2. **用户预支付购物车商品: **当用户在购物车内选好商品后，就会请求预支付商品，后端通过Gateway对用户进行鉴权，然后API层会调用商品服务在缓存中查看用户购物车，根据购物车里每个商品数量，减少各个商品的库存。如果过程中单个商品扣减失败，则取消对该商品的购买，其余扣减库存成功的商品则会被记录到预订单中，通过商品订单服务存到MySQL中。之后，商品服务会对RocketMQ发送延迟消息，延时时长为预订单时长，如果用户在此期间购买商品则MySQL中订单的状态为完成，商品回滚服务收到延时消息后，不需要对每个商品进行回滚，否则回滚商品数量。
+2. **用户预支付购物车商品:** 当用户在购物车内选好商品后，就会请求预支付商品，后端通过Gateway对用户进行鉴权，然后API层会调用商品服务在缓存中查看用户购物车，根据购物车里每个商品数量，减少各个商品的库存。如果过程中单个商品扣减失败，则取消对该商品的购买，其余扣减库存成功的商品则会被记录到预订单中，通过商品订单服务存到MySQL中。之后，商品服务会对RocketMQ发送延迟消息，延时时长为预订单时长，如果用户在此期间购买商品则MySQL中订单的状态为完成，商品回滚服务收到延时消息后，不需要对每个商品进行回滚，否则回滚商品数量。
 
 > 虽然库存量全部存在Redis里，但还是需要与数据库同步当前库存。我为了减少数据库IO操作，每15秒进行数据库更新操作。
 
