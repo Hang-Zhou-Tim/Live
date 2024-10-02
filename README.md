@@ -86,7 +86,7 @@
 
 ## 部署地址
 
-[Live Stream Rooms](http://110.40.129.233/html/live_stream_room_list.html)
+[Live Stream Rooms](http://8.154.24.198/html/live_stream_room_list.html)
 
 登录时，使用13141150122，验证码1000，可以有开启红包雨和直播带货的特权哦。
 
