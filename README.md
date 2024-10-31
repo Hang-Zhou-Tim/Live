@@ -1,8 +1,8 @@
 # 直播平台
 
-## 业务
+## 服务
 
-### 整体业务流程
+### 服务整体流程
 
 ![live stream businesss process diagram](diagrams/live_stream_business_process_diagram.png)
 
@@ -86,7 +86,7 @@
 
 ## 部署地址
 
-[Live Stream Rooms](http://110.40.129.233/html/live_stream_room_list.html)
+[Live Stream Rooms](http://121.43.208.9/html/live_stream_room_list.html)
 
 登录时，使用13141150122，验证码1000，可以有开启红包雨和直播带货的特权哦。
 
@@ -362,7 +362,7 @@ API跟前端打交道，主要整合各个微服务的结果完成业务操作�
 
 
 
-### 用户中台业务是怎么实现的？请说说具体流程？
+### 用户中台服务是怎么实现的？请说说具体流程？
 
 ![Live-Stream-User-Module-RPC-Architecture.drawio](diagrams/Live-Stream-User-Module-RPC-Architecture.drawio.png)
 
@@ -470,7 +470,7 @@ SELECT`current_max_id`,`step`,`version`FROM`sequence_id_generator`where`biz_type
 
 
 
-### 直播业务是怎么实现的？请说说具体流程？
+### 直播服务是怎么实现的？请说说具体流程？
 
 ![Live Stream Room Module.drawio](diagrams/Live_Stream_Room_Module.drawio.png)
 
@@ -552,7 +552,7 @@ SELECT`current_max_id`,`step`,`version`FROM`sequence_id_generator`where`biz_type
 
 
 
-### 直播PK业务是怎么实现的？请说说具体流程？
+### 直播PK服务是怎么实现的？请说说具体流程？
 
 ![Live Stream PK Connection, Gift, and Progress Update.drawio](diagrams/Live_Stream_PK_Service.drawio.png)
 
@@ -563,7 +563,7 @@ PK业务主要分为两个流程: 用户连接PK房间，以及用户开始PK。
 
 > 最初的进度条为50:50, 发送200元的礼物会增加一方20的进度，当某一方进度为100时，礼物服务会通过路由层发送给全体用户某一方PK成功的信息。
 
-### 红包雨业务是怎么实现的？请说说具体流程？
+### 红包雨服务是怎么实现的？请说说具体流程？
 
 ![live stream red packet rain service.drawio](diagrams/live_stream_red_packet_rain_service.drawio.png)
 
@@ -575,7 +575,7 @@ PK业务主要分为两个流程: 用户连接PK房间，以及用户开始PK。
 
 
 
-### 主播带货业务是怎么实现的？ 请说说具体流程？
+### 主播带货服务是怎么实现的？ 请说说具体流程？
 
 主播带货业务分为购物车子业务和商品秒杀子业务。
 
